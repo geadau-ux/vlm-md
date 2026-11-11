@@ -903,9 +903,9 @@ function ggbPayload(cmds){
   if(cmds.length>1 && !cmds.some(c=>c.includes('"'))) return 'Execute({'+cmds.map(c=>'"'+c+'"').join(",")+'})';
   return cmds.join("\n");
 }
-function copyGgb(cmds){
+function copyGgb(cmds,a){
   const mac=/Mac|iPhone|iPad/.test(navigator.platform||navigator.userAgent);
-  copyText(ggbPayload(cmds),"已複製 "+cmds.length+" 行 GeoGebra 指令！在輸入列按 "+(mac?"⌘":"Ctrl")+"+V 貼上，再按 Enter");
+  copyAndOpen(a,ggbPayload(cmds),"已複製 "+cmds.length+" 行 GeoGebra 指令！在輸入列按 "+(mac?"⌘":"Ctrl")+"+V 貼上，再按 Enter");
 }
 function renderPreview(){
   GGB_BLOCKS=[];
@@ -964,6 +964,23 @@ function fixMarkdown(src,opts={}){
 /* ============ 工具 ============ */
 let toastT;
 function toast(msg){ $("toastMsg").textContent = msg; $("toast").classList.add("show"); clearTimeout(toastT); toastT=setTimeout(()=>$("toast").classList.remove("show"),msg.length>20?4000:2000); }
+/* 同步複製：在點擊當下立即完成，不受之後開新分頁、失去焦點影響 */
+function copySync(txt){
+  const keep=document.activeElement;
+  const ta=document.createElement("textarea"); ta.value=txt; ta.setAttribute("readonly","");
+  ta.style.cssText="position:fixed;top:0;left:0;width:1px;height:1px;opacity:0;";
+  document.body.appendChild(ta); ta.focus(); ta.select(); ta.setSelectionRange(0,txt.length);
+  let ok=false; try{ ok=document.execCommand("copy"); }catch(_){}
+  ta.remove(); try{ keep && keep.focus && keep.focus({preventScroll:true}); }catch(_){}
+  return ok;
+}
+/* 連結按鈕：先同步複製，再開新分頁（每次用不同視窗名稱，確保每次都開新分頁） */
+function copyAndOpen(a,txt,msg){
+  const ok=copySync(txt);
+  try{ navigator.clipboard && navigator.clipboard.writeText(txt).catch(()=>{}); }catch(_){}
+  a.target="vlm_"+Date.now()+"_"+Math.random().toString(36).slice(2,7);
+  toast(ok||navigator.clipboard ? msg : "瀏覽器阻擋了剪貼簿，請改用「一鍵複製 Prompt」");
+}
 async function copyText(txt,msg){
   try{ await navigator.clipboard.writeText(txt); toast(msg); }
   catch(e){
@@ -1088,7 +1105,7 @@ $("copyPrompt").onclick=()=>copyText(buildPrompt(),"已複製 Prompt 至剪貼�
 document.querySelectorAll(".ai").forEach(a=>a.addEventListener("click",()=>{
   // 不阻止連結預設行為：新分頁照常開啟，同時把 Prompt 放進剪貼簿
   const mac=/Mac|iPhone|iPad/.test(navigator.platform||navigator.userAgent);
-  copyText(buildPrompt(),"已複製 Prompt！到 "+a.dataset.ai+" 按 "+(mac?"⌘":"Ctrl")+"+V 貼上，再上傳檔案");
+  copyAndOpen(a,buildPrompt(),"已複製 Prompt！到 "+a.dataset.ai+" 按 "+(mac?"⌘":"Ctrl")+"+V 貼上，再上傳檔案");
 }));
 $("dlPrompt").onclick=()=>download("SYSTEM_PROMPT_"+safeName(cur().s.n)+".md",buildPrompt());
 $("toggleView").onclick=()=>setView(view==="prompt"?"bench":"prompt");
@@ -1123,8 +1140,8 @@ $("dlMd").onclick=()=>{ if(!mdBox.value.trim()) return toast("目前沒有內容
 $("copyMd").onclick=()=>{ if(!mdBox.value.trim()) return toast("目前沒有內容可複製"); copyText(mdBox.value,"已複製 Markdown 至剪貼簿！"); };
 $("clearMd").onclick=()=>{ mdBox.value=""; renderPreview(); mdBox.focus(); };
 mdBox.addEventListener("input",renderPreview);
-$("preview").addEventListener("click",e=>{ const a=e.target.closest(".ggbbtn"); if(a) copyGgb(GGB_BLOCKS[+a.dataset.ggb]||[]); });
-$("ggbAll").addEventListener("click",()=>copyGgb(GGB_BLOCKS.flat()));
+$("preview").addEventListener("click",e=>{ const a=e.target.closest(".ggbbtn"); if(a) copyGgb(GGB_BLOCKS[+a.dataset.ggb]||[],a); });
+$("ggbAll").addEventListener("click",()=>copyGgb(GGB_BLOCKS.flat(),$("ggbAll")));
 mdBox.addEventListener("keydown",e=>{ if(e.key==="Tab"){ e.preventDefault(); const s=mdBox.selectionStart; mdBox.setRangeText("  ",s,mdBox.selectionEnd,"end"); renderPreview(); }});
 window.addEventListener("hashchange",()=>setView(location.hash==="#workbench"?"bench":"prompt"));
 
