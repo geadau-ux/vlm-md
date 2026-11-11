@@ -37,6 +37,15 @@ html[data-theme="dark"] .notice{background:#5a4512;color:#f6dd8f;border-bottom-c
 .ai:hover{transform:translateY(-2px);border-color:var(--accent);box-shadow:0 6px 14px rgba(0,0,0,.12)}
 .ai:hover .ext{transform:translate(2px,-2px);color:var(--accent-ink)}
 @media (max-width:640px){.launch .ll{width:100%}}
+/* GeoGebra 區塊 */
+.preview .ggb{border:1.5px solid #9a7bd8;border-radius:12px;overflow:hidden;margin:12px 0;background:var(--card)}
+.preview .ggbh{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;padding:8px 12px;background:rgba(153,102,255,.12);font-size:13px;font-weight:700;color:#6a45b8}
+html[data-theme="dark"] .preview .ggbh{color:#c9b3ff}
+.preview .ggb pre{margin:0;border-radius:0}
+.ggbbtn{display:inline-flex;align-items:center;gap:4px;text-decoration:none;background:#6a45b8;color:#fff!important;border-radius:8px;padding:5px 12px;font-size:12.5px;font-weight:700;transition:transform .15s,filter .15s}
+.ggbbtn:hover{transform:translateY(-1px);filter:brightness(1.1)}
+.btn.ggball{text-decoration:none;border-color:#9a7bd8;color:#6a45b8}
+html[data-theme="dark"] .btn.ggball{color:#c9b3ff}
 /* 頁尾 */
 footer{border-top:1px solid var(--line);margin-top:8px}
 footer div{max-width:1280px;margin:0 auto;padding:22px 28px 30px;text-align:center;font-size:14px;color:var(--muted);line-height:1.8;letter-spacing:.3px}
@@ -158,7 +167,14 @@ main{display:flex;flex-direction:column;gap:18px;min-width:0}
 .btn.solid:hover{filter:brightness(1.06)}
 .btn.sm{padding:8px 13px;font-size:13px}
 .chips{padding:16px 22px}
-.chiprow{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+.chiprow{display:flex;flex-direction:column;gap:10px}
+.chiprow .cg{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+.chiprow .cg+.cg{padding-top:10px;border-top:1px dashed var(--line)}
+.chiprow .ctag{font-size:11px;font-weight:700;color:var(--muted);background:var(--soft);border:1px solid var(--line);border-radius:5px;padding:1px 6px;margin-right:2px}
+.chiprow .ctag.sugt{color:var(--accent-ink);background:var(--accent-soft);border-color:transparent}
+.chiprow .lbl.sug{color:var(--accent-ink)}
+.chip{cursor:pointer;font-family:inherit}
+.chip:hover{border-color:var(--accent)}
 .chiprow .lbl{font-size:13px;color:var(--ink3);font-weight:600;margin-right:4px}
 .chip{border:1px solid var(--line);background:var(--soft);border-radius:999px;padding:6px 13px;font-size:12.5px;color:var(--ink2);display:inline-flex;align-items:center;gap:6px}
 .chip::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--chipdot)}
@@ -332,7 +348,7 @@ html[data-theme="dark"] .themebtn .moon{display:none}
 
     <div id="promptView" style="display:flex;flex-direction:column;gap:18px">
       <section class="card chips">
-        <div class="chiprow" id="chips"><span class="lbl">⚡ 點擊附加自訂指令：</span></div>
+        <div class="chiprow" id="chips"></div>
         <div class="count"><span id="chars">0</span> 字元</div>
       </section>
       <section class="card win">
@@ -355,6 +371,7 @@ html[data-theme="dark"] .themebtn .moon{display:none}
           <button class="btn sm" id="loadTpl">📄 載入當前科目範本</button>
           <button class="btn sm" id="fixMd">✨ 一鍵修復斷行與公式碎裂</button>
           <button class="btn sm" id="dlMd">💾 匯出 .md 檔</button>
+          <a class="btn sm ggball hidden" id="ggbAll" href="https://www.geogebra.org/classic" target="_blank" rel="noopener">📐 GeoGebra</a>
           <button class="btn sm solid" id="copyMd">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>
             複製 Markdown</button>
@@ -381,9 +398,9 @@ html[data-theme="dark"] .themebtn .moon{display:none}
   <ol>
     <li>左側選<b>領域</b>→<b>科目</b>；滑鼠停在按鈕上可看說明泡泡。</li>
     <li>在泡泡內輸入要<b>外加注重</b>的事項（可用「、」分隔），按<b>確認加入</b>，可重複加多項。</li>
-    <li>視需要點選<b>⚡ 附加自訂指令</b>。</li>
+    <li>視需要點選<b>⚡ 附加自訂指令</b>：上排為通用，下排「💡 建議」會依科目屬性提供不同選項。</li>
     <li>按<b>一鍵複製 Prompt</b>，或直接點 <b>Gemini／ChatGPT／Claude</b>（自動複製並開新對話），貼上後再上傳檔案。</li>
-    <li>點上方第 <b>2</b> 步「<b>Markdown 修復與預覽工作台</b>」，貼上 AI 回傳的內容，按<b>✨ 一鍵修復</b>後匯出 .md。</li>
+    <li>點上方第 <b>2</b> 步「<b>Markdown 修復與預覽工作台</b>」，貼上 AI 回傳的內容，按<b>✨ 一鍵修復</b>後匯出 .md。若有 GeoGebra 指令，按<b>📐 複製並開啟 GeoGebra</b> 即可重建圖形。</li>
   </ol>
 </div>
 <div class="homefab" id="homeFab"></div>
@@ -421,7 +438,60 @@ const EXTRAS = [
  {id:"gloss",label:"文末附專有名詞索引表",text:"- **文末建立專有名詞索引表（Glossary）**：請於文末整理一份「核心概念與專有名詞中英對照＆定義表」，方便快速檢索。"},
  {id:"quiz",label:"文末附 3 題檢核題",text:"- **自動生成課後隨堂檢核題**：請根據轉譯內容，於文末額外設計 3 題由淺入深的素養檢核題（含正確答案與解析）。"},
  {id:"tw",label:"強制臺灣教育部慣用繁體術語",text:"- **強制使用臺灣教育部慣用繁體中文術語**：所有學術名詞、單位與標點符號請嚴格對齊臺灣教育部國家教育研究院（樂詞網）標準譯名，嚴禁出現大陸簡體慣用詞（如：資訊非信息、軟體非軟件、莫耳非摩爾、公升非升）。"}
+,
+ /* ---- 領域建議 ---- */
+ {id:"myth",label:"標示易錯迷思",text:"- **標示常見迷思與易錯點**：請於相關段落後以 `⚠️ 易錯提醒` 標出學生常見的迷思概念或易混淆處。"},
+ {id:"ans",label:"答案與詳解另立區塊",text:"- **答案與詳解獨立整理**：若原檔附有答案或詳解，請於全卷題目之後另立 `## 參考答案與詳解` 區塊，依題號對應，切勿混入題幹。"},
+ {id:"score",label:"保留配分與題型統計",text:"- **保留配分與題型統計**：每大題標示配分，並於文末附「題型／題數／配分」統計表，核對總分加總正確。"},
+ {id:"point",label:"標註每題考點",text:"- **標註每題考點**：於每題末以 `【考點】` 簡述所測概念或能力（不含答案）。"},
+ {id:"code",label:"文末彙整課綱代碼",text:"- **文末彙整課綱代碼**：將文件中出現的核心素養、學習表現、學習內容代碼彙整為一張對照表。"},
+ {id:"gap",label:"標示待補欄位",text:"- **標示待補或不完整處**：原文件中空白、待填或資訊不足的欄位，請以 `【待補】` 標示，切勿自行杜撰內容。"},
+ {id:"todo",label:"文末彙整待辦總表",text:"- **文末彙整待辦總表**：將全文所有辦理事項整理為「事項／負責單位／期限／狀態」表格，並依期限先後排序。"},
+ {id:"tldr",label:"文首三行重點摘要",text:"- **文首三行重點摘要**：於文件最前方以 3 行以內摘要「要做什麼、誰負責、何時截止」。"},
+ {id:"pii",label:"個人資料遮蔽",text:"- **個人資料遮蔽**：姓名（職稱可保留）、電話、身分證字號、地址、帳號等個資一律以 `○○○` 遮蔽。"},
+ {id:"links",label:"文末附原始連結清單",text:"- **保留原始連結清單**：文末整理所有引用的網址、參考資料與延伸閱讀連結。"},
+ {id:"script",label:"文末附完整逐字稿",text:"- **文末附完整逐字稿**：於全文最後另立 `## 附錄：口白逐字稿`，依時間戳記分段，只修正錯別字，不改寫內容。"},
+ /* ---- 科目建議 ---- */
+ {id:"ggb",label:"圖形附 GeoGebra 重建指令",text:"- **圖形附 GeoGebra 重建指令**：每個函數或幾何圖形後，附上可在 GeoGebra 重建該圖的指令。請放在以 `~~~geogebra` 開頭、`~~~` 結尾的區塊中（用 ~~~ 以免與外層程式碼區塊衝突），每行一個指令，使用 GeoGebra 英文指令語法，例如 `A=(0,0)`、`f(x)=x^2-2x`、`Polygon(A,B,C)`，不要加註解或編號。"},
+ {id:"unit",label:"單位與有效數字檢核",text:"- **單位與有效數字檢核**：所有數值保留原始有效位數與單位，並於文末列出文中出現的單位換算關係。"},
+ {id:"era",label:"年代西元／民國對照",text:"- **年代西元／民國對照**：所有年代同時標示西元與民國（或朝代年號），方便跨科對照。"},
+ {id:"zhuyin",label:"生難字詞加注音",text:"- **生難字詞加注音**：生難字、破音字請以「字（注音）」格式標注。"},
+ {id:"trans",label:"段落附中文翻譯",text:"- **段落附中文翻譯**：每段英文後以引言區塊 `>` 附一段中文翻譯，與原文明確區隔。"},
+ {id:"pron",label:"標示發音重點",text:"- **標示發音重點**：特殊聲調、變調或華語沒有的音，請於語詞表備註欄說明發音要領。"},
+ {id:"artinfo",label:"作品資訊彙整表",text:"- **作品資訊彙整表**：文中出現的所有作品整理為「作品／作者／年代／媒材／風格」表格。"},
+ {id:"safety",label:"安全提醒獨立區塊",text:"- **安全提醒獨立區塊**：將所有安全注意事項彙整為文末 `## ⚠️ 安全提醒` 區塊，方便課前宣導。"},
+ {id:"codecmt",label:"程式碼加中文註解",text:"- **程式碼加中文註解**：為每段程式碼加上繁體中文行內註解說明功能，原始程式碼本身不可更動。"},
+ {id:"views",label:"多元觀點對照表",text:"- **多元觀點對照表**：將文中不同立場整理為「立場／主要論點／依據」對照表，不加入價值判斷。"},
+ {id:"cite",label:"引文標註出處",text:"- **引文標註出處**：題目引用的詩文、文章請標註作者與篇名（以原卷提供者為準，不可自行推測）。"},
+ {id:"listen",label:"聽力腳本另立附錄",text:"- **聽力腳本另立附錄**：聽力測驗的腳本另立附錄區塊並依題號對應，不混入題目本體。"},
+ {id:"srcmap",label:"資料與題號對照表",text:"- **資料與題號對照表**：文末附「資料編號／引用的小題」對照表，方便拆題重組。"},
+ {id:"diff",label:"標示差異化段落",text:"- **標示差異化段落**：將教案中的差異化、補救與挑戰任務以 `🧩` 標示，便於快速檢視。"},
+ {id:"stu",label:"附學生版規準",text:"- **附學生版規準**：另附一份以學生易懂語言改寫的規準表，原版內容不可更動。"},
+ {id:"blank",label:"作答欄位保持空白",text:"- **作答欄位保持空白**：所有作答欄位保留空白（`＿＿＿＿＿＿` 或空白表格列），不可自行填入答案。"},
+ {id:"date",label:"民國日期加註西元",text:"- **民國日期加註西元**：所有民國日期後方加註西元（如 115/11/27 → 2026-11-27），方便加入行事曆。"},
+ {id:"kpi",label:"KPI 達成率試算",text:"- **KPI 達成率試算**：依原文目標值與實際值計算達成率並標示；原文未提供者標示 `【未提供】`。"},
+ {id:"sum",label:"金額逐列驗算",text:"- **金額逐列驗算**：逐列驗算「單價 × 數量 = 總價」與各級小計、總計，不符處以 ⚠️ 標示並附正確計算值。"},
+ {id:"verify",label:"標示待查證說法",text:"- **標示待查證說法**：未附來源的數據或主張以 `【待查證】` 標示。"},
+ {id:"amend",label:"標示條文修正日期",text:"- **標示條文修正日期**：若網頁載明修正歷程，請標示各條文最新修正日期。"},
+ {id:"evid",label:"觀課證據時間對照",text:"- **觀課證據時間對照**：文末依觀課面向整理具體證據與時間戳記（如 `[12:30] 學生分組討論`）。"},
+ {id:"steps",label:"附精簡操作清單",text:"- **附精簡操作清單**：文末另附只含步驟編號與操作路徑的精簡清單，方便列印給學生。"}
 ];
+const COMMON = ["page","tw"];
+const DOMAIN_CHIPS = {teach:["gloss","quiz","myth"],exam:["ans","score","point"],assess:["code","gap"],admin:["todo","tldr","pii"],web:["gloss","links"],video:["script"]};
+const SUBJECT_CHIPS = {
+ teach:[["ggb"],["unit"],["era"],["zhuyin"],["trans"],["pron"],["artinfo"],["safety"],["codecmt"],["views"],["zhuyin"]],
+ exam:[["ggb"],["unit"],["cite"],["listen"],["era"],["srcmap"],["zhuyin"]],
+ assess:[["diff"],["score"],["stu"],["blank"],["diff"]],
+ admin:[["date"],["kpi"],["date"],["sum"],["date"]],
+ web:[["script"],["quiz","verify"],["quiz"],["quiz"],["amend"]],
+ video:[["safety","gloss","quiz"],["evid","gloss"],["steps","quiz"],["pii"],["zhuyin","quiz"]]
+};
+const XID = Object.fromEntries(EXTRAS.map(e=>[e.id,e]));
+function chipsFor(di,si){
+  const d=DOMAINS[di], sub=(SUBJECT_CHIPS[d.id]||[])[si]||[];
+  const sug=[...new Set([...(DOMAIN_CHIPS[d.id]||[]),...sub])].filter(id=>!COMMON.includes(id));
+  return {common:COMMON, suggest:sug};
+}
 
 /* ============ 範本 (工作台) ============ */
 const SAMPLE = {
@@ -439,6 +509,14 @@ teach:`# 國中數學｜二次函數的圖形與性質
 > - **定義域與坐標系**：X 軸 −4 ～ 4，Y 軸 −2 ～ 10，原點位於中央。
 > - **幾何條件與特徵點**：頂點 (1, −1)，與 X 軸交於 (0, 0)、(2, 0)。
 > - **圖形走勢與凹凸性**：開口向上，x < 1 遞減、x > 1 遞增，最小值 −1。
+
+~~~geogebra
+f(x)=x^2-2x
+V=(1,-1)
+A=(0,0)
+B=(2,0)
+a: x=1
+~~~
 
 ## 三、範例
 | 函數 | 開口方向 | 頂點 | 對稱軸 |
@@ -651,6 +729,7 @@ function keyOf(di,si){ return si===undefined||si===null ? DOMAINS[di].id : DOMAI
 function splitItems(t){ return t.split(/[、，,；;\n]+/).map(x=>x.trim()).filter(Boolean); }
 function customFor(di,si){ const a=[...(CUSTOM[keyOf(di)]||[]),...(CUSTOM[keyOf(di,si)]||[])]; return [...new Set(a)]; }
 function isMedia(){ const b=DOMAINS[dIdx].base; return b==="web"||b==="video"; }
+function availIds(){ const c=chipsFor(dIdx,sIdx); return [...c.common,...c.suggest]; }
 function extraOf(e){ return e.media && isMedia() ? e.media : e; }
 function cur(){ const d = DOMAINS[dIdx]; return {d, s:d.subs[sIdx], b:BASE[d.base]}; }
 
@@ -660,9 +739,7 @@ function buildPrompt(){
   const extra = customFor(dIdx,sIdx);
   if(extra.length) out += "- **【使用者外加注重事項】**：除上述規範外，請特別注重「" + extra.join("」、「") + "」，轉譯時須完整保留相關內容與細節，並以粗體或獨立條列明確標示，不可省略或概略帶過。\n";
   out += "\n";
-  if(active.size){
-    out += "### 補充自訂轉譯要求\n" + EXTRAS.filter(e=>active.has(e.id)).map(e=>extraOf(e).text).join("\n") + "\n\n";
-  }
+  if(availIds().some(id=>active.has(id))) out += "### 補充自訂轉譯要求\n" + availIds().filter(id=>active.has(id)).map(id=>extraOf(XID[id]).text).join("\n") + "\n\n";
   return out + OUT;
 }
 
@@ -735,6 +812,13 @@ function removeCustom(key,v){
   CUSTOM[key]=(CUSTOM[key]||[]).filter(x=>x!==v); if(!CUSTOM[key].length) delete CUSTOM[key];
   saveCustom(); renderMain(); if(tipEl) showTip(tipEl,true); toast("已移除「"+v+"」");
 }
+function renderChips(){
+  const c=chipsFor(dIdx,sIdx), sn=cur().s.n;
+  const btn=id=>{ const x=extraOf(XID[id]); return `<button class="chip${active.has(id)?" on":""}" data-id="${id}" title="${esc(x.text.replace(/^- /,"").replace(/\*\*/g,"").replace(/`/g,""))}">${esc(x.label)}</button>`; };
+  $("chips").innerHTML =
+    `<div class="cg"><span class="lbl">⚡ 附加自訂指令</span><span class="ctag">通用</span>${c.common.map(btn).join("")}</div>`+
+    `<div class="cg"><span class="lbl sug">💡 ${esc(sn)}建議</span><span class="ctag sugt">依科目屬性</span>${c.suggest.map(btn).join("")}</div>`;
+}
 function renderMain(){
   const {d,s,b} = cur();
   $("crDom").textContent = d.full; $("crSub").textContent = s.n;
@@ -746,7 +830,7 @@ function renderMain(){
   const p = buildPrompt();
   $("prompt").innerHTML = renderPromptHTML(p);
   $("chars").textContent = p.length.toLocaleString();
-  $("chips").querySelectorAll(".chip").forEach(c=>{ c.classList.toggle("on",active.has(c.dataset.id)); c.textContent=extraOf(EXTRAS.find(e=>e.id===c.dataset.id)).label; });
+  renderChips();
 }
 
 function render(){ applyTheme(); renderSidebar(); renderMain(); }
@@ -780,7 +864,12 @@ function md2html(src){
   const isTable = k => /^\s*\|/.test(L[k]||"") && /^\s*\|?\s*:?-{2,}/.test(L[k+1]||"");
   while(i<L.length){
     const line = L[i];
-    if(/^```/.test(line)){ let buf=[]; i++; while(i<L.length && !/^```/.test(L[i])) buf.push(L[i++]); i++; html+="<pre><code>"+esc(buf.join("\n"))+"</code></pre>"; continue; }
+    let fm=line.match(/^\s*(```|~~~)\s*([\w-]*)/);
+    if(fm){ const mk=fm[1], lang=(fm[2]||"").toLowerCase(); let buf=[]; i++; while(i<L.length && !new RegExp("^\\s*"+mk).test(L[i])) buf.push(L[i++]); i++;
+      if(lang==="geogebra"||lang==="ggb"){ const cmds=buf.map(x=>x.trim()).filter(Boolean); GGB_BLOCKS.push(cmds);
+        html+=`<div class="ggb"><div class="ggbh"><span>📐 GeoGebra 重建指令（${cmds.length} 行）</span><a class="ggbbtn" href="${GGB_URL}" target="_blank" rel="noopener" data-ggb="${GGB_BLOCKS.length-1}">複製並開啟 GeoGebra ↗</a></div><pre><code>${esc(cmds.join("\n"))}</code></pre></div>`; }
+      else html+="<pre><code>"+esc(buf.join("\n"))+"</code></pre>";
+      continue; }
     if(/^\s*$/.test(line)){ i++; continue; }
     let m;
     if(m=line.match(/^(#{1,6})\s+(.*)/)){ const n=Math.min(m[1].length,4); html+=`<h${n}>${inline(m[2])}</h${n}>`; i++; continue; }
@@ -802,13 +891,27 @@ function md2html(src){
       html+= ordered?"<ol>"+items+"</ol>":"<ul>"+items+"</ul>"; continue;
     }
     let buf=[line]; i++;
-    while(i<L.length && L[i].trim() && !/^(#|>|```|\s*\||\s*([-*+]|\d+[.)])\s)/.test(L[i])) buf.push(L[i++]);
+    while(i<L.length && L[i].trim() && !/^(#|>|```|~~~|\s*\||\s*([-*+]|\d+[.)])\s)/.test(L[i])) buf.push(L[i++]);
     html+="<p>"+buf.map(inline).join("<br>")+"</p>";
   }
   return html;
 }
+const GGB_URL="https://www.geogebra.org/classic";
+let GGB_BLOCKS=[];
+function ggbPayload(cmds){
+  // 多行指令包成 Execute，貼上一次即可全部建立；含雙引號時改為逐行
+  if(cmds.length>1 && !cmds.some(c=>c.includes('"'))) return 'Execute({'+cmds.map(c=>'"'+c+'"').join(",")+'})';
+  return cmds.join("\n");
+}
+function copyGgb(cmds){
+  const mac=/Mac|iPhone|iPad/.test(navigator.platform||navigator.userAgent);
+  copyText(ggbPayload(cmds),"已複製 "+cmds.length+" 行 GeoGebra 指令！在輸入列按 "+(mac?"⌘":"Ctrl")+"+V 貼上，再按 Enter");
+}
 function renderPreview(){
+  GGB_BLOCKS=[];
   $("preview").innerHTML = mdBox.value.trim() ? md2html(mdBox.value) : '<p class="ph">左側貼上 Markdown 後，這裡會即時顯示渲染結果。</p>';
+  const n=GGB_BLOCKS.reduce((a,b)=>a+b.length,0), gb=$("ggbAll");
+  gb.classList.toggle("hidden",!n); gb.innerHTML="📐 全部 GeoGebra 指令（"+n+" 行）↗";
 }
 
 /* ============ 一鍵修復 ============ */
@@ -840,9 +943,9 @@ function fixMarkdown(src,opts={}){
   });
   // 中文段落被硬斷行：只合併「一般段落」的連續行（不碰標題、清單、表格、引言、程式碼）
   { const ls=t.split("\n"), out=[]; let fence=false;
-    const special=l=>/^\s*(#|[-*+]\s|\d+[.)]\s|>|\||```|\(|（|【|•|\[)/.test(l)||!l.trim();
+    const special=l=>/^\s*(#|[-*+]\s|\d+[.)]\s|>|\||```|~~~|\(|（|【|•|\[)/.test(l)||!l.trim();
     for(const l of ls){
-      if(/^\s*```/.test(l)) fence=!fence;
+      if(/^\s*(```|~~~)/.test(l)) fence=!fence;
       const prev=out[out.length-1];
       if(!fence && prev!==undefined && !special(prev) && !special(l) && /[\u4e00-\u9fff，、；：「」（）]$/.test(prev) && /^[\u4e00-\u9fff，。、；：「」（）]/.test(l)) out[out.length-1]=prev+l;
       else out.push(l);
@@ -980,8 +1083,7 @@ tip.addEventListener("focusout",()=>setTimeout(()=>{ if(!tip.contains(document.a
 $("desc").addEventListener("click",e=>{ const x=e.target.closest(".x"); if(x) removeCustom(x.dataset.key,x.dataset.v); });
 document.querySelector("aside").addEventListener("scroll",()=>hideTip());
 window.addEventListener("scroll",()=>hideTip(),{passive:true});
-EXTRAS.forEach(x=>{ const c=document.createElement("button"); c.className="chip"; c.dataset.id=x.id; c.textContent=x.label;
-  c.onclick=()=>{ active.has(x.id)?active.delete(x.id):active.add(x.id); renderMain(); }; $("chips").appendChild(c); });
+$("chips").addEventListener("click",e=>{ const c=e.target.closest(".chip"); if(!c) return; const id=c.dataset.id; active.has(id)?active.delete(id):active.add(id); renderMain(); });
 $("copyPrompt").onclick=()=>copyText(buildPrompt(),"已複製 Prompt 至剪貼簿！");
 document.querySelectorAll(".ai").forEach(a=>a.addEventListener("click",()=>{
   // 不阻止連結預設行為：新分頁照常開啟，同時把 Prompt 放進剪貼簿
@@ -1021,6 +1123,8 @@ $("dlMd").onclick=()=>{ if(!mdBox.value.trim()) return toast("目前沒有內容
 $("copyMd").onclick=()=>{ if(!mdBox.value.trim()) return toast("目前沒有內容可複製"); copyText(mdBox.value,"已複製 Markdown 至剪貼簿！"); };
 $("clearMd").onclick=()=>{ mdBox.value=""; renderPreview(); mdBox.focus(); };
 mdBox.addEventListener("input",renderPreview);
+$("preview").addEventListener("click",e=>{ const a=e.target.closest(".ggbbtn"); if(a) copyGgb(GGB_BLOCKS[+a.dataset.ggb]||[]); });
+$("ggbAll").addEventListener("click",()=>copyGgb(GGB_BLOCKS.flat()));
 mdBox.addEventListener("keydown",e=>{ if(e.key==="Tab"){ e.preventDefault(); const s=mdBox.selectionStart; mdBox.setRangeText("  ",s,mdBox.selectionEnd,"end"); renderPreview(); }});
 window.addEventListener("hashchange",()=>setView(location.hash==="#workbench"?"bench":"prompt"));
 
