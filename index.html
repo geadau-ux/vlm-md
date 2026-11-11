@@ -22,6 +22,16 @@
 *{box-sizing:border-box}
 html,body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);-webkit-font-smoothing:antialiased}
 button{font-family:inherit;cursor:pointer}
+/* 宣告橫幅 */
+.notice{background:#f2cc4b;color:#6b4518;border-bottom:1px solid rgba(107,69,24,.18)}
+.notice div{max-width:1280px;margin:0 auto;padding:10px 28px;display:flex;align-items:center;justify-content:center;gap:10px;font-size:15px;font-weight:700;letter-spacing:.5px;line-height:1.5;text-align:center}
+.notice svg{flex:none;width:22px;height:22px}
+html[data-theme="dark"] .notice{background:#5a4512;color:#f6dd8f;border-bottom-color:rgba(246,221,143,.2)}
+@media (max-width:640px){.notice div{padding:8px 14px;font-size:12.5px;gap:8px;letter-spacing:0}.notice svg{width:18px;height:18px}.notice .nl{display:block}.notice .sep{display:none}}
+/* 頁尾 */
+footer{border-top:1px solid var(--line);margin-top:8px}
+footer div{max-width:1280px;margin:0 auto;padding:22px 28px 30px;text-align:center;font-size:14px;color:var(--muted);line-height:1.8;letter-spacing:.3px}
+@media (max-width:640px){footer div{padding:18px 16px 24px;font-size:12.5px}footer .nl{display:block}footer .sep{display:none}}
 /* header */
 header{position:sticky;top:0;z-index:20;background:var(--header-bg);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
 .hwrap{max-width:1280px;margin:0 auto;padding:12px 28px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
@@ -224,6 +234,10 @@ html[data-theme="dark"] .themebtn .moon{display:none}
 </style>
 </head>
 <body>
+<div class="notice" role="note"><div>
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>
+  <span><span class="nl">請尊重智慧財產，使用時請註明出處、請勿商用</span><span class="sep">｜</span><span class="nl">教材來源：優履工作室 X 滔滔學教育學社</span></span>
+</div></div>
 <header>
   <div class="hwrap">
     <div class="brand">
@@ -337,6 +351,8 @@ html[data-theme="dark"] .themebtn .moon{display:none}
     </section>
   </main>
 </div>
+
+<footer><div><span class="nl">© 優履工作室 X 滔滔學教育學社 研發設計</span><span class="sep">｜</span><span class="nl">使用請註明出處、請勿商用</span></div></footer>
 
 <div class="hint" id="help" role="dialog" aria-label="使用提示">
   <div class="hhead"><b>💡 使用提示</b><button class="mclose" id="helpClose" aria-label="關閉">✕</button></div>
@@ -948,7 +964,7 @@ $("dlPrompt").onclick=()=>download("SYSTEM_PROMPT_"+safeName(cur().s.n)+".md",bu
 $("toggleView").onclick=()=>setView(view==="prompt"?"bench":"prompt");
 $("tabPrompt").onclick=()=>setView("prompt");
 const help=$("help");
-$("helpBtn").onclick=e=>{ e.stopPropagation(); help.classList.toggle("show"); };
+$("helpBtn").onclick=e=>{ e.stopPropagation(); const r=$("helpBtn").getBoundingClientRect(); help.style.top=(r.bottom+10)+"px"; help.classList.toggle("show"); };
 $("helpClose").onclick=()=>help.classList.remove("show");
 document.addEventListener("click",e=>{ if(help.classList.contains("show") && !help.contains(e.target) && e.target.id!=="helpBtn") help.classList.remove("show"); });
 document.addEventListener("keydown",e=>{ if(e.key==="Escape") help.classList.remove("show"); });
