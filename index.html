@@ -36,7 +36,9 @@ html[data-theme="dark"] .notice{background:#5a4512;color:#f6dd8f;border-bottom-c
 .ai .ext{font-size:12px;color:var(--muted);transition:transform .15s}
 .ai:hover{transform:translateY(-2px);border-color:var(--accent);box-shadow:0 6px 14px rgba(0,0,0,.12)}
 .ai:hover .ext{transform:translate(2px,-2px);color:var(--accent-ink)}
-@media (max-width:640px){.launch .ll{width:100%}}
+.pastehint{display:inline-flex;align-items:center;gap:4px;font-size:13px;font-weight:700;color:var(--accent-ink);background:var(--accent-soft);border-radius:8px;padding:6px 10px;margin-left:4px}
+.pastehint kbd{font-family:var(--mono);font-size:12px;font-weight:700;background:var(--card);color:var(--ink);border:1px solid var(--line);border-bottom-width:2px;border-radius:5px;padding:1px 6px}
+@media (max-width:640px){.launch .ll{width:100%}.pastehint{margin-left:0}}
 /* GeoGebra 區塊 */
 .preview .ggb{border:1.5px solid #9a7bd8;border-radius:12px;overflow:hidden;margin:12px 0;background:var(--card)}
 .preview .ggbh{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;padding:8px 12px;background:rgba(153,102,255,.12);font-size:13px;font-weight:700;color:#6a45b8}
@@ -343,6 +345,7 @@ html[data-theme="dark"] .themebtn .moon{display:none}
         <a class="ai" data-ai="Gemini" href="https://gemini.google.com/app" target="_blank" rel="noopener"><i style="background:linear-gradient(135deg,#4f8df5,#9b72f2)"></i>Gemini<span class="ext">↗</span></a>
         <a class="ai" data-ai="ChatGPT" href="https://chatgpt.com/" target="_blank" rel="noopener"><i style="background:#10a37f"></i>ChatGPT<span class="ext">↗</span></a>
         <a class="ai" data-ai="Claude" href="https://claude.ai/new" target="_blank" rel="noopener"><i style="background:#d97757"></i>Claude<span class="ext">↗</span></a>
+        <span class="pastehint">👉 開啟後按 <kbd>⌘V</kbd>／<kbd>Ctrl+V</kbd> 貼上</span>
       </div>
     </section>
 
