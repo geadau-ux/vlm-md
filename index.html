@@ -61,7 +61,21 @@ html[data-theme="dark"] .notice{background:#5a4512;color:#f6dd8f;border-bottom-c
 .ai .ext{font-size:12px;color:var(--muted);transition:transform .15s}
 .ai:hover{transform:translateY(-2px);border-color:var(--accent);box-shadow:0 6px 14px rgba(0,0,0,.12)}
 .ai:hover .ext{transform:translate(2px,-2px);color:var(--accent-ink)}
-.pastehint{display:inline-flex;align-items:center;gap:4px;font-size:13px;font-weight:700;color:var(--accent-ink);background:var(--accent-soft);border-radius:8px;padding:6px 10px;margin-left:4px}
+.pastehint{flex-basis:100%;color:#6b4518;background:#fff3c4;border:1.5px dashed #e0b84a;border-radius:12px;padding:12px 14px 14px;margin:6px 0 0}
+.pastehint .ph-head{font-size:14.5px;font-weight:800;margin-bottom:10px}
+.pastehint .ph-steps{display:grid;grid-template-columns:1fr auto 1fr auto 1fr auto 1fr;gap:8px;align-items:stretch}
+.pastehint .ph-step{background:rgba(255,255,255,.75);border:1px solid #f0d58a;border-radius:10px;padding:10px 12px}
+.pastehint .ph-ic{font-size:20px;line-height:1;margin-bottom:6px}
+.pastehint .ph-step b{display:block;font-size:14px;margin-bottom:4px}
+.pastehint .ph-step p{margin:0;font-size:13px;font-weight:500;line-height:1.75;color:#7a5a2a}
+.pastehint .ph-arr{align-self:center;color:#c48a12;font-weight:800;font-size:18px}
+.pastehint kbd{font-family:var(--mono);font-size:11.5px;font-weight:700;background:#fff;color:#4a3410;border:1px solid #e6cf8f;border-bottom-width:2px;border-radius:5px;padding:0 5px}
+html[data-theme="dark"] .pastehint{color:#f6dd8f;background:#3a321d;border-color:#8a6d22}
+html[data-theme="dark"] .pastehint .ph-step{background:rgba(0,0,0,.2);border-color:#6d5620}
+html[data-theme="dark"] .pastehint .ph-step p{color:#e3cc8a}
+html[data-theme="dark"] .pastehint .ph-arr{color:#e0b84a}
+html[data-theme="dark"] .pastehint kbd{background:#2a2414;color:#f6dd8f;border-color:#6d5620}
+@media (max-width:900px){.pastehint .ph-steps{grid-template-columns:1fr}.pastehint .ph-arr{transform:rotate(90deg);justify-self:center;line-height:1}}
 .pastehint kbd{font-family:var(--mono);font-size:12px;font-weight:700;background:var(--card);color:var(--ink);border:1px solid var(--line);border-bottom-width:2px;border-radius:5px;padding:1px 6px}
 @media (max-width:640px){.launch .ll{width:100%}.pastehint{margin-left:0}.launch .arrow{animation-name:nudgeDown}}
 @keyframes nudgeDown{0%,100%{transform:rotate(90deg) translateX(0)}50%{transform:rotate(90deg) translateX(4px)}}
@@ -322,12 +336,39 @@ body,header,aside,.card,.btn,.chip,textarea,.preview,.steps{transition:backgroun
 .hint{padding:12px 22px 14px}
 .hint ul.hl{list-style:none;margin:8px 0 0;padding:0}
 .hint ul.hl li{display:flex;align-items:baseline;gap:10px}
-.hint .hk{flex:none;display:inline-block;min-width:54px;text-align:center;font-size:12px;font-weight:800;color:#fff;background:var(--accent);border-radius:6px;padding:1px 8px;line-height:1.7}
+.hint .hk.st::before{content:"▶ ";font-size:8.5px}
+.hint .hk{flex:none;display:inline-block;min-width:76px;text-align:center;font-size:12px;font-weight:800;color:#fff;background:var(--accent);border-radius:6px;padding:1px 8px;line-height:1.7}
 .hint li b{color:var(--ink)}
 .mclose{width:28px;height:28px;border-radius:8px;border:1px solid var(--line);background:var(--field);color:var(--ink);font-size:13px}
 .mclose:hover{background:var(--hover)}
 html[data-theme="dark"] .themebtn .sun{display:block}
 html[data-theme="dark"] .themebtn .moon{display:none}
+
+/* ===== 步驟標題：四個連續動作統一樣式 ===== */
+.stephd{display:inline-flex;align-items:center;gap:8px;font-family:var(--sans);font-size:15px;font-weight:800;color:var(--ink);letter-spacing:.2px;line-height:1.4}
+.stephd .sb{flex:none;display:inline-flex;align-items:center;gap:5px;background:var(--accent);color:#fff;font-size:12.5px;font-weight:800;border-radius:7px;padding:3px 10px 3px 8px;box-shadow:0 2px 6px rgba(0,0,0,.18);letter-spacing:.5px}
+.stephd .sb::before{content:"▶";font-size:8.5px;opacity:.95}
+.sechead{align-items:center;margin-bottom:12px}
+.launch .ll{color:var(--ink);font-size:inherit;font-weight:inherit;gap:8px}
+.launch .ll .rocket{margin-right:-2px}
+.pastehint .ph-head{color:var(--ink);margin-bottom:12px}
+html[data-theme="dark"] .pastehint .ph-head .stephd{color:var(--ink)}
+@media (max-width:640px){.stephd{font-size:14.5px}}
+.pastehint mark.k{background:linear-gradient(transparent 55%,#ffd96a 55%);color:#5a3200;font-weight:800;padding:0 1px;border-radius:2px}
+html[data-theme="dark"] .pastehint mark.k{background:linear-gradient(transparent 55%,rgba(224,184,74,.45) 55%);color:#ffe9a8}
+
+/* 步驟三、步驟四分成兩個獨立框，結構一致：標題列＋內容 */
+.launch{display:block;padding:14px 16px 16px}
+.launch .ph-head{margin-bottom:12px}
+.launch .ai-row{display:flex;flex-wrap:wrap;align-items:center;gap:10px}
+.launch .pick{display:inline-flex;align-items:center;font-size:14px;font-weight:700;color:var(--accent-ink);background:var(--card);border:1.5px dashed var(--accent);border-radius:9px;padding:6px 12px;margin-right:4px}
+.pastehint{margin-top:14px}
+@media (max-width:640px){.launch .pick{width:100%;justify-content:center}}
+.pastehint .ph-step.opt{background:rgba(255,255,255,.45);border:1.5px dashed #d9b85c}
+.pastehint .ph-arr.opt{opacity:.55}
+.pastehint .opt-tag{display:inline-block;vertical-align:2px;margin-left:6px;font-size:11px;font-weight:800;color:#8a6a1f;background:#fff;border:1.5px dashed #d9b85c;border-radius:6px;padding:0 6px;line-height:1.6}
+html[data-theme="dark"] .pastehint .ph-step.opt{background:rgba(0,0,0,.1);border-color:#7a6224}
+html[data-theme="dark"] .pastehint .opt-tag{background:transparent;color:#e0c070;border-color:#7a6224}
 </style>
 </head>
 <body>
@@ -367,11 +408,11 @@ html[data-theme="dark"] .themebtn .moon{display:none}
       <input id="q" type="text" placeholder="快速篩選科目或關鍵字…">
     </label></div>
     <div class="sec">
-      <div class="sechead"><span>步驟一：選擇轉譯目標領域</span><span id="domCount"></span></div>
+      <div class="sechead"><span class="stephd"><span class="sb">步驟一</span>選擇轉譯領域</span><span id="domCount"></span></div>
       <div class="domains" id="domains"></div>
     </div>
     <div class="sec">
-      <div class="sechead"><span id="subHead">步驟二：選擇細項科目</span><span id="subCount"></span></div>
+      <div class="sechead"><span class="stephd" id="subHead"><span class="sb">步驟二</span>選擇細項科目</span><span id="subCount"></span></div>
       <div class="subjects" id="subjects"></div>
     </div>
   </aside>
@@ -395,16 +436,30 @@ html[data-theme="dark"] .themebtn .moon{display:none}
 
     <div id="promptView" style="display:flex;flex-direction:column;gap:18px">
       <section class="card chips">
-        <div class="winbar"><div class="dots"><i></i><i></i><i></i></div><span class="blk">B</span><span class="fname">區塊 B｜補充轉譯要求與開啟 AI</span><span class="badge">勾選後按下方按鈕開啟 AI</span></div>
+        <div class="winbar"><div class="dots"><i></i><i></i><i></i></div><span class="blk">B</span><span class="fname">區塊 B｜補充轉譯要求與開啟 AI</span><span class="badge">先勾選需要的要求（可不勾），再點下方 Gemini／ChatGPT／Claude 開新對話</span></div>
         <div class="inner">
         <div class="chiprow" id="chips"></div>
       <div class="launch">
-        <span class="ll"><span class="rocket">🚀</span>複製並開啟新對話<span class="arrow">→</span></span>
-        <a class="ai" data-ai="Gemini" href="https://gemini.google.com/app" target="_blank" rel="noopener"><i style="background:linear-gradient(135deg,#4f8df5,#9b72f2)"></i>Gemini<span class="ext">↗</span></a>
-        <a class="ai" data-ai="ChatGPT" href="https://chatgpt.com/" target="_blank" rel="noopener"><i style="background:#10a37f"></i>ChatGPT<span class="ext">↗</span></a>
-        <a class="ai" data-ai="Claude" href="https://claude.ai/new" target="_blank" rel="noopener"><i style="background:#d97757"></i>Claude<span class="ext">↗</span></a>
-        <span class="pastehint">👉 開啟後按 <kbd>⌘V</kbd>／<kbd>Ctrl+V</kbd> 貼上</span>
+        <div class="ph-head"><span class="stephd"><span class="sb">步驟三</span>開啟 AI 對話</span></div>
+        <div class="ai-row">
+          <span class="pick">三選一：點你常用的 AI</span>
+          <a class="ai" data-ai="Gemini" href="https://gemini.google.com/app" target="_blank" rel="noopener"><i style="background:linear-gradient(135deg,#4f8df5,#9b72f2)"></i>Gemini<span class="ext">↗</span></a>
+          <a class="ai" data-ai="ChatGPT" href="https://chatgpt.com/" target="_blank" rel="noopener"><i style="background:#10a37f"></i>ChatGPT<span class="ext">↗</span></a>
+          <a class="ai" data-ai="Claude" href="https://claude.ai/new" target="_blank" rel="noopener"><i style="background:#d97757"></i>Claude<span class="ext">↗</span></a>
+        </div>
       </div>
+      <div class="pastehint">
+          <div class="ph-head"><span class="stephd"><span class="sb">步驟四</span>貼上並上傳檔案</span></div>
+          <div class="ph-steps">
+            <div class="ph-step"><div class="ph-ic">📋</div><b>貼上 Prompt</b><p><mark class="k">Prompt</mark>（給 AI 的指令）已經<mark class="k">自動複製</mark>好了。到剛開啟的 AI 網頁，<mark class="k">點一下打字的地方</mark>，按 <kbd>⌘V</kbd>（Mac）或 <kbd>Ctrl+V</kbd>（Windows）就能<mark class="k">貼上</mark>。<br>※ 第一次使用，請先<mark class="k">登入</mark> AI 帳號。</p></div>
+            <div class="ph-arr">→</div>
+            <div class="ph-step"><div class="ph-ic">📎</div><b>上傳檔案</b><p>點打字處旁邊的<mark class="k">「＋」或迴紋針 📎</mark>，選擇要讓 AI 整理的<mark class="k">講義、考卷、圖片或 PDF</mark>。<br>如果是<mark class="k">網頁或 YouTube 影片</mark>，不用上傳，直接把<mark class="k">網址</mark>貼在指令下方即可。</p></div>
+            <div class="ph-arr">→</div>
+            <div class="ph-step"><div class="ph-ic">📤</div><b>送出並取得結果</b><p>按下<mark class="k">送出</mark>（通常是 ➤ 箭頭按鈕），稍等 AI 整理完，它會回覆一份<mark class="k">整理好的文字稿</mark>（Markdown 格式）。<br>點回覆框右上角的<mark class="k">「複製」📋 按鈕</mark>，就能<mark class="k">貼到其他 AI</mark>（例如提問機器人、NotebookLM）當作<mark class="k">對話文字</mark>或<mark class="k">知識來源</mark>，也可以存到筆記或文件中。</p></div>
+            <div class="ph-arr opt">→</div>
+            <div class="ph-step opt"><div class="ph-ic">🛠️</div><b>整理排版 <span class="opt-tag">選用</span></b><p>如果看到<mark class="k">表格亂掉、句子被切斷</mark>，再把結果貼到上方的「🛠️ Markdown 修復與預覽工作台」，按<mark class="k">一鍵整理</mark>。<br>也可以在工作台左側的編輯區<mark class="k">手動微調</mark>文字，右側會即時顯示修改後的樣子。<br>結果正常就可以略過這一步。</p></div>
+          </div>
+        </div>
         </div>
       </section>
       <section class="card win">
@@ -451,12 +506,14 @@ html[data-theme="dark"] .themebtn .moon{display:none}
 <div class="hint" id="help" role="dialog" aria-label="使用提示">
   <div class="hhead"><b>💡 使用提示</b><button class="mclose" id="helpClose" aria-label="關閉">✕</button></div>
   <ul class="hl">
-    <li><span class="hk">步驟一</span><span class="ht">左側選<b>轉譯目標領域</b>（滑鼠停在按鈕上可看說明）。</span></li>
-    <li><span class="hk">步驟二</span><span class="ht">再選<b>細項科目</b>；滑鼠移進科目泡泡，可輸入<b>外加注重事項</b>（可用「、」分隔、可加多項），按<b>確認加入</b>。</span></li>
+    <li><span class="hk st">步驟一</span><span class="ht">左側<b>選擇轉譯領域</b>（滑鼠停在按鈕上可看說明）。</span></li>
+    <li><span class="hk st">步驟二</span><span class="ht">再<b>選擇細項科目</b>；滑鼠移進科目泡泡，可輸入<b>外加注重事項</b>（可用「、」分隔、可加多項），按<b>確認加入</b>。</span></li>
     <li><span class="hk">區塊 A</span><span class="ht">確認本科目注重重點，以及你外加的注重事項。</span></li>
-    <li><span class="hk">區塊 B</span><span class="ht">視需要勾選<b>補充轉譯要求</b>，再點 <b>Gemini／ChatGPT／Claude</b>（自動複製並開新對話），按 <b>⌘V／Ctrl+V</b> 貼上後上傳檔案。</span></li>
+    <li><span class="hk">區塊 B</span><span class="ht">視需要勾選<b>補充轉譯要求</b>（可不勾）。</span></li>
     <li><span class="hk">區塊 C</span><span class="ht">可預覽即將送出的完整 Prompt 與字元數。</span></li>
-    <li><span class="hk">區塊 D</span><span class="ht">切到上方「<b>🛠️ Markdown 修復與預覽工作台</b>」，貼上 AI 回傳內容，按<b>✨ 一鍵修復</b>後下載；有 GeoGebra 指令可按 <b>📐</b> 重建圖形。</span></li>
+    <li><span class="hk st">步驟三</span><span class="ht"><b>開啟 AI 對話</b>：點 Gemini／ChatGPT／Claude，自動複製 Prompt 並開新分頁。</span></li>
+    <li><span class="hk st">步驟四</span><span class="ht"><b>貼上並上傳檔案</b>：在新分頁按 ⌘V／Ctrl+V 貼上 → 上傳檔案 → 送出，即可取得 AI 回傳的 Markdown。</span></li>
+    <li><span class="hk">區塊 D</span><span class="ht">（需要時）切到上方「<b>🛠️ Markdown 修復與預覽工作台</b>」，貼上 AI 回傳內容，按<b>✨ 一鍵修復</b>後下載；有 GeoGebra 指令可按 <b>📐</b> 重建圖形。</span></li>
   </ul>
 </div>
 <div class="homefab" id="homeFab"></div>
@@ -846,10 +903,10 @@ function renderSidebar(){
     DOMAINS.forEach((d,di)=>d.subs.forEach((s,si)=>{
       if((s.n+s.d+s.s.t+d.name).toLowerCase().includes(q)) items.push({di,si,s,d});
     }));
-    $("subHead").textContent = "搜尋結果";
+    $("subHead").innerHTML = '<span class="sb">步驟二</span>選擇細項科目';
   }else{
     items = DOMAINS[dIdx].subs.map((s,si)=>({di:dIdx,si,s,d:DOMAINS[dIdx]}));
-    $("subHead").textContent = "步驟二：選擇細項科目";
+    $("subHead").innerHTML = '<span class="sb">步驟二</span>選擇細項科目';
   }
   $("subCount").textContent = items.length + " 個科目";
   $("subjects").innerHTML = items.length ? items.map(it=>{
