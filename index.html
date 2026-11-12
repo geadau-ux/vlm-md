@@ -143,7 +143,8 @@ aside{background:var(--card);border-radius:18px;box-shadow:0 2px 10px var(--shad
 /* main */
 main{display:flex;flex-direction:column;gap:18px;min-width:0}
 .card{background:var(--card);border-radius:18px;box-shadow:0 2px 10px var(--shadow)}
-.hero{padding:22px 28px}
+.hero{padding:0;overflow:hidden}
+.hero>.inner{padding:20px 28px 22px}
 .crumb{display:inline-flex;gap:8px;font-size:12.5px;font-weight:600;background:var(--accent-soft);color:var(--accent-ink);padding:5px 12px;border-radius:999px}
 .hero h2{font-family:var(--serif);font-size:26px;margin:14px 0 6px}
 .hero p{margin:0;color:var(--ink2);font-size:14.5px;line-height:1.7}
@@ -205,7 +206,8 @@ main{display:flex;flex-direction:column;gap:18px;min-width:0}
 .btn.solid{background:var(--accent);border-color:var(--accent);color:#fff;box-shadow:0 3px 8px rgba(0,0,0,.14)}
 .btn.solid:hover{filter:brightness(1.06)}
 .btn.sm{padding:8px 13px;font-size:13px}
-.chips{padding:16px 22px}
+.chips{padding:0;overflow:hidden}
+.chips>.inner{padding:14px 22px 16px}
 .chiprow{display:flex;flex-direction:column;gap:10px}
 .chiprow .cg{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
 .chiprow .cg+.cg{padding-top:10px;border-top:1px dashed var(--line)}
@@ -222,7 +224,9 @@ main{display:flex;flex-direction:column;gap:18px;min-width:0}
 .count{font-size:12.5px;color:var(--muted);margin-top:10px;font-family:var(--mono)}
 /* prompt window */
 .win{overflow:hidden}
-.winbar{display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding:13px 20px;background:var(--soft);border-bottom:1px solid var(--line)}
+.winbar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:11px 20px;background:var(--soft);border-bottom:1px solid var(--line)}
+.blk{display:inline-grid;place-items:center;min-width:22px;height:22px;padding:0 6px;border-radius:6px;background:var(--accent);color:#fff;font-size:12px;font-weight:800;font-family:var(--sans);letter-spacing:.3px}
+.blk.sm{min-width:auto;height:19px;font-size:11px;margin-right:6px;vertical-align:1px}
 .dots{display:flex;gap:6px}.dots i{width:10px;height:10px;border-radius:50%;background:var(--dot);display:block}
 .fname{font-size:13px;font-weight:700;color:var(--ink2)}
 .badge{font-size:11.5px;font-weight:700;background:var(--accent-soft);color:var(--accent-ink);padding:4px 10px;border-radius:6px}
@@ -234,7 +238,8 @@ main{display:flex;flex-direction:column;gap:18px;min-width:0}
 .prompt .add{background:var(--add-bg);display:block;border-left:3px solid #e2b54b;padding:2px 10px;margin:2px 0}
 /* workbench */
 .bench{overflow:hidden}
-.benchhead{padding:18px 22px;border-bottom:1px solid var(--line);background:var(--soft)}
+.benchhead{padding:12px 22px 16px;border-bottom:1px solid var(--line);background:var(--soft)}
+.benchhead .toolbar{margin-top:0}
 .benchtitle{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap}
 .benchtitle h3{margin:0;font-family:var(--serif);font-size:18px}
 .toolbar{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
@@ -303,7 +308,7 @@ body,header,aside,.card,.btn,.chip,textarea,.preview,.steps{transition:backgroun
   .steps .long{display:none}.steps .short{display:inline}
   .brand p{font-size:11.5px}
   .hint{top:12px}
-  .hero{padding:18px 18px}.hero h2{font-size:23px}
+  .hero>.inner{padding:16px 16px 18px}.chips>.inner{padding:12px 16px 14px}.winbar{padding:10px 14px}.hero h2{font-size:23px}
   .prompt{padding:16px;font-size:13px}
 }
 /* 使用提示 */
@@ -367,6 +372,8 @@ html[data-theme="dark"] .themebtn .moon{display:none}
 
   <main>
     <section class="card hero">
+      <div class="winbar"><div class="dots"><i></i><i></i><i></i></div><span class="blk">A</span><span class="fname">區塊 A｜科目資訊與一鍵開啟 AI</span><span class="badge">選好科目後從這裡開始</span></div>
+      <div class="inner">
       <div class="crumb"><span id="crDom"></span><span>›</span><span id="crSub"></span></div>
       <h2 id="title"></h2>
       <div class="focus" id="desc"></div>
@@ -384,17 +391,22 @@ html[data-theme="dark"] .themebtn .moon{display:none}
         <a class="ai" data-ai="Claude" href="https://claude.ai/new" target="_blank" rel="noopener"><i style="background:#d97757"></i>Claude<span class="ext">↗</span></a>
         <span class="pastehint">👉 開啟後按 <kbd>⌘V</kbd>／<kbd>Ctrl+V</kbd> 貼上</span>
       </div>
+      </div>
     </section>
 
     <div id="promptView" style="display:flex;flex-direction:column;gap:18px">
       <section class="card chips">
+        <div class="winbar"><div class="dots"><i></i><i></i><i></i></div><span class="blk">B</span><span class="fname">區塊 B｜附加自訂指令</span><span class="badge">勾選後自動加入 Prompt</span></div>
+        <div class="inner">
         <div class="chiprow" id="chips"></div>
         <div class="count"><span id="chars">0</span> 字元</div>
+        </div>
       </section>
       <section class="card win">
         <div class="winbar">
           <div class="dots"><i></i><i></i><i></i></div>
-          <span class="fname">SYSTEM_PROMPT.md（可直接複製貼給 Gemini / ChatGPT / Claude）</span>
+          <span class="blk">C</span>
+          <span class="fname">區塊 C｜SYSTEM_PROMPT.md（可直接複製貼給 Gemini / ChatGPT / Claude）</span>
           <span class="badge" id="badge"></span>
         </div>
         <div class="prompt" id="prompt"></div>
@@ -402,11 +414,8 @@ html[data-theme="dark"] .themebtn .moon{display:none}
     </div>
 
     <section class="card bench hidden" id="benchView">
+      <div class="winbar"><div class="dots"><i></i><i></i><i></i></div><span class="blk">D</span><span class="fname">區塊 D｜Markdown 轉譯結果預覽 ＆ 考題斷行一鍵修復工作台</span><span class="badge" id="curTpl"></span></div>
       <div class="benchhead">
-        <div class="benchtitle">
-          <h3>🛠️ Markdown 轉譯結果預覽 ＆ 考題斷行一鍵修復工作台</h3>
-          <span class="badge" id="curTpl"></span>
-        </div>
         <div class="toolbar">
           <button class="btn sm" id="loadTpl">📄 載入當前科目範本</button>
           <button class="btn sm" id="fixMd">✨ 一鍵修復斷行與公式碎裂</button>
@@ -419,11 +428,11 @@ html[data-theme="dark"] .themebtn .moon{display:none}
       </div>
       <div class="panes">
         <div class="pane">
-          <div class="panehead"><span>📝 Markdown 原始碼（可貼上 AI 轉出的內容進行清理與編輯）</span><button class="linkbtn" id="clearMd">清空內容</button></div>
+          <div class="panehead"><span><span class="blk sm">D-1</span>📝 Markdown 原始碼（可貼上 AI 轉出的內容進行清理與編輯）</span><button class="linkbtn" id="clearMd">清空內容</button></div>
           <textarea id="md" spellcheck="false" placeholder="請將 AI 轉譯出來的 Markdown 貼在此處，可即時預覽表格與單行考題排版、一鍵修復斷行，或直接匯出成 .md 檔案..."></textarea>
         </div>
         <div class="pane">
-          <div class="panehead"><span>👁️ 即時直觀渲染預覽（支援表格、標題與考卷填空線）</span><span class="tag">Live Preview</span></div>
+          <div class="panehead"><span><span class="blk sm">D-2</span>👁️ 即時直觀渲染預覽（支援表格、標題與考卷填空線）</span><span class="tag">Live Preview</span></div>
           <div class="preview" id="preview"></div>
         </div>
       </div>
@@ -586,7 +595,16 @@ exam:`# 國中數學 第一次段考 試題
 【附圖解構：幾何與坐標條件】
 • 圖形結構與頂點：長方形 ABCD，A 在左上，順時針排列。
 • 精確數值標註：AB = 8 公分，BC = 5 公分，四角皆有直角記號。
-• 陰影與輔助線：對角線 AC 以虛線繪製，△ABC 塗灰。`,
+• 陰影與輔助線：對角線 AC 以虛線繪製，△ABC 塗灰。
+
+~~~geogebra
+A=(0,5)
+B=(8,5)
+C=(8,0)
+D=(0,0)
+Polygon(A,B,C,D)
+Segment(A,C)
+~~~`,
 assess:`# 單元教學活動設計：分數的加減
 
 ## 一、課程單元基本盤
@@ -662,6 +680,7 @@ video:`# 科學實驗示範影片（.mp4）逐鏡與數據結構化解構
 - **誤差提醒**：滴定前未排除尖端氣泡、讀數未平視凹液面，或終點粉紅色未維持 30 秒即停止，都會造成濃度偏差。`
 };
 
+const SAMPLE_SUB = {"teach-1": "# 國中自然｜酸鹼中和反應\n\n## 一、反應式\n- 鹽酸與氫氧化鈉：HCl(aq) + NaOH(aq) → NaCl(aq) + H₂O(l)\n\n## 二、實驗裝置與步驟\n> **【實驗裝置圖解構】**\n> - **器材與連接方式**：錐形瓶置於白紙上，上方以鐵架固定滴定管。\n> - **操縱／控制／應變變因**：操縱：加入 0.10 M NaOH 體積；控制：0.10 M HCl 20.0 mL；應變：溶液 pH 值。\n> - **觀察現象與數據**：酚酞由無色轉為淺粉紅色，即達中和點。\n\n## 三、數據表\n| 加入 NaOH 體積 (mL) | 0 | 10.0 | 19.0 | 20.0 | 21.0 |\n| :--- | :---: | :---: | :---: | :---: | :---: |\n| 溶液 pH | 1.0 | 1.5 | 2.6 | 7.0 | 11.4 |\n\n- **趨勢與結論**：接近中和點時 pH 急遽上升，20.0 mL 時溶液呈中性。", "teach-2": "# 國中社會｜臺灣的歷史發展（日治到戰後）\n\n## 一、年代時間軸\n| 年代（西元／民國） | 事件 | 影響 |\n| :--- | :--- | :--- |\n| 1895 年（清光緒 21 年） | 清廷與日本簽訂馬關條約 | 臺灣、澎湖割讓給日本 |\n| 1945 年（民國 34 年） | 第二次世界大戰結束 | 中華民國政府接收臺灣 |\n| 1949 年（民國 38 年） | 中華民國中央政府遷臺 | 兩岸分治局面形成 |\n\n## 二、重點概念\n- **殖民統治**：日治時期推動基礎建設，同時實施同化政策。\n- **戰後接收**：政府體制、語言政策隨之改變。", "teach-3": "# 國中國文｜〈示例課文〉\n\n## 一、題解\n- **文體**：記敘文\n- **寫作背景**：作者回憶童年與祖父相處的片段（依課本題解填寫）。\n\n## 二、注釋與字詞\n| 字詞 | 注音 | 釋義 | 例句 |\n| :--- | :--- | :--- | :--- |\n| 躊躇 | ㄔㄡˊ ㄔㄨˊ | 猶豫不決 | 他躊躇再三，才決定報名。 |\n| 蹣跚 | ㄆㄢˊ ㄕㄢ | 走路緩慢、搖擺不穩 | 老人步履蹣跚地走過街口。 |\n\n## 三、修辭與結構\n- **譬喻**：「時間像流水」——以流水比喻時間不停流逝。\n- **段落結構**：起（引出回憶）→ 承（具體事例）→ 轉（心境轉折）→ 合（抒發感悟）。", "teach-4": "# 國中英語｜Unit 3 Shopping\n\n## 一、單字片語表\n| Word / Phrase | 詞性 | KK 音標 | 中文釋義 | Example Sentence |\n| :--- | :--- | :--- | :--- | :--- |\n| discount | n. | [ˋdɪskaʊnt] | 折扣 | We got a discount on the shirt. |\n| afford | v. | [əˋford] | 負擔得起 | I can't afford a new phone. |\n\n## 二、句型\n- `S + spend + 金錢／時間 + on + N.`：I spent 500 dollars on the shoes.\n- `It costs + 人 + 金錢 + to V.`：It cost me 300 dollars to fix the bike.\n\n## 三、對話\n**A:** How much is this jacket?\n**B:** It's 1,200 dollars, but it's 20% off today.", "teach-5": "# 本土語文（臺灣台語）｜日常問候\n\n## 一、語詞對照表\n| 漢字 | 臺灣台語羅馬字 | 華語釋義 | 例句 |\n| :--- | :--- | :--- | :--- |\n| 食飯 | tsia̍h-pn̄g | 吃飯 | 來食飯喔！ |\n| 歡喜 | huann-hí | 高興 | 我真歡喜。 |\n| 多謝 | to-siā | 謝謝 | 多謝你！ |\n\n## 二、課文三行對照\n- 你食飽未？\n- Lí tsia̍h-pá--buē?\n- 你吃飽了嗎？\n\n## 三、文化脈絡\n- 「食飽未」是長輩常用的問候語，表達關心而非真的詢問是否用餐。", "teach-6": "# 國中藝術｜認識印象派\n\n## 一、作品資訊\n| 作品 | 作者 | 年代 | 媒材 | 風格 |\n| :--- | :--- | :--- | :--- | :--- |\n| 印象・日出 | 莫內（Claude Monet） | 1872 | 油彩、畫布 | 印象派 |\n\n## 二、視覺元素分析\n- **色彩**：以藍灰色調為主，橘紅色太陽形成強烈對比。\n- **線條與筆觸**：短促、鬆散的筆觸表現水面波光。\n- **構圖**：港口晨景，太陽與倒影位於畫面視覺焦點。\n\n## 三、鑑賞提問\n1. 描述：畫面中你看到哪些景物？\n2. 分析：畫家如何表現光線？\n3. 詮釋：這幅畫給你什麼樣的感受？\n4. 評價：你認為這種畫法有什麼特色？", "teach-7": "# 國中健體｜籃球雙手胸前傳球\n\n## 一、動作技能分解\n1. **預備動作**：雙腳與肩同寬、膝微彎，雙手持球於胸前，手肘自然下垂。\n2. **主要動作**：前腳向傳球方向跨步，雙臂向前推伸，手腕外翻、拇指向下撥球。\n3. **結束動作**：雙臂伸直、掌心朝外，重心移至前腳。\n\n## 二、練習設計\n| 練習 | 距離 | 次數 |\n| :--- | :---: | :---: |\n| 兩人對傳 | 3 公尺 | 20 次 |\n| 移動中傳球 | 5 公尺 | 10 趟 |\n\n- ⚠️ 傳球前確認隊友已做好接球準備，避免球擊中臉部。", "teach-8": "# 國中科技｜Python 條件判斷\n\n## 一、程式碼\n```python\nscore = int(input(\"請輸入分數：\"))\nif score >= 60:\n    print(\"及格\")\nelse:\n    print(\"不及格\")\n```\n\n## 二、流程圖\n```mermaid\nflowchart TD\n  A[輸入分數] --> B{分數 >= 60?}\n  B -- 是 --> C[顯示及格]\n  B -- 否 --> D[顯示不及格]\n```\n\n## 三、操作步驟\n1. 開啟編輯器，選單 `檔案 > 新增檔案`。\n2. 貼上程式碼後按 `執行`。", "teach-9": "# 人權議題｜兒童權利公約\n\n## 一、公約條文重點\n- **第 12 條（表意權）**：兒童有權對影響自己的事情表達意見，其意見應依年齡與成熟度受到重視。\n\n## 二、權利類型對照\n| 權利類型 | 內涵 | 生活實例 |\n| :--- | :--- | :--- |\n| 生存權 | 生命與基本生活受到保障 | 獲得醫療照顧 |\n| 受保護權 | 免於暴力、剝削與歧視 | 校園反霸凌 |\n| 發展權 | 接受教育、休閒與遊戲 | 上學與參加社團 |\n| 參與權 | 表達意見、參與決策 | 在班會中發言 |\n\n## 三、討論提問\n1. 學校訂定校規時，學生的意見可以如何被納入？", "teach-10": "# 國小一年級生活｜校園探索\n\n## 一、主題架構\n- 主題：我的學校\n  - 活動一：校園大發現\n  - 活動二：認識學校裡的人\n\n## 二、插圖描述\n- 圖①：三位小朋友背著書包站在校門口，對著老師揮手微笑。\n- 圖②：花圃裡開著紅色與黃色的花，一隻蝴蝶停在花上。\n\n## 三、探索步驟\n1. 觀察：找一找校園裡的植物。\n2. 記錄：把看到的植物畫下來。\n3. 分享：告訴同學你最喜歡哪一種植物。", "exam-1": "# 國中自然 第二次段考 試題\n\n## 一、選擇題\n\n1. 下列哪一個化學式代表水？\n\n(A) H₂O₂\n\n(B) H₂O\n\n(C) HO₂\n\n(D) H₃O\n\n## 二、題組\n某生以彈簧與砝碼進行實驗，記錄如下：\n\n| 砝碼質量 (g) | 50 | 100 | 150 |\n| :--- | :---: | :---: | :---: |\n| 彈簧伸長量 (cm) | 1.0 | 2.0 | 3.0 |\n\n【附圖解構：實驗裝置與數據】\n• 裝置組成：鐵架、彈簧、刻度尺、砝碼。\n• 變因設定：操縱變因為砝碼質量；應變變因為彈簧伸長量。\n\n(1) 彈簧伸長量與砝碼質量成 ＿＿＿＿＿＿ 關係\n\n(2) 若掛上 200 g 砝碼，伸長量為 ＿＿＿＿＿＿ cm", "exam-2": "# 國中國文 段考試題\n\n## 一、字音字形\n\n1. 下列「 」內的字，何者讀音正確？\n\n(A) 「躊」躇：ㄔㄡˊ\n\n(B) 蹣「跚」：ㄕㄢˋ\n\n(C) 「惆」悵：ㄓㄡ\n\n(D) 「贗」品：ㄧㄢˊ\n\n## 二、閱讀測驗\n清晨的市場人聲鼎沸，攤販的吆喝聲此起彼落。阿嬤牽著我的手，一攤一攤地比價，卻總在最熟悉的那攤停下腳步。\n\n2. 文中阿嬤「總在最熟悉的那攤停下腳步」，最可能表現她重視什麼？\n\n(A) 價格最便宜\n\n(B) 人情與信任\n\n(C) 商品種類多\n\n(D) 攤位位置近\n\n## 三、非選擇題\n3. 請以「市場」為題，寫一段 100 字以內的短文。\n＿＿＿＿＿＿", "exam-3": "# 國中英語 段考試題\n\n## 一、克漏字\nTom (1) ＿＿＿＿＿＿ to school by bus every day. Yesterday, he (2) ＿＿＿＿＿＿ late because the bus broke down.\n\n(1)\n\n(A) go\n\n(B) goes\n\n(C) going\n\n(D) gone\n\n(2)\n\n(A) is\n\n(B) was\n\n(C) were\n\n(D) be\n\n## 二、閱讀題組\n| Bus No. | From | To | Departure |\n| :---: | :--- | :--- | :---: |\n| 25 | Station | Library | 08:10 |\n| 31 | Station | Museum | 08:25 |\n\n3. Which bus should Amy take to go to the museum?\n\n(A) Bus 25\n\n(B) Bus 31", "exam-4": "# 國中社會 段考試題\n\n## 一、選擇題\n\n1. 西元 1895 年，清廷與日本簽訂哪一項條約，將臺灣割讓給日本？\n\n(A) 南京條約\n\n(B) 天津條約\n\n(C) 馬關條約\n\n(D) 北京條約\n\n## 二、地圖題組\n【附圖解構：地圖與圖資】\n• 圖名、方位與比例尺：臺灣行政區域圖，指北針朝上。\n• 圖例符號與代號位置：甲位於臺灣北端，乙位於西南沿海，丙位於東部。\n\n2. 圖中甲地最可能位於哪一個縣市？\n\n(A) 新北市\n\n(B) 高雄市\n\n(C) 花蓮縣\n\n(D) 臺南市", "exam-5": "# 跨領域素養題組｜校園用電（示例數據）\n\n## 資料一：某國中各月用電度數\n| 月份 | 3 月 | 6 月 | 9 月 | 12 月 |\n| :--- | :---: | :---: | :---: | :---: |\n| 用電度數（度） | 12,000 | 18,500 | 17,800 | 11,200 |\n\n## 資料二：學校公告\n學校自 6 月起，於各班教室加裝冷氣。\n\n## 題目\n1.（引用資料一）用電最多的月份是 ＿＿＿＿＿＿ 月\n\n2.（引用資料一、二）請說明 6 月用電增加的可能原因。\n＿＿＿＿＿＿", "exam-6": "# 國小一年級 生活評量\n\n## 一、連連看：把動物和牠住的地方連起來\n| 動物 | 住的地方 |\n| :--- | :--- |\n| 魚 | 鳥巢 |\n| 鳥 | 池塘 |\n\n## 二、看圖回答\n- 圖①：一位小朋友蹲在花圃旁，用澆水壺幫花澆水。\n\n1. 圖①的小朋友正在做什麼？ ＿＿＿＿＿＿\n\n## 三、勾選：下列哪些是愛護校園的行為？\n☐ 隨手撿起地上的垃圾\n☐ 在牆上塗鴉\n☐ 輕輕關上教室的門", "assess-1": "# 國中數學 第一次段考 雙向細目表\n\n## 一、雙向細目表（數字為配分）\n| 教學目標／單元 | 記憶 | 理解 | 應用 | 分析 | 評鑑 | 創造 | 小計 |\n| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: |\n| 1-1 二次函數的圖形 | 8 | 12 | 10 | 0 | 0 | 0 | 30 |\n| 1-2 配方法與頂點 | 8 | 12 | 14 | 6 | 0 | 0 | 40 |\n| 1-3 二次函數的應用 | 4 | 8 | 12 | 6 | 0 | 0 | 30 |\n| **合計** | **20** | **32** | **36** | **12** | **0** | **0** | **100** |\n\n## 二、題型分布\n| 題型 | 題數 | 每題配分 | 小計 |\n| :--- | :---: | :---: | :---: |\n| 選擇題 | 10 | 4 | 40 |\n| 填充題 | 6 | 6 | 36 |\n| 非選擇題 | 3 | 8 | 24 |", "assess-2": "# 評量規準｜小組口頭報告\n\n## 一、規準矩陣\n| 評量向度 | 優秀（A） | 良好（B） | 基礎（C） | 待加強（D） |\n| :--- | :--- | :--- | :--- | :--- |\n| 內容正確性 | 內容完全正確，並能延伸補充 | 內容正確 | 部分內容有誤 | 多處錯誤 |\n| 表達清晰度 | 條理分明、音量適中、能回應提問 | 條理清楚 | 偶有停頓或跳躍 | 難以理解 |\n| 團隊合作 | 分工明確且每人都有發表 | 大多數成員參與 | 少數成員參與 | 由一人完成 |\n\n## 二、分數與權重\n- 每向度 A＝4 分、B＝3 分、C＝2 分、D＝1 分。\n- 權重：內容正確性 40%、表達清晰度 40%、團隊合作 20%。", "assess-3": "# 自主探究學習單｜校園植物大調查\n\n## 一、提出問題\n1. 我想知道的問題：＿＿＿＿＿＿\n\n## 二、蒐集資料\n| 日期 | 植物名稱 | 葉子形狀 | 觀察發現 |\n| :--- | :--- | :--- | :--- |\n|  |  |  |  |\n|  |  |  |  |\n\n## 三、分析歸納\n2. 我發現這些植物的共同點是：＿＿＿＿＿＿\n\n## 四、自評檢核\n- [ ] 我有記錄至少 3 種植物\n- [ ] 我能說出植物的特徵\n- [ ] 我能和同學分享發現", "assess-4": "# 生活課程主題統整設計｜我的家人\n\n## 一、主題網\n- 我的家人\n  - 認識家人：家人的稱謂與工作\n  - 感謝家人：製作感謝卡\n  - 家事小幫手：學做一件家事\n\n## 二、統整活動設計\n| 活動名稱 | 節數 | 學習重點 | 教學資源 | 評量方式 |\n| :--- | :---: | :--- | :--- | :--- |\n| 家人小檔案 | 2 | 介紹家人 | 全家福照片 | 口語發表 |\n| 感謝卡製作 | 2 | 表達感謝 | 色紙、彩色筆 | 作品評量 |\n\n## 三、觀察紀錄表\n| 座號 | 能說出家人稱謂 | 能表達感謝 |\n| :---: | :--- | :--- |\n| 1 | ☐ 優 ☐ 良 ☐ 待加強 | ☐ 優 ☐ 良 ☐ 待加強 |", "admin-1": "# ○○國中 115 年度閱讀推廣計畫｜期末成果\n\n## 一、計畫基本資料\n- **執行期間**：115 年 2 月 1 日至 115 年 7 月 31 日\n- **預算總額**：新臺幣 50,000 元\n- **主辦單位**：教務處（圖書館）\n\n## 二、績效指標（KPI）\n| 目標 | 量化指標 | 目標值 | 實際達成 | 達成率 |\n| :--- | :--- | :---: | :---: | :---: |\n| 提升借閱量 | 每生平均借閱冊數 | 10 冊 | 12 冊 | 120% |\n| 推廣晨讀 | 參與班級數 | 20 班 | 18 班 | 90% |\n\n## 三、困難與改進\n- 部分班級晨讀時間與小考衝突 → 下學期改為每週固定兩天晨讀。", "admin-2": "# ○○國中 115 學年度第 1 次行政會議紀錄\n\n- **時間**：115 年 9 月 2 日（星期三）上午 10 時\n- **地點**：行政大樓會議室\n- **主席**：○校長　**紀錄**：○○○\n- **出席人員**：各處室主任、組長\n\n## 一、報告事項\n- **教務處**：本學期第一次段考訂於 10 月中旬舉行。\n\n## 二、提案討論\n### 案由一：校慶活動日期案\n- **說明**：配合場地與天候，擬定校慶日期。\n- **決議**：校慶訂於 115 年 11 月 21 日（星期六）舉行。\n\n## 三、決議追蹤表\n| 決議事項 | 負責單位 | 完成期限 | 追蹤狀態 |\n| :--- | :--- | :--- | :--- |\n| 校慶活動規劃 | 學務處 | 2026-10-15 | 進行中 |", "admin-3": "# ○○國中 寒假科學營 經費預算表\n\n| 經費項目 | 單價 | 數量 | 單位 | 總價 | 說明 |\n| :--- | ---: | ---: | :---: | ---: | :--- |\n| 講師鐘點費 | 2,000 | 6 | 節 | 12,000 | 外聘講師 |\n| 實驗耗材 | 150 | 40 | 份 | 6,000 | 學生實作 |\n| 印刷費 | 5 | 400 | 張 | 2,000 | 學習單 |\n| **合計** |  |  |  | **20,000** |  |\n\n- 經費來源：教育局補助款。", "admin-4": "# 七年級導師群組討論整理（115/10/05）\n\n## 一、對話時間軸\n| 時間 | 發言者 | 重點內容 |\n| :--- | :--- | :--- |\n| 19:02 | 學年主任 | 提醒週五前繳交校外教學同意書 |\n| 19:10 | 701 導師 | 詢問是否需附家長簽名 |\n| 19:12 | 學年主任 | 需家長簽名，收齊後統一送學務處 |\n\n## 二、決定事項\n- 校外教學同意書須有家長簽名，於 10 月 9 日（星期五）前送學務處。\n\n## 三、待辦分工\n- [ ] 收齊並檢查同意書簽名（各班導師／2026-10-09）\n- [ ] 彙整全學年名單（學年主任／2026-10-12）", "web-1": "# 【科普網頁】為什麼天空是藍色的？\n\n- **來源**：○○科普網｜**作者**：○○○｜**發布日期**：依原網頁標示\n\n## 一、核心概念\n- 太陽光進入大氣後，波長較短的藍光比紅光更容易被空氣分子散射，這種現象稱為瑞利散射。\n- 傍晚時陽光穿過的大氣路徑較長，藍光多被散射掉，因此天空偏紅橙色。\n\n## 二、事實與觀點\n| 類型 | 內容 |\n| :--- | :--- |\n| 事實 | 瑞利散射的強度與波長的四次方成反比。 |\n| 觀點 | 作者認為這是日常生活中最容易觀察的物理現象之一。 |\n\n## 三、媒體識讀提問\n1. 文中哪些說法有附上資料來源？", "web-2": "# 【互動模擬】力與運動（示例）\n\n- **平台**：PhET 互動模擬｜**適用**：國中自然・力與運動\n\n## 一、介面控制項\n| 控制項名稱 | 類型 | 可調範圍與單位 | 功能說明 |\n| :--- | :--- | :--- | :--- |\n| 施力 | 滑桿 | 依介面顯示（N） | 調整推力大小與方向 |\n| 摩擦力 | 滑桿 | 無 ～ 大 | 調整地面摩擦程度 |\n| 顯示速度 | 勾選 | — | 在畫面上顯示速度 |\n\n## 二、操作與觀察\n1. 摩擦力設為「無」並施力 → 物體持續加速 → 合力不為零時物體產生加速度。\n2. 停止施力 → 物體以等速度前進 → 牛頓第一運動定律。\n\n## 三、探究任務\n1. 施力相同時，改變物體質量，加速度如何變化？", "web-3": "# 【線上課程】國中數學：一元一次方程式\n\n## 一、課程架構\n- 第 1 章 方程式的意義（12 分鐘）\n  - 1-1 什麼是方程式\n  - 1-2 等量公理\n- 第 2 章 解一元一次方程式（18 分鐘）\n\n## 二、學習目標\n- 能運用等量公理解一元一次方程式。\n\n## 三、單元測驗\n1. 解方程式 2x + 3 = 11，x = ＿＿＿＿＿＿\n\n## 四、作業要求\n| 作業 | 繳交期限 | 評分方式 |\n| :--- | :--- | :--- |\n| 練習卷一 | 第 2 週 | 正確率 |", "web-4": "# 【法規網頁】法規條文整理（格式示例）\n\n- **來源**：全國法規資料庫｜**擷取日期**：2026-11-12\n- **法規名稱**：（依網頁照錄）｜**修正日期**：（依網頁照錄）\n\n## 一、條文結構\n- **第 1 條**\n  - 第 1 項：（條文原文依網頁照錄，不改寫）\n- **第 2 條**\n  - 第 1 項：（條文原文）\n    - 第 1 款：（條文原文）\n\n## 二、欄位定義\n| 欄位 | 說明 |\n| :--- | :--- |\n| 條 | 法規的基本單位 |\n| 項 | 條之下的段落 |\n| 款 | 項之下的列舉 |", "video-1": "# 公開授課錄影解構｜七年級數學「負數的認識」\n\n- **授課教師**：○○○｜**課堂總長**：45:00\n\n## 一、教學流程時間軸\n| 時間戳記 | 教學階段 | 教師教學行為 | 學生學習表現 | 板書或投影片內容 |\n| :--- | :--- | :--- | :--- | :--- |\n| [00:00 - 05:30] | 引起動機 | 提問：「氣溫零下 3 度要怎麼記錄？」 | 學生舉手回答「−3」 | 溫度計圖片 |\n| [05:31 - 25:00] | 發展活動 | 示範在數線上標示正負數 | 小組在數線上貼數字卡 | 數線 −5 ～ 5 |\n| [25:01 - 40:00] | 綜合活動 | 引導比較兩數大小 | 學生上台說明理由 | 比較題 3 題 |\n\n## 二、觀課證據\n- **學習動機**：[03:10] 多數學生主動舉手回答。\n- **合作學習**：[12:40] 小組討論數字卡的位置。", "video-2": "# 微課程｜Google 表單建立測驗\n\n- **軟體**：Google 表單（網頁版）\n\n## 一、逐步操作時間軸\n| 時間戳記 | 步驟 | 操作路徑 | 輸入值／設定值 | 畫面結果 |\n| :--- | :---: | :--- | :--- | :--- |\n| [00:20] | 1 | 設定 > 測驗 > 設為測驗 | 開啟 | 題目出現「答案」設定 |\n| [01:05] | 2 | 點選題目 > 答案 | 正確答案 B，配分 5 | 題目右下角顯示 5 分 |\n| [02:10] | 3 | 傳送 > 連結 | 縮短網址 | 產生分享連結 |\n\n## 二、常見錯誤\n- ⚠️ 未開啟「設為測驗」就無法設定答案與配分。", "video-3": "# 活動紀錄影片｜二年級生活課「我們的種子日記」成果發表\n\n- **日期**：115 年 5 月 20 日（星期三）｜**參與班級**：二年○班\n\n## 一、活動流程時間軸\n| 時間戳記 | 場景 | 參與者動作與發言重點 |\n| :--- | :--- | :--- |\n| [00:30] | 教室前方 | 3 號學生拿著綠豆觀察紀錄，說明「第三天長出根」 |\n| [02:15] | 教室前方 | 第二組輪流持海報，分工介紹發芽過程 |\n\n## 二、學習表現證據\n- **合作**：[02:15] 小組成員輪流發表，彼此補充。\n- **觀察記錄**：[00:30] 能依日期說出種子的變化。\n\n## 三、作品呈現\n- 海報以圖畫記錄第 1、3、5 天的綠豆變化，並標上日期。", "video-4": "# 繪本動畫解構｜《小樹的四季》（示例）\n\n- **片長**：06:30｜**適用**：國小低年級\n\n## 一、角色介紹\n| 角色 | 特徵 | 故事定位 |\n| :--- | :--- | :--- |\n| 小樹 | 長在山坡上，個性害羞 | 主角 |\n| 小鳥 | 活潑愛唱歌 | 小樹的朋友 |\n\n## 二、分鏡時間軸\n| 時間戳記 | 場景畫面描述 | 角色對白／旁白 | 情節發展 |\n| :--- | :--- | :--- | :--- |\n| [00:15] | 春天，小樹冒出嫩綠新芽 | 旁白：「春天來了。」 | 開頭 |\n| [03:20] | 冬天，小鳥在樹枝上避雪 | 小鳥：「謝謝你保護我！」 | 高潮 |\n\n## 三、延伸提問\n1. 小樹在哪個季節最開心？為什麼？"};
 /* ============ 領域與科目 ============ */
 const T = (t,b)=>({t,b});
 const DOMAINS = [
@@ -873,7 +892,12 @@ function renderMain(){
   renderChips();
 }
 
-function render(){ applyTheme(); renderSidebar(); renderMain(); }
+function render(){ applyTheme(); renderSidebar(); renderMain(); syncSample(); }
+function syncSample(){
+  if(typeof mdBox==="undefined"||!mdBox) return;
+  const v=mdBox.value.trim();
+  if(!v || (lastSample!==null && mdBox.value===lastSample)){ if(view==="bench"||v) loadSample(); }
+}
 
 function setView(v){
   view = v;
@@ -1042,7 +1066,9 @@ async function download(name,txt){
   }catch(e){ copyText(txt,"無法下載，已改為複製到剪貼簿"); }
 }
 function safeName(s){ return s.replace(/[\/\\:*?"<>|\s()（）]+/g,"_").replace(/_+$/,""); }
-function loadSample(){ mdBox.value = SAMPLE[DOMAINS[dIdx].sample]; renderPreview(); }
+let lastSample = null;
+function sampleFor(di,si){ const d=DOMAINS[di]; return SAMPLE_SUB[d.id+"-"+si] || SAMPLE[d.sample]; }
+function loadSample(){ mdBox.value = sampleFor(dIdx,sIdx); lastSample = mdBox.value; renderPreview(); }
 
 /* ============ 事件 ============ */
 $("domains").addEventListener("click",e=>{ const b=e.target.closest("button"); if(!b) return; dIdx=+b.dataset.d; sIdx=0; $("q").value=""; render(); });
