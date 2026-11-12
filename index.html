@@ -36,7 +36,7 @@ html[data-theme="dark"] .notice{background:#5a4512;color:#f6dd8f;border-bottom-c
 .hero .actions .btn.solid,.hero .actions .btn.tint{background:transparent;color:var(--muted);border-color:var(--line)}
 .hero .actions .btn.solid:hover,.hero .actions .btn.tint:hover{color:var(--accent-ink);border-color:var(--accent);background:var(--soft);filter:none}
 /* AI 啟動按鈕 */
-.launch{position:relative;display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-top:18px;padding:14px 16px;border-radius:14px;
+.launch{position:relative;display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-top:16px;padding:14px 16px;border-radius:14px;
   background:linear-gradient(100deg,var(--accent-soft) 0%,var(--card) 85%);border:1.5px solid var(--accent);border-left-width:6px;
   animation:launchPulse 3.2s ease-in-out infinite}
 @keyframes launchPulse{0%,70%,100%{box-shadow:0 0 0 0 rgba(0,0,0,0)}82%{box-shadow:0 0 0 6px var(--accent-soft),0 6px 18px rgba(0,0,0,.08)}}
@@ -118,6 +118,7 @@ header{position:sticky;top:0;z-index:20;background:var(--header-bg);backdrop-fil
 .steps button .n{width:20px;height:20px;border-radius:50%;background:var(--accent-soft);color:var(--accent-ink);display:grid;place-items:center;font-size:12px}
 .steps button.on{background:var(--field);color:var(--ink);box-shadow:0 1px 3px rgba(0,0,0,.08)}
 .steps button.on .n{background:var(--accent);color:#fff}
+.steps button .n{background:none!important;width:auto;height:auto;font-size:15px}
 /* layout */
 .wrap{max-width:1280px;margin:0 auto;padding:24px 28px 60px;display:grid;grid-template-columns:325px 1fr;gap:24px;align-items:start}
 aside{background:var(--card);border-radius:18px;box-shadow:0 2px 10px var(--shadow);position:sticky;top:86px;max-height:calc(100vh - 106px);overflow:auto}
@@ -229,13 +230,14 @@ main{display:flex;flex-direction:column;gap:18px;min-width:0}
 .blk.sm{min-width:auto;height:19px;font-size:11px;margin-right:6px;vertical-align:1px}
 .dots{display:flex;gap:6px}.dots i{width:10px;height:10px;border-radius:50%;background:var(--dot);display:block}
 .fname{font-size:13px;font-weight:700;color:var(--ink2)}
+.badge.cnt{background:var(--soft);color:var(--muted);font-family:var(--mono);font-weight:600}
 .badge{font-size:11.5px;font-weight:700;background:var(--accent-soft);color:var(--accent-ink);padding:4px 10px;border-radius:6px}
 .prompt{padding:22px 26px 28px;font-family:var(--mono);font-size:14px;line-height:1.95;color:var(--prompt-ink);white-space:pre-wrap;word-break:break-word;max-height:none}
 .prompt .h{display:inline-block;background:var(--accent-soft);color:var(--accent-ink);font-weight:700;padding:0 8px;border-radius:5px;margin:8px 0 2px}
 .prompt .q{color:var(--accent-ink)}
 .prompt code{background:var(--code-bg);color:var(--code-ink);border-radius:4px;padding:1px 6px;font-family:var(--mono);font-size:12.5px}
 .prompt .k{color:var(--muted)}
-.prompt .add{background:var(--add-bg);display:block;border-left:3px solid #e2b54b;padding:2px 10px;margin:2px 0}
+.prompt .add{background:var(--add-bg);display:inline-block;width:100%;box-sizing:border-box;border-left:3px solid #e2b54b;padding:2px 10px;margin:2px 0}
 /* workbench */
 .bench{overflow:hidden}
 .benchhead{padding:12px 22px 16px;border-bottom:1px solid var(--line);background:var(--soft)}
@@ -312,11 +314,15 @@ body,header,aside,.card,.btn,.chip,textarea,.preview,.steps{transition:backgroun
   .prompt{padding:16px;font-size:13px}
 }
 /* 使用提示 */
-.hint{position:fixed;top:74px;right:max(16px,calc((100vw - 1280px)/2 + 28px));z-index:70;width:min(360px,calc(100vw - 32px));background:var(--card);color:var(--ink);border:1px solid var(--line);border-top:4px solid var(--accent);border-radius:14px;box-shadow:0 14px 34px rgba(0,0,0,.2);padding:12px 16px 14px;opacity:0;transform:translateY(-6px);pointer-events:none;transition:.18s}
+.hint{position:fixed;top:74px;right:max(16px,calc((100vw - 1280px)/2 + 28px));z-index:70;width:min(1000px,calc(100vw - 32px));background:var(--card);color:var(--ink);border:1px solid var(--line);border-top:4px solid var(--accent);border-radius:14px;box-shadow:0 14px 34px rgba(0,0,0,.2);padding:12px 16px 14px;opacity:0;transform:translateY(-6px);pointer-events:none;transition:.18s}
 .hint.show{opacity:1;transform:none;pointer-events:auto}
 .hhead{display:flex;justify-content:space-between;align-items:center;font-size:14.5px;color:var(--accent-ink)}
 .hint ol{margin:8px 0 0;padding-left:20px}
-.hint li{font-size:13.5px;line-height:1.75;color:var(--ink2);margin:3px 0}
+.hint li{font-size:14px;line-height:1.7;color:var(--ink2);margin:4px 0}
+.hint{padding:12px 22px 14px}
+.hint ul.hl{list-style:none;margin:8px 0 0;padding:0}
+.hint ul.hl li{display:flex;align-items:baseline;gap:10px}
+.hint .hk{flex:none;display:inline-block;min-width:54px;text-align:center;font-size:12px;font-weight:800;color:#fff;background:var(--accent);border-radius:6px;padding:1px 8px;line-height:1.7}
 .hint li b{color:var(--ink)}
 .mclose{width:28px;height:28px;border-radius:8px;border:1px solid var(--line);background:var(--field);color:var(--ink);font-size:13px}
 .mclose:hover{background:var(--hover)}
@@ -342,10 +348,10 @@ html[data-theme="dark"] .themebtn .moon{display:none}
     </div>
     <div class="hright">
     <div class="steps" role="tablist">
-      <button id="tabPrompt" class="on"><span class="n">1</span><span class="long">取得 VLM 轉譯 Prompt</span><span class="short">取得 Prompt</span></button>
-      <button id="tabBench"><span class="n">2</span><span class="long">Markdown 修復與預覽工作台</span><span class="short">修復工作台</span></button>
+      <button id="tabPrompt" class="on"><span class="n">📋</span><span class="long">取得 VLM 轉譯 Prompt</span><span class="short">取得 Prompt</span></button>
+      <button id="tabBench"><span class="n">🛠️</span><span class="long">Markdown 修復與預覽工作台</span><span class="short">修復工作台</span></button>
     </div>
-    <button class="themebtn helpbtn" id="helpBtn" title="使用說明" aria-label="使用說明">?</button>
+    <button class="themebtn helpbtn" id="helpBtn" title="使用提示" aria-label="使用提示">?</button>
     <button class="themebtn" id="themeBtn" title="切換淺色／深色模式" aria-label="切換淺色／深色模式">
       <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
       <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2.2M12 19.8V22M4.9 4.9l1.6 1.6M17.5 17.5l1.6 1.6M2 12h2.2M19.8 12H22M4.9 19.1l1.6-1.6M17.5 6.5l1.6-1.6"/></svg>
@@ -358,7 +364,7 @@ html[data-theme="dark"] .themebtn .moon{display:none}
   <aside>
     <div class="search"><label>
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#888" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
-      <input id="q" type="text" placeholder="快速篩選科目或關鍵字...">
+      <input id="q" type="text" placeholder="快速篩選科目或關鍵字…">
     </label></div>
     <div class="sec">
       <div class="sechead"><span>步驟一：選擇轉譯目標領域</span><span id="domCount"></span></div>
@@ -372,18 +378,26 @@ html[data-theme="dark"] .themebtn .moon{display:none}
 
   <main>
     <section class="card hero">
-      <div class="winbar"><div class="dots"><i></i><i></i><i></i></div><span class="blk">A</span><span class="fname">區塊 A｜科目資訊與一鍵開啟 AI</span><span class="badge">選好科目後從這裡開始</span></div>
+      <div class="winbar"><div class="dots"><i></i><i></i><i></i></div><span class="blk">A</span><span class="fname">區塊 A｜科目資訊與注重重點</span><span class="badge">選好科目後從這裡開始</span></div>
       <div class="inner">
       <div class="crumb"><span id="crDom"></span><span>›</span><span id="crSub"></span></div>
       <h2 id="title"></h2>
       <div class="focus" id="desc"></div>
       <div class="actions">
-        <button class="btn tint" id="toggleView">👁️ 檢視輸出範本</button>
-        <button class="btn" id="dlPrompt">💾 下載 .md</button>
+        <button class="btn tint" id="toggleView">🛠️ 前往工作台看範本</button>
+        <button class="btn" id="dlPrompt">💾 下載 Prompt（.md）</button>
         <button class="btn solid" id="copyPrompt">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>
-          一鍵複製 Prompt</button>
+          複製 Prompt</button>
       </div>
+      </div>
+    </section>
+
+    <div id="promptView" style="display:flex;flex-direction:column;gap:18px">
+      <section class="card chips">
+        <div class="winbar"><div class="dots"><i></i><i></i><i></i></div><span class="blk">B</span><span class="fname">區塊 B｜補充轉譯要求與開啟 AI</span><span class="badge">勾選後按下方按鈕開啟 AI</span></div>
+        <div class="inner">
+        <div class="chiprow" id="chips"></div>
       <div class="launch">
         <span class="ll"><span class="rocket">🚀</span>複製並開啟新對話<span class="arrow">→</span></span>
         <a class="ai" data-ai="Gemini" href="https://gemini.google.com/app" target="_blank" rel="noopener"><i style="background:linear-gradient(135deg,#4f8df5,#9b72f2)"></i>Gemini<span class="ext">↗</span></a>
@@ -391,35 +405,27 @@ html[data-theme="dark"] .themebtn .moon{display:none}
         <a class="ai" data-ai="Claude" href="https://claude.ai/new" target="_blank" rel="noopener"><i style="background:#d97757"></i>Claude<span class="ext">↗</span></a>
         <span class="pastehint">👉 開啟後按 <kbd>⌘V</kbd>／<kbd>Ctrl+V</kbd> 貼上</span>
       </div>
-      </div>
-    </section>
-
-    <div id="promptView" style="display:flex;flex-direction:column;gap:18px">
-      <section class="card chips">
-        <div class="winbar"><div class="dots"><i></i><i></i><i></i></div><span class="blk">B</span><span class="fname">區塊 B｜附加自訂指令</span><span class="badge">勾選後自動加入 Prompt</span></div>
-        <div class="inner">
-        <div class="chiprow" id="chips"></div>
-        <div class="count"><span id="chars">0</span> 字元</div>
         </div>
       </section>
       <section class="card win">
         <div class="winbar">
           <div class="dots"><i></i><i></i><i></i></div>
           <span class="blk">C</span>
-          <span class="fname">區塊 C｜SYSTEM_PROMPT.md（可直接複製貼給 Gemini / ChatGPT / Claude）</span>
+          <span class="fname">區塊 C｜SYSTEM_PROMPT.md（完整 Prompt 預覽）</span>
           <span class="badge" id="badge"></span>
+          <span class="badge cnt"><span id="chars">0</span> 字元</span>
         </div>
         <div class="prompt" id="prompt"></div>
       </section>
     </div>
 
     <section class="card bench hidden" id="benchView">
-      <div class="winbar"><div class="dots"><i></i><i></i><i></i></div><span class="blk">D</span><span class="fname">區塊 D｜Markdown 轉譯結果預覽 ＆ 考題斷行一鍵修復工作台</span><span class="badge" id="curTpl"></span></div>
+      <div class="winbar"><div class="dots"><i></i><i></i><i></i></div><span class="blk">D</span><span class="fname">區塊 D｜Markdown 修復與預覽工作台</span><span class="badge" id="curTpl"></span></div>
       <div class="benchhead">
         <div class="toolbar">
-          <button class="btn sm" id="loadTpl">📄 載入當前科目範本</button>
-          <button class="btn sm" id="fixMd">✨ 一鍵修復斷行與公式碎裂</button>
-          <button class="btn sm" id="dlMd">💾 匯出 .md 檔</button>
+          <button class="btn sm" id="loadTpl">📄 載入本科範本</button>
+          <button class="btn sm" id="fixMd">✨ 一鍵修復斷行與公式</button>
+          <button class="btn sm" id="dlMd">💾 下載結果（.md）</button>
           <a class="btn sm ggball hidden" id="ggbAll" href="https://www.geogebra.org/classic" target="_blank" rel="noopener">📐 GeoGebra</a>
           <button class="btn sm solid" id="copyMd">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>
@@ -428,11 +434,11 @@ html[data-theme="dark"] .themebtn .moon{display:none}
       </div>
       <div class="panes">
         <div class="pane">
-          <div class="panehead"><span><span class="blk sm">D-1</span>📝 Markdown 原始碼（可貼上 AI 轉出的內容進行清理與編輯）</span><button class="linkbtn" id="clearMd">清空內容</button></div>
-          <textarea id="md" spellcheck="false" placeholder="請將 AI 轉譯出來的 Markdown 貼在此處，可即時預覽表格與單行考題排版、一鍵修復斷行，或直接匯出成 .md 檔案..."></textarea>
+          <div class="panehead"><span><span class="blk sm">D-1</span>📝 Markdown 原始碼（貼上 AI 回傳內容）</span><button class="linkbtn" id="clearMd">清空內容</button></div>
+          <textarea id="md" spellcheck="false" placeholder="請將 AI 轉譯出來的 Markdown 貼在此處，可即時預覽表格與單行考題排版、一鍵修復斷行，或下載成 .md 檔案…"></textarea>
         </div>
         <div class="pane">
-          <div class="panehead"><span><span class="blk sm">D-2</span>👁️ 即時直觀渲染預覽（支援表格、標題與考卷填空線）</span><span class="tag">Live Preview</span></div>
+          <div class="panehead"><span><span class="blk sm">D-2</span>👁️ 即時預覽（表格、標題、填空線）</span></div>
           <div class="preview" id="preview"></div>
         </div>
       </div>
@@ -444,13 +450,14 @@ html[data-theme="dark"] .themebtn .moon{display:none}
 
 <div class="hint" id="help" role="dialog" aria-label="使用提示">
   <div class="hhead"><b>💡 使用提示</b><button class="mclose" id="helpClose" aria-label="關閉">✕</button></div>
-  <ol>
-    <li>左側選<b>領域</b>→<b>科目</b>；滑鼠停在按鈕上可看說明泡泡。</li>
-    <li>在泡泡內輸入要<b>外加注重</b>的事項（可用「、」分隔），按<b>確認加入</b>，可重複加多項。</li>
-    <li>視需要點選<b>⚡ 附加自訂指令</b>：上排為通用，下排「💡 建議」會依科目屬性提供不同選項。</li>
-    <li>按<b>一鍵複製 Prompt</b>，或直接點 <b>Gemini／ChatGPT／Claude</b>（自動複製並開新對話），貼上後再上傳檔案。</li>
-    <li>點上方第 <b>2</b> 步「<b>Markdown 修復與預覽工作台</b>」，貼上 AI 回傳的內容，按<b>✨ 一鍵修復</b>後匯出 .md。若有 GeoGebra 指令，按<b>📐 複製並開啟 GeoGebra</b> 即可重建圖形。</li>
-  </ol>
+  <ul class="hl">
+    <li><span class="hk">步驟一</span><span class="ht">左側選<b>轉譯目標領域</b>（滑鼠停在按鈕上可看說明）。</span></li>
+    <li><span class="hk">步驟二</span><span class="ht">再選<b>細項科目</b>；滑鼠移進科目泡泡，可輸入<b>外加注重事項</b>（可用「、」分隔、可加多項），按<b>確認加入</b>。</span></li>
+    <li><span class="hk">區塊 A</span><span class="ht">確認本科目注重重點，以及你外加的注重事項。</span></li>
+    <li><span class="hk">區塊 B</span><span class="ht">視需要勾選<b>補充轉譯要求</b>，再點 <b>Gemini／ChatGPT／Claude</b>（自動複製並開新對話），按 <b>⌘V／Ctrl+V</b> 貼上後上傳檔案。</span></li>
+    <li><span class="hk">區塊 C</span><span class="ht">可預覽即將送出的完整 Prompt 與字元數。</span></li>
+    <li><span class="hk">區塊 D</span><span class="ht">切到上方「<b>🛠️ Markdown 修復與預覽工作台</b>」，貼上 AI 回傳內容，按<b>✨ 一鍵修復</b>後下載；有 GeoGebra 指令可按 <b>📐</b> 重建圖形。</span></li>
+  </ul>
 </div>
 <div class="homefab" id="homeFab"></div>
 <div class="tip" id="tip"></div>
@@ -482,8 +489,8 @@ s1:"### 1. 視覺與聽覺雙軌同步原則\n- **時間軸章節錨定（Timest
 };
 
 const EXTRAS = [
- {id:"page",label:"保留頁碼/投影片編號",text:"- **嚴格標記頁碼／段落來源**：請在每個章節或題目旁明確標註原始檔案之頁碼或投影片編號（如 `[P.03]` 或 `[Slide 05]`），以便溯源核對。",
-  media:{label:"保留時間戳記/來源段落",text:"- **嚴格標記時間戳記／來源段落**：請在每個章節旁明確標註影片時間戳記（如 `[03:15]`）或網頁的小標題／段落位置，以便溯源核對。"}},
+ {id:"page",label:"保留頁碼／投影片編號",text:"- **嚴格標記頁碼／段落來源**：請在每個章節或題目旁明確標註原始檔案之頁碼或投影片編號（如 `[P.03]` 或 `[Slide 05]`），以便溯源核對。",
+  media:{label:"保留時間戳記／來源段落",text:"- **嚴格標記時間戳記／來源段落**：請在每個章節旁明確標註影片時間戳記（如 `[03:15]`）或網頁的小標題／段落位置，以便溯源核對。"}},
  {id:"gloss",label:"文末附專有名詞索引表",text:"- **文末建立專有名詞索引表（Glossary）**：請於文末整理一份「核心概念與專有名詞中英對照＆定義表」，方便快速檢索。"},
  {id:"quiz",label:"文末附 3 題檢核題",text:"- **自動生成課後隨堂檢核題**：請根據轉譯內容，於文末額外設計 3 題由淺入深的素養檢核題（含正確答案與解析）。"},
  {id:"tw",label:"強制臺灣教育部慣用繁體術語",text:"- **強制使用臺灣教育部慣用繁體中文術語**：所有學術名詞、單位與標點符號請嚴格對齊臺灣教育部國家教育研究院（樂詞網）標準譯名，嚴禁出現大陸簡體慣用詞（如：資訊非信息、軟體非軟件、莫耳非摩爾、公升非升）。"}
@@ -685,91 +692,91 @@ const SAMPLE_SUB = {"teach-1": "# 國中自然｜酸鹼中和反應\n\n## 一、
 const T = (t,b)=>({t,b});
 const DOMAINS = [
 {id:"teach",blurb:"把簡報、教案、講義、課文轉成結構化知識庫，依各學科本質保留公式、圖表、構造圖與術語。",icon:"📚",name:"學科教學",full:"學科教學素材",base:"teach",sample:"teach",color:["#5b7f6c","#e3ece6","#3f5c4d"],subs:[
- {n:"數學學科",d:"注重坐標幾何條件、極值漸近線、代數證明、向量輔助線與標準 LaTeX 公式",s:T("數學學科本質圖表與符號解構規範",
+ {n:"數學",d:"注重坐標幾何條件、極值漸近線、代數證明、向量輔助線與標準 LaTeX 公式",s:T("數學學科本質圖表與符號解構規範",
 "- **公式與代數符號**：所有公式、方程式、幾何符號一律使用標準 LaTeX（行內使用 `$f(x) = ax^2 + bx + c$`，獨立行使用 `$$\\int_{a}^{b} f(x)dx$$`）。\n- **坐標幾何與函數圖形**：\n> **【函數／幾何圖形解構】**\n> - **定義域與坐標系**：X 軸、Y 軸範圍，原點與漸近線。\n> - **幾何條件與特徵點**：頂點、交點、切點、法線、已知線段長度與角度。\n> - **圖形走勢與凹凸性**：單調區間、極大/極小值點、反曲點。\n> - **輔助線與幾何標記**：題目繪製的輔助線、虛線、垂直符號、陰影封閉面積。\n- **題目與證明無損**：題幹條件、已知假設、證明步驟（Given / Prove / Steps）完整保留，勿跳步。")},
- {n:"自然科學 (物/化/生/地)",d:"實驗裝置與步驟、化學反應式、生物構造圖、數據圖表與 SI 單位精準轉寫",s:T("自然科學實驗與圖表解構規範",
+ {n:"自然科學（物／化／生／地）",d:"實驗裝置與步驟、化學反應式、生物構造圖、數據圖表與 SI 單位精準轉寫",s:T("自然科學實驗與圖表解構規範",
 "- **科學式與單位**：化學反應式使用 `→`、`⇌` 並標示狀態（s/l/g/aq）與係數；物理量一律附 SI 單位與有效位數。\n- **實驗裝置與步驟**：\n> **【實驗裝置圖解構】**\n> - **器材與連接方式**：所有器材名稱、相對位置與管線／電路連接順序。\n> - **操縱／控制／應變變因**：明確區分三類變因。\n> - **觀察現象與數據**：顏色、沉澱、氣泡、讀數變化逐項列出。\n- **構造圖與示意圖**：生物構造、地層剖面、天體運行圖請以「部位名稱 → 功能／特徵」條列對照。\n- **數據圖表**：折線圖、長條圖請轉為完整 Markdown 表格，並註明趨勢與結論。")},
- {n:"社會領域 (歷/地/公)",d:"歷史年代時間軸、地圖圖例與方位、統計圖數據、法條與公民概念對照",s:T("社會領域時空與圖資解構規範",
+ {n:"社會（歷／地／公）",d:"歷史年代時間軸、地圖圖例與方位、統計圖數據、法條與公民概念對照",s:T("社會領域時空與圖資解構規範",
 "- **歷史年代時間軸**：事件依時間排序整理為「年代｜事件｜人物｜影響」表格，西元與民國紀年並列。\n- **地圖與圖資解構**：\n> **【地圖／圖資解構】**\n> - **圖名、方位與比例尺**：指北針方向、比例尺數值與經緯度範圍。\n> - **圖例與分布**：每個圖例符號對應的意義與分布區域。\n> - **空間關係**：區位、交通線、地形起伏與人文活動之關聯。\n- **統計圖表**：人口金字塔、氣候圖、產業結構圖等數值轉為 Markdown 表格。\n- **公民法政概念**：法條條號、權利義務、制度比較請以對照表呈現。")},
  {n:"國語文",d:"課文段落結構、作者題解、注釋字音字形、修辭手法與文意層次分析",s:T("國語文篇章與語文知識解構規範",
 "- **課文全文無損**：依原段落完整轉寫課文，保留段落編號，勿改寫或刪節。\n- **題解與作者**：作者生平、寫作背景、文體與出處獨立成節。\n- **注釋與字詞**：\n| 字詞 | 注音／讀音 | 釋義 | 例句 |\n| :--- | :--- | :--- | :--- |\n- **形音義辨析**：易混淆字、多音字、成語典故分類條列。\n- **修辭與結構分析**：標註修辭手法（譬喻、排比、映襯…）與段落層次（起承轉合）。")},
  {n:"英語文",d:"單字片語表、文法句型結構、閱讀篇章段落與對話腳本完整保留",s:T("英語文詞彙與句型解構規範",
 "- **單字片語表**：\n| Word / Phrase | 詞性 | KK 音標 | 中文釋義 | Example Sentence |\n| :--- | :--- | :--- | :--- | :--- |\n- **文法句型**：以公式化方式呈現句型結構（如 `S + V + O + to V`），附正反例句。\n- **閱讀篇章**：英文原文完整保留段落，必要時於段後附中文段意摘要。\n- **對話腳本**：依角色標示（**A:** / **B:**）逐句轉寫，保留語調與情境說明。")},
- {n:"本土語文 (閩/客/原)",d:"保留臺灣台語羅馬字、客語拼音、原住民族語書寫系統與漢字對照",s:T("本土語文書寫系統解構規範",
+ {n:"本土語文（閩／客／原）",d:"保留臺灣台語羅馬字、客語拼音、原住民族語書寫系統與漢字對照",s:T("本土語文書寫系統解構規範",
 "- **書寫系統無損**：臺灣台語羅馬字（POJ／台羅）、客語拼音、原住民族語書寫系統之聲調符號與特殊字母必須完整保留，勿以近似字母替代。\n- **語詞對照表**：\n| 漢字／族語 | 拼音 | 華語釋義 | 例句 |\n| :--- | :--- | :--- | :--- |\n- **課文與歌謠**：逐句呈現「本土語原文／拼音／華語翻譯」三行對照。\n- **文化脈絡**：祭儀、節慶、俗諺之文化意涵獨立整理。")},
- {n:"藝術領域",d:"作品圖像描述、音樂譜例與術語、表演藝術動作與舞台元素解構",s:T("藝術領域視覺與聽覺元素解構規範",
+ {n:"藝術",d:"作品圖像描述、音樂譜例與術語、表演藝術動作與舞台元素解構",s:T("藝術領域視覺與聽覺元素解構規範",
 "- **視覺作品解構**：作品名稱、作者、年代、媒材尺寸；並描述構圖、色彩、線條、造形與風格流派。\n- **音樂譜例**：調號、拍號、速度與表情術語逐項列出；簡譜或節奏型以文字結構化記錄。\n- **表演藝術**：舞台走位、肢體動作、燈光與道具配置以場次表格呈現。\n- **鑑賞提問**：保留教材中的描述、分析、詮釋、評價四層次提問。")},
- {n:"健體領域",d:"動作技能分解步驟、運動規則、健康數據圖表與安全注意事項",s:T("健康與體育技能解構規範",
+ {n:"健康與體育",d:"動作技能分解步驟、運動規則、健康數據圖表與安全注意事項",s:T("健康與體育技能解構規範",
 "- **動作技能分解**：依「預備動作 → 主要動作 → 結束動作」逐步拆解，標註身體部位、角度與發力順序。\n- **運動規則與戰術**：比賽規則、犯規判定、場地尺寸與戰術站位圖以文字結構化描述。\n- **健康知識**：營養素、疾病預防、身體構造等以表格對照；BMI、心率等數據保留單位與計算方式。\n- **安全注意事項**：以 ⚠️ 標示所有安全提醒與禁忌動作。")},
- {n:"科技領域",d:"程式碼完整保留、流程圖轉 Mermaid、電路與機構圖元件清單",s:T("科技領域程式與工程圖解構規範",
+ {n:"科技",d:"程式碼完整保留、流程圖轉 Mermaid、電路與機構圖元件清單",s:T("科技領域程式與工程圖解構規範",
 "- **程式碼無損**：所有程式碼使用帶語言標籤的程式碼區塊（如 ```python），保留縮排與註解。\n- **流程圖與演算法**：流程圖請轉寫為 **Mermaid** 語法（`flowchart TD`），積木程式請轉為虛擬碼。\n- **電路與機構圖**：列出元件清單（名稱、規格、數量）與連接關係；設計圖保留尺寸標註。\n- **操作步驟**：軟體操作依步驟編號並標示選單路徑（如 `檔案 > 匯出`）。")},
  {n:"人權議題",d:"人權公約條文、案例事件時間軸、權利類型與多元觀點對照",s:T("人權議題教材解構規範",
 "- **公約與法條**：引用之國際公約或國內法規需保留條號與原文。\n- **案例事件**：以「時間｜事件｜相關權利｜結果」表格整理案例。\n- **權利類型對照**：公民政治權、經濟社會文化權等分類條列。\n- **多元觀點**：不同立場觀點並列呈現，保留討論提問，不加入額外價值判斷。")},
- {n:"生活課程 (國小低年級)",d:"主題統整活動、繪本圖像描述、注音輔助與操作探索步驟",s:T("生活課程統整教材解構規範",
+ {n:"生活課程（國小低年級）",d:"主題統整活動、繪本圖像描述、注音輔助與操作探索步驟",s:T("生活課程統整教材解構規範",
 "- **主題統整架構**：主題名稱、單元活動、對應的生活課程核心素養一覽。\n- **圖像與插畫描述**：低年級教材以圖為主，請詳細描述每張插圖中的人物、動作、場景與情緒。\n- **注音輔助**：課本中標注音的文字請保留國字（注音）格式。\n- **探索與操作步驟**：觀察、體驗、創作活動依步驟編號，並保留學生記錄欄位。")}
 ]},
 {id:"exam",blurb:"把考卷與題本轉成跨平台題庫，小題與作答底線同行不斷行，圖表數據精準提取。",icon:"📝",name:"學科考題",full:"學科考題與試卷",base:"exam",sample:"exam",color:["#4f6d8f","#e2e9f2","#344d69"],subs:[
- {n:"數學科考題",d:"適用於單選/多選/選填/混合計算題，確保小題與底線單位同行不斷行，坐標與幾何圖形數據 100% 精準提取",s:T("數學科考題之 VLM 圖表與數值極致精準解構規範",
+ {n:"數學考題",d:"適用於單選/多選/選填/混合計算題，確保小題與底線單位同行不斷行，坐標與幾何圖形數據 100% 精準提取",s:T("數學科考題之 VLM 圖表與數值極致精準解構規範",
 "- **各類題型（選擇、填充、計算證明）之單行直觀排版**：\n  - 題幹下的每一個小題（如 `(1)`、`(2)`）與每一個選項（`(A)`、`(B)`、`(C)`、`(D)`）皆各自獨立成行。\n  - 小題內的「問題敘述 ＋ 全形底線 `＿＿＿＿＿＿` ＋ 單位（如 公分、平方單位、度）」必須緊密寫在同一行。\n  - 行內的次方、下標與幾何符號（如 `x²`、`aₙ`、`△ABC`、`∠A = 90°`、`⊥`、`∥`）請優先使用 Unicode 符號，避免行內 `$ ... $` 導致句子斷裂。\n- **【極重要】函數圖形、統計圖表與幾何圖形之 VLM 精準度要求**：\n  - **坐標軸與刻度零誤差**：必須精確讀取並標明 **橫軸（X 軸）** 與 **縱軸（Y 軸）** 的變數名稱、單位、原點位置、刻度間距與數值範圍。\n  - **數據點與關鍵坐標 100% 準確**：圖表上的每一個標示點、交點、頂點、極值點、轉折點、漸近線方程式與坐標數字（如 `(x₁, y₁)`），必須逐一精準核對並轉寫，**絕對不可概略描述或遺漏任何一個數字**。\n  - **統計圖表轉譯**：直方圖、折線圖、盒鬚圖、散布圖或列聯表中的所有數值，請轉為完整的 **Markdown 數據表格**，確保每個橫軸區間對應的縱軸數值完全正確。\n  - **幾何圖形條件解構**：\n    `【附圖解構：幾何與坐標條件】`\n    `• 圖形結構與頂點：所有頂點代號、相連關係、內接/外接或對稱關係。`\n    `• 精確數值標註：圖上標示的所有邊長數字、角度度數、半徑、弧長、比例關係與直角/等長記號。`\n    `• 陰影與輔助線：題目所求之塗色/陰影區域邊界，以及虛線輔助線位置。`")},
- {n:"自然科考題 (物/化/生/地)",d:"實驗裝置圖、反應式與單位同行不斷行，圖表數據與題組情境完整保留",s:T("自然科考題之實驗圖與數據精準解構規範",
+ {n:"自然科學考題（物／化／生／地）",d:"實驗裝置圖、反應式與單位同行不斷行，圖表數據與題組情境完整保留",s:T("自然科考題之實驗圖與數據精準解構規範",
 "- **題組情境完整保留**：閱讀題組的前導文字、實驗說明須完整轉寫於題組開頭，再依序列出小題。\n- **反應式與單位同行**：化學式下標與離子電荷使用 Unicode（如 `H₂O`、`SO₄²⁻`、`Fe³⁺`），數值與單位（如 `9.8 m/s²`、`25 °C`）緊密同行。\n- **【極重要】實驗裝置與數據圖解構**：\n    `【附圖解構：實驗裝置與數據】`\n    `• 裝置組成：所有器材名稱、連接順序與相對位置。`\n    `• 變因設定：操縱變因、控制變因、應變變因。`\n    `• 數據讀取：圖表坐標軸名稱、單位、刻度與每一個數據點數值，轉為 Markdown 表格。`\n- **生物與地科圖**：構造圖標號（甲、乙、丙…）逐一對應名稱；天氣圖、地質剖面圖保留圖例與數值。")},
  {n:"國語文考題",d:"閱讀測驗篇章完整、字音字形題注音精準、選項獨立成行與題組結構清楚",s:T("國語文考題之篇章與字音字形解構規範",
 "- **閱讀篇章無損**：題組文章完整轉寫，保留段落、標點與出處，不可摘要。\n- **字音字形題**：注音符號與聲調必須精確，題中加底線或粗體的字詞請以 `**粗體**` 標示。\n- **選項獨立成行**：每個選項 `(A)`～`(D)` 各自一行，選項內引文保留原標點。\n- **非選擇題／寫作**：題目說明、引導資料與字數限制完整保留，作答區以 `＿＿＿＿＿＿` 表示。")},
  {n:"英語文考題",d:"聽力腳本、克漏字空格編號、閱讀題組與圖表題完整還原",s:T("英語文考題之克漏字與閱讀題組解構規範",
 "- **克漏字空格**：文章中的空格以 `(1) ＿＿＿＿＿＿` 形式保留題號，與前後文字同行。\n- **閱讀題組**：文章、圖表（如時刻表、廣告、菜單）先完整轉寫，圖表轉為 Markdown 表格。\n- **聽力測驗**：若有腳本，依角色標示對話；圖片選項請以文字描述每張圖的內容。\n- **選項與大小寫**：選項各自獨立成行，保留原文大小寫、標點與斜體。")},
- {n:"社會科考題 (歷/地/公)",d:"史料引文、地圖與統計圖資數據精準轉寫，題組情境與選項完整",s:T("社會科考題之史料與圖資解構規範",
+ {n:"社會考題（歷／地／公）",d:"史料引文、地圖與統計圖資數據精準轉寫，題組情境與選項完整",s:T("社會科考題之史料與圖資解構規範",
 "- **史料引文**：題目引用的史料、報導、法條原文完整保留並標示出處。\n- **【極重要】地圖與統計圖資**：\n    `【附圖解構：地圖與圖資】`\n    `• 圖名、方位、比例尺與經緯度範圍。`\n    `• 圖例符號意義與標示代號（甲、乙、丙…）的位置描述。`\n    `• 統計圖所有數值轉為 Markdown 表格，含單位與年份。`\n- **年代與數值**：年代、人口、百分比等數字逐一核對，不可概略描述。")},
- {n:"綜合/跨領域素養考題",d:"長篇情境題組、多重資料來源（文本＋圖表＋圖片）整合與題號對應",s:T("跨領域素養題組之多重資料解構規範",
+ {n:"綜合／跨領域素養考題",d:"長篇情境題組、多重資料來源（文本＋圖表＋圖片）整合與題號對應",s:T("跨領域素養題組之多重資料解構規範",
 "- **情境與資料來源分區**：將題組資料分為「資料一、資料二…」各自標題，文本、表格、圖片描述分開呈現。\n- **圖片情境描述**：照片、漫畫、海報等請描述畫面主體、文字內容與關鍵細節。\n- **題號對應**：每一小題標示其引用的資料編號，方便對照。\n- **混合題型**：選擇、簡答、表格填寫題各依格式呈現，表格填寫題的空白欄以 `＿＿＿＿＿＿` 表示。")},
- {n:"生活課程考題 (國小低年級)",d:"以圖為主的題目描述、注音輔助、連連看與勾選題結構化呈現",s:T("低年級生活課程評量之圖像解構規範",
+ {n:"生活課程考題（國小低年級）",d:"以圖為主的題目描述、注音輔助、連連看與勾選題結構化呈現",s:T("低年級生活課程評量之圖像解構規範",
 "- **圖像題描述**：每張圖片以「圖① ……」編號，具體描述人物、物品、動作與顏色。\n- **注音輔助**：題目文字若附注音，請以國字（注音）格式保留。\n- **連連看／配對題**：以左右兩欄 Markdown 表格呈現待配對項目。\n- **勾選與塗色題**：以 `☐` 表示勾選框，塗色題說明需塗色的區域與顏色。")}
 ]},
 {id:"assess",blurb:"解構教案、雙向細目表、評量規準與學習單，對齊課綱素養與學習表現代碼。",icon:"🎯",name:"課程評量",full:"課程設計與評量",base:"assess",sample:"assess",color:["#a07a3c","#f3ebdc","#7a5a26"],subs:[
  {n:"單元教學活動設計",d:"核心素養三面九項、學習表現/內容、核心提問（EQ）、引起動機到差異化鷹架",s:T("素養導向教案與教學設計解構規範",
 "- **課程單元基本盤**：單元名稱、適用年級、總節數、教材版本。\n- **課綱素養與重點對應表**：\n| 核心素養面向/項目 | 學習表現代碼與內涵 | 學習內容代碼與內涵 |\n| :--- | :--- | :--- |\n- **大概念（Big Idea）與核心提問（Essential Questions）**：以引言區塊標示探究主軸。\n- **教學歷程詳細分節還原**：\n  - **引起動機**：真實生活情境或導入素材。\n  - **發展活動**：教師提問引導、學生探究任務、小組合作機制。\n  - **差異化教學策略**：學習鷹架、挑戰任務、個別化補救方案。\n  - **總結與省思**：概念統整與課堂檢核點。")},
- {n:"雙向細目表/試卷",d:"認知層次 × 教學目標矩陣、配分與題號對應、試卷題型分布",s:T("雙向細目表與試卷架構解構規範",
+ {n:"雙向細目表／試卷",d:"認知層次 × 教學目標矩陣、配分與題號對應、試卷題型分布",s:T("雙向細目表與試卷架構解構規範",
 "- **雙向細目表矩陣**：\n| 教學目標／單元 | 記憶 | 理解 | 應用 | 分析 | 評鑑 | 創造 | 小計 |\n| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: |\n- **題號與配分對應**：每個格子中的題號、題數與配分完整保留，總分需核對加總正確。\n- **題型分布**：選擇、填充、非選題數量與比例統計。\n- **試卷本體**：若同檔附有試題，依考題排版規範（小題獨立成行、全形底線）轉寫。")},
- {n:"評量規準 (Rubrics)",d:"表現向度 × 等級描述矩陣、分數區間與具體表現指標",s:T("評量規準（Rubrics）解構規範",
+ {n:"評量規準（Rubrics）",d:"表現向度 × 等級描述矩陣、分數區間與具體表現指標",s:T("評量規準（Rubrics）解構規範",
 "- **規準矩陣**：\n| 評量向度 | 優秀（A） | 良好（B） | 基礎（C） | 待加強（D） |\n| :--- | :--- | :--- | :--- | :--- |\n- **等級描述無損**：每格描述文字完整轉寫，不可合併或簡化。\n- **分數與權重**：各向度分數區間、權重百分比與總分計算方式。\n- **對應學習表現**：標示每個向度對應的課綱學習表現代碼。")},
  {n:"自主探究學習單",d:"探究步驟引導、提問鷹架、學生作答欄位與自評檢核表",s:T("自主探究學習單解構規範",
 "- **探究流程**：依「提出問題 → 蒐集資料 → 分析歸納 → 結論分享」等步驟分節。\n- **提問鷹架**：每個引導問題獨立編號，作答欄以 `＿＿＿＿＿＿` 或空白表格保留。\n- **圖表與記錄區**：觀察記錄表、心智圖框架轉為 Markdown 表格或巢狀清單。\n- **自評檢核表**：以 `- [ ]` 核取清單呈現自我檢核項目。")},
  {n:"生活課程主題統整設計與評量",d:"主題網、跨領域統整活動、低年級多元評量方式與觀察紀錄",s:T("生活課程主題統整設計解構規範",
 "- **主題網**：以巢狀清單呈現主題 → 子題 → 活動之階層。\n- **統整活動設計**：活動名稱、節數、學習重點、教學資源與評量方式表格化。\n- **多元評量**：實作、口語發表、觀察紀錄、作品檔案等評量方式與檢核指標條列。\n- **觀察紀錄表**：保留學生姓名欄（空白）與等級勾選欄格式。")}
 ]},
-{id:"admin",blurb:"把公文、計畫、會議紀錄、預算與群組截圖整理成重點與待辦清單。",icon:"📑",name:"校園行政",full:"行政相關素材",base:"admin",sample:"admin",color:["#6e6293","#ebe8f3","#4e4470"],subs:[
- {n:"公文/函件/通報",d:"發文字號、受文對象、主旨、法規法源依據、辦理期限與待辦事項清單化",s:T("公文與校園行政通報解構規範",
+{id:"admin",blurb:"把公文、計畫、會議紀錄、預算與群組截圖整理成重點與待辦清單。",icon:"📑",name:"校園行政",full:"校園行政文件",base:"admin",sample:"admin",color:["#6e6293","#ebe8f3","#4e4470"],subs:[
+ {n:"公文／函件／通報",d:"發文字號、受文對象、主旨、法規法源依據、辦理期限與待辦事項清單化",s:T("公文與校園行政通報解構規範",
 "- **公文基本要項**：發文字號、發文日期、速別、密等、受文者與發文機關。\n- **主旨精準摘要**：以一句話濃縮核心目的與要求事項。\n- **法規法源依據**：引用的教育部令、母法條文、往來函件文號獨立條列。\n- **辦理事項與期限（Action Items）**：\n  - 將說明與辦法轉換為具體待辦清單：\n  - [ ] 事項一（負責處室 / 辦理期限：YYYY-MM-DD）\n  - [ ] 事項二（檢附資料：...）")},
- {n:"計畫書/管考成果",d:"計畫目標與 KPI、執行期程甘特表、經費概算與成果量化指標",s:T("計畫書與管考成果解構規範",
+ {n:"計畫書／管考成果",d:"計畫目標與 KPI、執行期程甘特表、經費概算與成果量化指標",s:T("計畫書與管考成果解構規範",
 "- **計畫基本資料**：計畫名稱、主辦單位、執行期間、預算總額。\n- **目標與績效指標（KPI）**：\n| 目標 | 量化指標 | 目標值 | 實際達成 | 達成率 |\n| :--- | :--- | :---: | :---: | :---: |\n- **執行期程**：以表格呈現各月份工作項目（甘特表）。\n- **成果與檢討**：質性成果、照片說明、困難與改進策略分節整理。")},
- {n:"會議紀錄/決議",d:"出列席人員、提案與討論、決議事項與執行追蹤分工",s:T("會議紀錄與決議解構規範",
+ {n:"會議紀錄／決議",d:"出列席人員、提案與討論、決議事項與執行追蹤分工",s:T("會議紀錄與決議解構規範",
 "- **會議基本資料**：會議名稱、時間、地點、主席、紀錄、出（列）席人員。\n- **報告事項**：依處室或報告人分節條列。\n- **提案討論**：每案保留「案由／說明／決議」三段結構。\n- **決議追蹤表**：\n| 決議事項 | 負責單位 | 完成期限 | 追蹤狀態 |\n| :--- | :--- | :--- | :--- |")},
- {n:"預算表/核銷單據",d:"經費科目、單價數量總價精準核對、發票單據欄位結構化",s:T("預算表與核銷單據解構規範",
+ {n:"預算表／核銷單據",d:"經費科目、單價數量總價精準核對、發票單據欄位結構化",s:T("預算表與核銷單據解構規範",
 "- **預算明細表**：\n| 經費項目 | 單價 | 數量 | 單位 | 總價 | 說明 |\n| :--- | ---: | ---: | :---: | ---: | :--- |\n- **數字零誤差**：金額逐一核對，千分位逗號保留，小計與總計需驗算正確。\n- **單據欄位**：發票號碼、日期、統一編號、品名、金額、經手人等欄位結構化。\n- **核銷檢核**：缺漏憑證或金額不符之處以 ⚠️ 標註。")},
  {n:"通訊群組討論截圖",d:"去除閒聊雜訊，整理發言者、時間、決定事項與待辦分工",s:T("通訊群組討論截圖解構規範",
 "- **去雜訊**：移除貼圖、表情符號、已讀標記與無關閒聊。\n- **對話時間軸**：依時間順序整理「時間｜發言者｜重點內容」。\n- **決定事項**：從討論中萃取已達成共識的決定，獨立條列。\n- **待辦分工**：以 `- [ ] 事項（負責人／期限）` 格式整理。\n- **隱私提醒**：個人電話、住址等個資請以 `○○○` 遮蔽。")}
 ]},
-{id:"web",blurb:"去除網頁與 YouTube 的廣告雜訊，萃取核心知識並建立時間戳記對照表。",icon:"🌐",name:"網站/YT",full:"網站與 YouTube 解構",base:"web",sample:"web",color:["#3f8085","#e0eeee","#2a5f63"],subs:[
- {n:"YouTube 知識/教學影片",d:"整合 CC 字幕與畫面投影片/動畫/板書，建立時間戳記雙軌對照表、提取核心概念與延伸思考題",s:T("YouTube 教學與知識型影片之多模態解構規範",
+{id:"web",blurb:"去除網頁與 YouTube 的廣告雜訊，萃取核心知識並建立時間戳記對照表。",icon:"🌐",name:"網站／YT",full:"網站與 YouTube",base:"web",sample:"web",color:["#3f8085","#e0eeee","#2a5f63"],subs:[
+ {n:"YouTube 知識／教學影片",d:"整合 CC 字幕與畫面投影片/動畫/板書，建立時間戳記雙軌對照表、提取核心概念與延伸思考題",s:T("YouTube 教學與知識型影片之多模態解構規範",
 "- **影片基本盤與核心知識圖譜**：\n  - 提煉影片主題、適用學科領域／年級、總片長，並以 3～5 點濃縮整部影片的核心學習重點（Key Takeaways）。\n- **【極重要】時間軸章節與「口白重點 × 畫面視覺」雙軌對照表**：\n  - 請消除口語贅字（如「那、就是、對不對」），將講者口白精煉為學術／教學語言，並同步對應當時畫面上的視覺呈現：\n| 時間戳記 `[MM:SS]` | 章節／段落主題 | 講者核心口白精髓（修正字幕錯別字） | 畫面視覺呈現（投影片字卡／動畫圖解／板書／實驗特寫） |\n| :--- | :--- | :--- | :--- |\n- **畫面關鍵圖表、公式與板書完整還原**：\n  - 影片中出現的比較表、架構圖、數據曲線或數學／科學推導步驟，請獨立整理為標準 **Markdown 表格**、**Mermaid 流程圖** 或清晰的步驟清單。\n- **教學應用延伸提問**：\n  - 根據影片內容，於文末附錄 3 題適合課堂確認理解度或引發討論的關鍵提問（含參考解答要點）。")},
- {n:"科普/新聞/專題網頁",d:"去除廣告導覽，保留標題層級、關鍵數據、引用來源與事實／觀點區分",s:T("科普與新聞專題網頁解構規範",
+ {n:"科普／新聞／專題網頁",d:"去除廣告導覽，保留標題層級、關鍵數據、引用來源與事實／觀點區分",s:T("科普與新聞專題網頁解構規範",
 "- **文章主體**：保留標題、副標、作者、發布日期與原始網址。\n- **關鍵數據與圖表**：文中的統計數字、資訊圖表轉為 Markdown 表格並註明資料來源。\n- **事實與觀點區分**：將客觀事實與作者觀點／評論分開標示。\n- **引用來源**：文中提及的研究、報告、專家說法整理為參考來源清單。\n- **教學應用**：文末附 3 個可引導學生媒體識讀的討論問題。")},
- {n:"互動模擬網站 (PhET/GeoGebra)",d:"模擬介面控制項、可調參數範圍、操作步驟與觀察現象對照",s:T("互動模擬網站操作解構規範",
+ {n:"互動模擬網站（PhET／GeoGebra）",d:"模擬介面控制項、可調參數範圍、操作步驟與觀察現象對照",s:T("互動模擬網站操作解構規範",
 "- **模擬基本資料**：模擬名稱、平台、適用概念與年級。\n- **介面控制項**：\n| 控制項名稱 | 類型（滑桿／按鈕／勾選） | 可調範圍與單位 | 功能說明 |\n| :--- | :--- | :--- | :--- |\n- **操作步驟與觀察**：依步驟編號描述操作，並對應「調整參數 → 觀察現象 → 科學／數學原理」。\n- **探究任務設計**：附 2～3 個可讓學生自行操作驗證的探究問題。")},
- {n:"線上課程/數位學習平台",d:"課程章節架構、單元學習目標、測驗題目與作業要求整理",s:T("線上課程與數位學習平台解構規範",
+ {n:"線上課程／數位學習平台",d:"課程章節架構、單元學習目標、測驗題目與作業要求整理",s:T("線上課程與數位學習平台解構規範",
 "- **課程架構**：以巢狀清單呈現「課程 → 章節 → 單元」，標註各單元時長。\n- **學習目標**：各單元學習目標與先備知識條列。\n- **內容重點**：影片／講義重點依單元整理，去除平台介面文字。\n- **測驗與作業**：題目依考題排版規範轉寫；作業要求、繳交期限與評分方式表格化。")},
- {n:"公開資料庫/法規/教育網站",d:"法規條文層級、資料欄位定義、統計表格與查詢條件完整保留",s:T("公開資料庫與法規網站解構規範",
+ {n:"公開資料庫／法規／教育網站",d:"法規條文層級、資料欄位定義、統計表格與查詢條件完整保留",s:T("公開資料庫與法規網站解構規範",
 "- **法規條文**：保留法規名稱、修正日期、章節條項款目層級（第 X 條第 Y 項第 Z 款），條文原文不可改寫。\n- **資料庫表格**：統計資料完整轉為 Markdown 表格，保留欄位名稱、單位、資料年度與查詢條件。\n- **欄位定義**：資料欄位說明與代碼對照表獨立整理。\n- **來源資訊**：網站名稱、網址、擷取日期標註於文首。")}
 ]},
-{id:"video",blurb:"結合畫面、字卡與口白，逐鏡解構實驗、授課、螢幕錄影與動畫影片。",icon:"🎬",name:"影片檔案",full:"影片檔解構",base:"video",sample:"video",color:["#9b6150","#f3e5df","#764435"],subs:[
- {n:"科學實驗/實作示範影片",d:"逐鏡拆解實驗器材組裝、操作手勢、顏色/沉澱/氣泡等微觀現象變化、儀器讀數與安全注意事項",s:T("科學實驗與技能實作示範影片（.mp4/.mov）之 VLM 解構規範",
+{id:"video",blurb:"結合畫面、字卡與口白，逐鏡解構實驗、授課、螢幕錄影與動畫影片。",icon:"🎬",name:"影片檔案",full:"教學影片檔案",base:"video",sample:"video",color:["#9b6150","#f3e5df","#764435"],subs:[
+ {n:"科學實驗／實作示範影片",d:"逐鏡拆解實驗器材組裝、操作手勢、顏色/沉澱/氣泡等微觀現象變化、儀器讀數與安全注意事項",s:T("科學實驗與技能實作示範影片（.mp4/.mov）之 VLM 解構規範",
 "- **器材、藥品與前置環境盤點**：\n  - 根據影片開頭與過程畫面，完整列出所有出場的實驗器材規格、藥品濃度／劑量、工具材料與個人防護裝備（PPE）。\n- **【極重要】逐鏡實驗步驟、操作細節與現象觀測時間軸**：\n  - 請仔細觀察畫面中的動作與微觀變化，建立高精準度的時間軸表格：\n| 時間戳記 `[MM:SS]` | 實驗／實作階段 | 畫面具體操作動作（組裝順序／手勢角度／加熱或混合方式） | 視覺與聽覺觀測現象（顏色變化／沉澱／氣泡／溫度計或儀表板精確讀數） | 原理解析與安全警告 |\n| :--- | :--- | :--- | :--- | :--- |\n- **實驗數據彙總與結論**：\n  - 若影片中展示了多次測量結果、指針讀數或電子天平／感測器數值，請整理為完整的 **Markdown 數據紀錄表** 並附上誤差討論。")},
- {n:"教師授課/公開觀議課錄影",d:"教學流程時間軸、師生提問互動、學生參與表現與觀課紀錄指標",s:T("教師授課與公開觀議課錄影解構規範",
+ {n:"教師授課／公開觀議課錄影",d:"教學流程時間軸、師生提問互動、學生參與表現與觀課紀錄指標",s:T("教師授課與公開觀議課錄影解構規範",
 "- **課堂基本資料**：授課教師、科目單元、年級、課堂總長。\n- **教學流程時間軸**：\n| 時間戳記 `[MM:SS]` | 教學階段 | 教師教學行為（講述／提問／示範） | 學生學習表現（回應／討論／操作） | 板書或投影片內容 |\n| :--- | :--- | :--- | :--- | :--- |\n- **提問與互動紀錄**：教師關鍵提問原句與學生回應類型（封閉／開放／高層次思考）。\n- **觀課指標對應**：依「學生學習動機、學習策略、合作學習」等觀課面向摘要具體證據。")},
- {n:"微課程/螢幕錄影/軟體教學",d:"畫面操作路徑、點擊位置與選單層級、快捷鍵與設定值逐步還原",s:T("微課程與螢幕錄影操作解構規範",
+ {n:"微課程／螢幕錄影／軟體教學",d:"畫面操作路徑、點擊位置與選單層級、快捷鍵與設定值逐步還原",s:T("微課程與螢幕錄影操作解構規範",
 "- **軟體與環境**：軟體名稱、版本、作業系統。\n- **逐步操作時間軸**：\n| 時間戳記 `[MM:SS]` | 步驟 | 操作路徑（選單 > 子選單 > 選項） | 輸入值／設定值 | 畫面結果 |\n| :--- | :--- | :--- | :--- | :--- |\n- **快捷鍵與技巧**：影片中提及的快捷鍵（如 `Ctrl + Shift + V`）與小技巧獨立條列。\n- **常見錯誤**：講者提醒的錯誤操作與排除方式以 ⚠️ 標示。")},
- {n:"學生展演/生活課程活動紀錄",d:"活動流程與場景、學生表現行為描述、作品呈現與學習證據",s:T("學生展演與活動紀錄影片解構規範",
+ {n:"學生展演／生活課程活動紀錄",d:"活動流程與場景、學生表現行為描述、作品呈現與學習證據",s:T("學生展演與活動紀錄影片解構規範",
 "- **活動基本資料**：活動名稱、日期、參與班級、活動目標。\n- **活動流程時間軸**：依時間戳記描述場景、參與者動作與發言重點。\n- **學生表現證據**：具體描述可觀察的學習行為（合作、發表、創作），作為評量佐證。\n- **作品呈現**：畫面中的作品、海報、道具以文字詳細描述。\n- **隱私保護**：學生姓名以座號或代號表示，勿描述可辨識個人的外貌特徵。")},
- {n:"教學動畫/繪本故事影片",d:"分鏡畫面描述、角色與對白、故事結構與寓意、延伸提問",s:T("教學動畫與繪本故事影片解構規範",
+ {n:"教學動畫／繪本故事影片",d:"分鏡畫面描述、角色與對白、故事結構與寓意、延伸提問",s:T("教學動畫與繪本故事影片解構規範",
 "- **故事基本資料**：片名、作者／製作單位、片長、適用年齡。\n- **角色介紹**：角色名稱、特徵與在故事中的角色定位。\n- **分鏡時間軸**：\n| 時間戳記 `[MM:SS]` | 場景畫面描述 | 角色對白／旁白 | 情節發展 |\n| :--- | :--- | :--- | :--- |\n- **故事結構**：開頭、衝突、高潮、結局與寓意整理。\n- **延伸提問**：附 3 題適合低年級的理解與感受提問。")}
 ]}
 ];
@@ -798,8 +805,8 @@ function buildPrompt(){
   const extra = customFor(dIdx,sIdx);
   if(extra.length) out += "- **【使用者外加注重事項】**：除上述規範外，請特別注重「" + extra.join("」、「") + "」，轉譯時須完整保留相關內容與細節，並以粗體或獨立條列明確標示，不可省略或概略帶過。\n";
   out += "\n";
-  if(availIds().some(id=>active.has(id))) out += "### 補充自訂轉譯要求\n" + availIds().filter(id=>active.has(id)).map(id=>extraOf(XID[id]).text).join("\n") + "\n\n";
-  return out + OUT;
+  if(availIds().some(id=>active.has(id))) out += "### 3. 補充轉譯要求\n" + availIds().filter(id=>active.has(id)).map(id=>extraOf(XID[id]).text).join("\n") + "\n\n";
+  return out + (availIds().some(id=>active.has(id)) ? OUT.replace("### 3. 輸出規範","### 4. 輸出規範") : OUT);
 }
 
 function esc(t){return t.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");}
@@ -808,7 +815,7 @@ function renderPromptHTML(txt){
   let inExtra = false;
   return txt.split("\n").map(line=>{
     let h = esc(line).replace(/`([^`]+)`/g,'<code>$1</code>');
-    if(/^### /.test(line)){ inExtra = line.includes("補充自訂"); return '<span class="h">'+h+'</span>'; }
+    if(/^### /.test(line)){ inExtra = line.includes("補充轉譯要求"); return '<span class="h">'+h+'</span>'; }
     if(/^&gt; /.test(esc(line))) return '<span class="q">'+h+'</span>';
     if(inExtra && line.startsWith("- ")) return '<span class="add">'+h+'</span>';
     if(line.startsWith("- **【使用者外加注重事項】**")) return '<span class="add mineline">'+h+'</span>';
@@ -831,7 +838,7 @@ function setMode(m){
 
 function renderSidebar(){
   const q = $("q").value.trim().toLowerCase();
-  $("domCount").textContent = DOMAINS.length + " 大類";
+  $("domCount").textContent = DOMAINS.length + " 個領域";
   $("domains").innerHTML = DOMAINS.map((d,i)=>`<button class="${i===dIdx?'on':''}" data-d="${i}"><span>${d.icon}</span><span>${d.name}</span></button>`).join("");
   let items;
   if(q){
@@ -844,7 +851,7 @@ function renderSidebar(){
     items = DOMAINS[dIdx].subs.map((s,si)=>({di:dIdx,si,s,d:DOMAINS[dIdx]}));
     $("subHead").textContent = "步驟二：選擇細項科目";
   }
-  $("subCount").textContent = items.length + " 項";
+  $("subCount").textContent = items.length + " 個科目";
   $("subjects").innerHTML = items.length ? items.map(it=>{
     const on = it.di===dIdx && it.si===sIdx;
     return `<button class="${on?'on':''}" data-d="${it.di}" data-s="${it.si}"><span>${it.s.n}${q?`<br><span class="dl">${it.d.icon} ${it.d.name}</span>`:''}</span><span class="arr">→</span></button>`;
@@ -875,7 +882,7 @@ function renderChips(){
   const c=chipsFor(dIdx,sIdx), sn=cur().s.n;
   const btn=id=>{ const x=extraOf(XID[id]); return `<button class="chip${active.has(id)?" on":""}" data-id="${id}" title="${esc(x.text.replace(/^- /,"").replace(/\*\*/g,"").replace(/`/g,""))}">${esc(x.label)}</button>`; };
   $("chips").innerHTML =
-    `<div class="cg"><span class="lbl">⚡ 附加自訂指令</span><span class="ctag">通用</span>${c.common.map(btn).join("")}</div>`+
+    `<div class="cg"><span class="lbl">⚡ 補充轉譯要求</span><span class="ctag">通用</span>${c.common.map(btn).join("")}</div>`+
     `<div class="cg"><span class="lbl sug">💡 ${esc(sn)}建議</span><span class="ctag sugt">依科目屬性</span>${c.suggest.map(btn).join("")}</div>`;
 }
 function renderMain(){
@@ -885,7 +892,7 @@ function renderMain(){
   const key = dIdx+"-"+sIdx, changed = key!==lastKey; lastKey = key;
   renderFocus(changed);
   if(changed){ const hero=document.querySelector(".hero"); hero.classList.remove("flash"); void hero.offsetWidth; hero.classList.add("flash"); }
-  $("badge").textContent = b.badge; $("curTpl").textContent = "當前範本：" + s.n;
+  $("badge").textContent = b.badge; $("curTpl").textContent = "目前科目：" + s.n;
   const p = buildPrompt();
   $("prompt").innerHTML = renderPromptHTML(p);
   $("chars").textContent = p.length.toLocaleString();
@@ -905,7 +912,7 @@ function setView(v){
   $("benchView").classList.toggle("hidden", v!=="bench");
   $("tabPrompt").classList.toggle("on", v==="prompt");
   $("tabBench").classList.toggle("on", v==="bench");
-  $("toggleView").textContent = v==="prompt" ? "👁️ 檢視輸出範本" : "📋 返回 Prompt 檢視";
+  $("toggleView").textContent = v==="prompt" ? "🛠️ 前往工作台看範本" : "📋 返回取得 Prompt";
   if(v==="bench" && !mdBox.value.trim()) loadSample();
   try{ location.hash = v==="bench" ? "workbench" : ""; }catch(e){}
 }
@@ -1043,7 +1050,7 @@ function copyAndOpen(a,txt,msg){
   const ok=copySync(txt);
   try{ navigator.clipboard && navigator.clipboard.writeText(txt).catch(()=>{}); }catch(_){}
   a.target="vlm_"+Date.now()+"_"+Math.random().toString(36).slice(2,7);
-  toast(ok||navigator.clipboard ? msg : "瀏覽器阻擋了剪貼簿，請改用「一鍵複製 Prompt」");
+  toast(ok||navigator.clipboard ? msg : "瀏覽器阻擋了剪貼簿，請改用「複製 Prompt」");
 }
 async function copyText(txt,msg){
   try{ await navigator.clipboard.writeText(txt); toast(msg); }
@@ -1092,7 +1099,7 @@ function tipHTML(b){
     return `<div class="tt">${d.icon} ${esc(d.full)}</div><div class="td">${esc(d.blurb)}</div>`;
   }
   const scope = isSub ? "只套用到這個科目" : "套用到此領域全部科目";
-  h+=`<div class="add"><div class="al">✏️ 外加注重<small>${scope}</small></div>
+  h+=`<div class="add"><div class="al">✏️ 外加注重事項<small>${scope}</small></div>
     <div class="ar"><input id="tipIn" type="text" placeholder="例：手寫筆跡、單位換算（可用、分隔）" autocomplete="off"><button class="ok" id="tipOk">確認加入</button></div></div>`;
   return h;
 }
@@ -1203,8 +1210,8 @@ document.addEventListener("keydown",e=>{ if(e.key==="Escape") help.classList.rem
 $("themeBtn").onclick=()=>{ const m=isDark()?"light":"dark"; setMode(m); toast(m==="dark"?"已切換為深色模式 🌙":"已切換為淺色模式 ☀️"); };
 $("tabBench").onclick=()=>setView("bench");
 $("loadTpl").onclick=()=>{ loadSample(); toast("已載入「"+cur().s.n+"」範本"); };
-$("fixMd").onclick=()=>{ if(!mdBox.value.trim()) return toast("請先貼上 Markdown 內容"); const before=mdBox.value; mdBox.value=fixMarkdown(before,{unicodeInline:DOMAINS[dIdx].base!=="teach"}); renderPreview(); toast(before===mdBox.value?"沒有需要修復的地方 👍":"已修復斷行與公式碎裂！"); };
-$("dlMd").onclick=()=>{ if(!mdBox.value.trim()) return toast("目前沒有內容可匯出"); download(safeName(cur().s.n)+"_轉譯結果.md",mdBox.value); };
+$("fixMd").onclick=()=>{ if(!mdBox.value.trim()) return toast("請先貼上 Markdown 內容"); const before=mdBox.value; mdBox.value=fixMarkdown(before,{unicodeInline:DOMAINS[dIdx].base!=="teach"}); renderPreview(); toast(before===mdBox.value?"沒有需要修復的地方 👍":"已修復斷行與公式！"); };
+$("dlMd").onclick=()=>{ if(!mdBox.value.trim()) return toast("目前沒有內容可下載"); download(safeName(cur().s.n)+"_轉譯結果.md",mdBox.value); };
 $("copyMd").onclick=()=>{ if(!mdBox.value.trim()) return toast("目前沒有內容可複製"); copyText(mdBox.value,"已複製 Markdown 至剪貼簿！"); };
 $("clearMd").onclick=()=>{ mdBox.value=""; renderPreview(); mdBox.focus(); };
 mdBox.addEventListener("input",renderPreview);
