@@ -28,9 +28,34 @@ button{font-family:inherit;cursor:pointer}
 .notice svg{flex:none;width:22px;height:22px}
 html[data-theme="dark"] .notice{background:#5a4512;color:#f6dd8f;border-bottom-color:rgba(246,221,143,.2)}
 @media (max-width:640px){.notice div{padding:8px 14px;font-size:12.5px;gap:8px;letter-spacing:0}.notice svg{width:18px;height:18px}.notice .nl{display:block}.notice .sep{display:none}}
+/* 上排次要按鈕：弱化，讓下方「複製並開啟新對話」成為主角 */
+.hero .actions{gap:8px;margin-top:16px}
+.hero .actions .btn{padding:7px 13px;font-size:13px;font-weight:500;color:var(--muted);background:transparent;border:1px solid var(--line);box-shadow:none;border-radius:9px}
+.hero .actions .btn svg{width:13px;height:13px}
+.hero .actions .btn:hover{color:var(--ink);background:var(--soft);border-color:var(--cell)}
+.hero .actions .btn.solid,.hero .actions .btn.tint{background:transparent;color:var(--muted);border-color:var(--line)}
+.hero .actions .btn.solid:hover,.hero .actions .btn.tint:hover{color:var(--accent-ink);border-color:var(--accent);background:var(--soft);filter:none}
 /* AI 啟動按鈕 */
-.launch{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:14px;padding-top:14px;border-top:1px dashed var(--line)}
-.launch .ll{font-size:13px;font-weight:700;color:var(--ink3);margin-right:2px}
+.launch{position:relative;display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-top:18px;padding:14px 16px;border-radius:14px;
+  background:linear-gradient(100deg,var(--accent-soft) 0%,var(--card) 85%);border:1.5px solid var(--accent);border-left-width:6px;
+  animation:launchPulse 3.2s ease-in-out infinite}
+@keyframes launchPulse{0%,70%,100%{box-shadow:0 0 0 0 rgba(0,0,0,0)}82%{box-shadow:0 0 0 6px var(--accent-soft),0 6px 18px rgba(0,0,0,.08)}}
+.launch .ll{display:inline-flex;align-items:center;gap:6px;font-size:15px;font-weight:800;color:var(--accent-ink);margin-right:2px}
+.launch .arrow{display:inline-block;margin-left:4px;font-size:18px;animation:nudge 1.4s ease-in-out infinite}
+@keyframes nudge{0%,100%{transform:translateX(0)}50%{transform:translateX(5px)}}
+.launch .rocket{display:inline-block;animation:rocket 1.6s ease-in-out infinite}
+@keyframes rocket{0%,100%{transform:translate(0,0)}50%{transform:translate(2px,-3px)}}
+.launch .ai{padding:10px 18px 10px 16px;font-size:15px;font-weight:800;color:#fff;border:0;border-radius:12px;cursor:pointer;
+  box-shadow:0 4px 0 rgba(0,0,0,.22),0 6px 14px rgba(0,0,0,.14);transition:transform .12s,box-shadow .12s,filter .12s}
+.launch .ai i{display:none}
+.launch .ai .ext{color:rgba(255,255,255,.9);font-size:14px}
+.launch .ai[data-ai=Gemini]{background:linear-gradient(135deg,#4f7df0,#8e6ef0)}
+.launch .ai[data-ai=ChatGPT]{background:#10a37f}
+.launch .ai[data-ai=Claude]{background:#d97757}
+.launch .ai:hover{transform:translateY(-2px);filter:brightness(1.07);box-shadow:0 6px 0 rgba(0,0,0,.22),0 10px 18px rgba(0,0,0,.18)}
+.launch .ai:hover .ext{color:#fff;transform:translate(2px,-2px)}
+.launch .ai:active{transform:translateY(3px);box-shadow:0 1px 0 rgba(0,0,0,.22),0 2px 6px rgba(0,0,0,.12)}
+@media (prefers-reduced-motion:reduce){.launch,.launch .rocket,.launch .arrow{animation:none}}
 .ai{display:inline-flex;align-items:center;gap:8px;text-decoration:none;color:var(--ink);background:var(--field);border:1px solid var(--line);border-radius:999px;padding:7px 14px 7px 10px;font-size:13.5px;font-weight:700;transition:transform .15s,box-shadow .15s,border-color .15s}
 .ai i{width:14px;height:14px;border-radius:50%;display:block}
 .ai .ext{font-size:12px;color:var(--muted);transition:transform .15s}
@@ -38,7 +63,8 @@ html[data-theme="dark"] .notice{background:#5a4512;color:#f6dd8f;border-bottom-c
 .ai:hover .ext{transform:translate(2px,-2px);color:var(--accent-ink)}
 .pastehint{display:inline-flex;align-items:center;gap:4px;font-size:13px;font-weight:700;color:var(--accent-ink);background:var(--accent-soft);border-radius:8px;padding:6px 10px;margin-left:4px}
 .pastehint kbd{font-family:var(--mono);font-size:12px;font-weight:700;background:var(--card);color:var(--ink);border:1px solid var(--line);border-bottom-width:2px;border-radius:5px;padding:1px 6px}
-@media (max-width:640px){.launch .ll{width:100%}.pastehint{margin-left:0}}
+@media (max-width:640px){.launch .ll{width:100%}.pastehint{margin-left:0}.launch .arrow{animation-name:nudgeDown}}
+@keyframes nudgeDown{0%,100%{transform:rotate(90deg) translateX(0)}50%{transform:rotate(90deg) translateX(4px)}}
 /* GeoGebra 區塊 */
 .preview .ggb{border:1.5px solid #9a7bd8;border-radius:12px;overflow:hidden;margin:12px 0;background:var(--card)}
 .preview .ggbh{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;padding:8px 12px;background:rgba(153,102,255,.12);font-size:13px;font-weight:700;color:#6a45b8}
@@ -135,6 +161,15 @@ main{display:flex;flex-direction:column;gap:18px;min-width:0}
 .tip{position:fixed;z-index:60;width:310px;max-width:calc(100vw - 16px);background:var(--card);color:var(--ink);border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:12px;
   padding:12px 14px;box-shadow:0 12px 30px rgba(0,0,0,.18);pointer-events:none;opacity:0;transform:translateX(-6px) scale(.97);transition:opacity .15s,transform .15s}
 .tip.show{opacity:1;transform:none;pointer-events:auto}
+/* 科目泡泡：橫向長條 */
+.tip.wide{width:560px;padding:10px 14px}
+.tip.wide .tt{margin-bottom:6px}
+.tip.wide .tk{margin-top:0;align-items:center}
+.tip.wide .tkl{font-size:12px;color:var(--ink2);margin-right:2px}
+.tip.wide .add{display:flex;align-items:center;gap:10px;margin-top:8px;padding-top:8px}
+.tip.wide .al{flex:none;margin:0;flex-direction:column;gap:0;line-height:1.3}
+.tip.wide .al small{font-size:10.5px}
+.tip.wide .ar{flex:1}
 .tip .add{margin-top:10px;border-top:1px dashed var(--line);padding-top:10px}
 .tip .al{font-size:12px;font-weight:700;color:var(--ink2);margin-bottom:6px;display:flex;justify-content:space-between}
 .tip .al small{font-weight:500;color:var(--muted)}
@@ -343,7 +378,7 @@ html[data-theme="dark"] .themebtn .moon{display:none}
           一鍵複製 Prompt</button>
       </div>
       <div class="launch">
-        <span class="ll">🚀 複製並開啟新對話：</span>
+        <span class="ll"><span class="rocket">🚀</span>複製並開啟新對話<span class="arrow">→</span></span>
         <a class="ai" data-ai="Gemini" href="https://gemini.google.com/app" target="_blank" rel="noopener"><i style="background:linear-gradient(135deg,#4f8df5,#9b72f2)"></i>Gemini<span class="ext">↗</span></a>
         <a class="ai" data-ai="ChatGPT" href="https://chatgpt.com/" target="_blank" rel="noopener"><i style="background:#10a37f"></i>ChatGPT<span class="ext">↗</span></a>
         <a class="ai" data-ai="Claude" href="https://claude.ai/new" target="_blank" rel="noopener"><i style="background:#d97757"></i>Claude<span class="ext">↗</span></a>
@@ -1025,13 +1060,13 @@ function tipHTML(b){
   let h;
   if(isSub){
     const s=d.subs[si];
-    h=`<div class="tt">${d.icon} ${esc(s.n)}</div><div class="td">本科目注重：</div><div class="tk">${s.d.split(/[、，,]/).filter(Boolean).map(k=>`<span>${esc(k.trim().replace(/^注重/,""))}</span>`).join("")}${mine}</div><div class="tf">第 2 節：${esc(s.s.t)}</div>`;
+    h=`<div class="tt">${d.icon} ${esc(s.n)}</div><div class="tk"><b class="tkl">本科目注重</b>${s.d.split(/[、，,]/).filter(Boolean).map(k=>`<span>${esc(k.trim().replace(/^注重/,""))}</span>`).join("")}${mine}</div>`;
   }else{
     // 步驟一（領域）泡泡：只顯示標題與一句說明
     return `<div class="tt">${d.icon} ${esc(d.full)}</div><div class="td">${esc(d.blurb)}</div>`;
   }
   const scope = isSub ? "只套用到這個科目" : "套用到此領域全部科目";
-  h+=`<div class="add"><div class="al">✏️ 外加要注重的事項<small>${scope}</small></div>
+  h+=`<div class="add"><div class="al">✏️ 外加注重<small>${scope}</small></div>
     <div class="ar"><input id="tipIn" type="text" placeholder="例：手寫筆跡、單位換算（可用、分隔）" autocomplete="off"><button class="ok" id="tipOk">確認加入</button></div></div>`;
   return h;
 }
@@ -1039,6 +1074,7 @@ function showTip(b,keepInput){
   const {d}=tipInfo(b), c=d.color, dk=isDark();
   const old = keepInput && $("tipIn") ? $("tipIn").value : "";
   tip.style.setProperty("--accent",c[0]); tip.style.setProperty("--accent-soft",dk?c[0]+"40":c[1]); tip.style.setProperty("--accent-ink",dk?c[1]:c[2]);
+  tip.classList.toggle("wide", b.dataset.s!==undefined);
   tip.innerHTML=tipHTML(b);
   if(old) $("tipIn").value=old;
   const r=b.getBoundingClientRect(), th=tip.offsetHeight, tw=tip.offsetWidth;
