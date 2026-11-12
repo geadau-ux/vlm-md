@@ -1027,7 +1027,8 @@ function tipHTML(b){
     const s=d.subs[si];
     h=`<div class="tt">${d.icon} ${esc(s.n)}</div><div class="td">本科目注重：</div><div class="tk">${s.d.split(/[、，,]/).filter(Boolean).map(k=>`<span>${esc(k.trim().replace(/^注重/,""))}</span>`).join("")}${mine}</div><div class="tf">第 2 節：${esc(s.s.t)}</div>`;
   }else{
-    h=`<div class="tt">${d.icon} ${esc(d.full)}</div><div class="td">${esc(d.blurb)}</div><div class="tk">${d.subs.map(s=>`<span>${esc(s.n)}</span>`).join("")}${mine}</div><div class="tf">共 ${d.subs.length} 個細項科目・點擊切換</div>`;
+    // 步驟一（領域）泡泡：只顯示標題與一句說明
+    return `<div class="tt">${d.icon} ${esc(d.full)}</div><div class="td">${esc(d.blurb)}</div>`;
   }
   const scope = isSub ? "只套用到這個科目" : "套用到此領域全部科目";
   h+=`<div class="add"><div class="al">✏️ 外加要注重的事項<small>${scope}</small></div>
