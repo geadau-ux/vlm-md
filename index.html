@@ -520,6 +520,72 @@ body.inbench #toggleView{border-color:var(--act)!important;color:var(--act-ink)!
 
 /* ===== 送出並取得結果：流程出口，暖銅 → 藍灰 ===== */
 .pastehint .ph-step.ph-exit{background:linear-gradient(135deg,var(--card) 0%,var(--card) 35%,var(--tool-soft) 100%)!important;border:1.5px solid transparent!important;border-left-color:color-mix(in srgb,var(--act) 55%,var(--line))!important;border-top-color:color-mix(in srgb,var(--act) 35%,var(--line))!important;border-right-color:color-mix(in srgb,var(--tool) 55%,var(--line))!important;border-bottom-color:color-mix(in srgb,var(--tool) 45%,var(--line))!important}
+.hint .hk.hd{background:var(--tool)!important}
+
+/* ===== 上方兩個分頁：獨立按鈕 ===== */
+.steps{background:none!important;border:0!important;padding:0!important;gap:10px!important}
+.steps button{border-radius:11px!important;padding:9px 16px!important;background:var(--card)!important;box-shadow:0 2px 6px rgba(0,0,0,.07)!important;border:1.5px solid var(--line)!important;border-bottom-width:4px!important;transition:transform .12s,box-shadow .12s}
+.steps button:hover{transform:translateY(-1px);box-shadow:0 4px 10px rgba(0,0,0,.1)!important}
+.steps button:focus{outline:none}
+.steps button:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+#tabPrompt{border-color:color-mix(in srgb,var(--act) 45%,var(--line))!important;color:var(--act-ink)!important}
+#tabBench{border-color:color-mix(in srgb,var(--tool) 45%,var(--line))!important;color:var(--tool-ink)!important}
+#tabPrompt.on{background:var(--act-soft)!important;border-color:var(--act)!important;box-shadow:0 3px 10px color-mix(in srgb,var(--act) 25%,transparent)!important}
+#tabBench.on{background:var(--tool-soft)!important;border-color:var(--tool)!important;box-shadow:0 3px 10px color-mix(in srgb,var(--tool) 25%,transparent)!important}
+.steps button:not(.on){opacity:.85}
+.steps button:not(.on):hover{opacity:1}
+
+/* ===== 上方分頁：立體實心按鈕（與 AI 按鈕同風格） ===== */
+.steps button{border:0!important;border-radius:12px!important;padding:10px 18px!important;font-weight:800!important;opacity:1!important;transition:transform .12s,box-shadow .12s,filter .12s!important}
+.steps button .n{filter:none}
+#tabPrompt{background:var(--act-soft)!important;color:var(--act-ink)!important;box-shadow:0 4px 0 color-mix(in srgb,var(--act) 55%,transparent),0 6px 12px rgba(0,0,0,.08)!important}
+#tabBench{background:var(--tool-soft)!important;color:var(--tool-ink)!important;box-shadow:0 4px 0 color-mix(in srgb,var(--tool) 55%,transparent),0 6px 12px rgba(0,0,0,.08)!important}
+#tabPrompt.on{background:var(--act)!important;color:#fff!important;box-shadow:0 4px 0 color-mix(in srgb,var(--act) 70%,#000),0 8px 16px color-mix(in srgb,var(--act) 35%,transparent)!important}
+#tabBench.on{background:var(--tool)!important;color:#fff!important;box-shadow:0 4px 0 color-mix(in srgb,var(--tool) 70%,#000),0 8px 16px color-mix(in srgb,var(--tool) 35%,transparent)!important}
+.steps button:hover{transform:translateY(-2px)!important;filter:brightness(1.05)}
+.steps button:active{transform:translateY(3px)!important;box-shadow:0 1px 0 rgba(0,0,0,.25)!important}
+
+/* ===== 區塊 A：左右兩欄 ===== */
+.hero-grid{display:grid;grid-template-columns:minmax(0,1fr) 280px;gap:24px;align-items:stretch}
+.hero-side{display:flex;flex-direction:column;justify-content:center;margin:0!important}
+.hero-main h2{margin-top:12px}
+.hero-side{background:var(--soft);border:1px solid var(--line);border-radius:14px;padding:14px 16px 16px}
+.hs-ttl{font-size:13px;font-weight:800;color:var(--accent-ink);margin-bottom:8px;display:flex;align-items:center;gap:6px}
+.hs-ttl::before{content:"";width:4px;height:14px;border-radius:2px;background:var(--accent)}
+.hs-list{margin:0;display:grid;gap:6px}
+.hs-list>div{display:flex;justify-content:space-between;gap:10px;font-size:13px;border-bottom:1px dashed var(--line);padding-bottom:6px}
+.hs-list>div:last-child{border-bottom:0;padding-bottom:0}
+.hero-main .actions{margin-top:16px}
+.hs-list dt{color:var(--muted)}
+.hs-list dd{margin:0;font-weight:700;color:var(--ink);text-align:right}
+.hero-side .actions{display:flex;flex-direction:column;gap:8px;margin:0!important}
+.hero-side .actions .btn{width:100%;justify-content:center}
+@media (max-width:1100px){.hero-grid{grid-template-columns:1fr}.hero-side .actions{flex-direction:row;flex-wrap:wrap}.hero-side .actions .btn{width:auto}}
+
+/* ===== 區塊 A 右欄：額外需求 ===== */
+.hero-grid{grid-template-columns:minmax(0,1.12fr) minmax(0,1fr)!important;gap:20px!important}
+.hero-main .actions{gap:8px!important;flex-wrap:nowrap}
+.hero-main .actions .btn{padding:8px 11px;white-space:nowrap}
+@media (max-width:1100px){.hero-main .actions{flex-wrap:wrap}}
+@media (max-width:1100px){.hero-grid{grid-template-columns:1fr!important}}
+.hero-side{justify-content:flex-start!important}
+.hs-sub{font-weight:500;color:var(--muted);font-size:12px;margin-left:2px}
+.hero-side .chiprow{gap:10px}
+.hero-side .chiprow .cg+.cg{padding-top:10px}
+.hero-side .chiprow .lbl{font-size:13px}
+.hero-side .chip{font-size:12.5px;padding:5px 11px}
+.hero-side .chiprow .lbl{flex:none;min-width:4.5em;font-size:12.5px;font-weight:800;color:var(--muted)}
+.hero-side .chiprow .lbl.sug{color:var(--accent-ink)}
+.hero-side .chiprow .cg{position:relative;padding-left:5em}
+.hero-side .chiprow .lbl{position:absolute;left:0;top:7px;min-width:0}
+
+/* ===== 「已加入 Prompt」統一樣式：左側外加注重＝右側已勾選 ===== */
+.kw.mine,.chip.on{background:var(--accent-soft)!important;border:1.5px solid var(--accent)!important;color:var(--accent-ink)!important;font-weight:700!important;border-style:solid!important}
+.kw.mine::before,.kw.mine.scope::before{content:"✓ "!important;margin-right:2px;font-size:inherit}
+.chip.on::before{content:"✓"!important;width:auto!important;height:auto!important;border-radius:0!important;background:none!important;color:var(--accent);font-weight:800;font-size:12px}
+.kw.mine:hover{background:var(--accent)!important;color:#fff!important}
+.kw.mine.scope::after{content:"全領域";font-size:10.5px;font-weight:700;margin-left:6px;opacity:.75}
+.tip .tk .mine{background:var(--accent-soft)!important;border:1.5px solid var(--accent)!important;color:var(--accent-ink)!important;font-weight:700}
 </style>
 </head>
 <body>
@@ -570,8 +636,9 @@ body.inbench #toggleView{border-color:var(--act)!important;color:var(--act-ink)!
 
   <main>
     <section class="card hero">
-      <div class="winbar"><div class="dots"><i></i><i></i><i></i></div><span class="blk">A</span><span class="fname">區塊 A｜科目資訊與注重重點</span><span class="badge">確認本科目的注重重點</span></div>
-      <div class="inner">
+      <div class="winbar"><div class="dots"><i></i><i></i><i></i></div><span class="blk">A</span><span class="fname">區塊 A｜科目資訊與轉譯需求</span><span class="badge">確認注重重點，視需要勾選額外的需求</span></div>
+      <div class="inner hero-grid">
+      <div class="hero-main">
       <div class="crumb"><span id="crDom"></span><span>›</span><span id="crSub"></span></div>
       <h2 id="title"></h2>
       <div class="focus" id="desc"></div>
@@ -581,13 +648,17 @@ body.inbench #toggleView{border-color:var(--act)!important;color:var(--act-ink)!
         <button class="btn solid" id="copyPrompt">📑 複製 Prompt</button>
       </div>
       </div>
+      <aside class="hero-side">
+        <div class="hs-ttl">勾選額外的需求<span class="hs-sub">（點按，可不勾）</span></div>
+        <div class="chiprow" id="chips"></div>
+      </aside>
+      </div>
     </section>
 
     <div id="promptView" style="display:flex;flex-direction:column;gap:18px">
       <section class="card chips">
-        <div class="winbar"><div class="dots"><i></i><i></i><i></i></div><span class="blk">B</span><span class="fname">區塊 B｜補充轉譯要求與開啟 AI</span><span class="badge">先勾選（點按）額外的需求（可不勾），再點下方 Gemini／ChatGPT／Claude 開新對話</span></div>
+        <div class="winbar"><div class="dots"><i></i><i></i><i></i></div><span class="blk">B</span><span class="fname">區塊 B｜開啟 AI 與執行轉譯</span><span class="badge">點 Gemini／ChatGPT／Claude 開新對話，再照步驟四完成轉譯</span></div>
         <div class="inner">
-        <div class="chiprow" id="chips"></div>
       <div class="launch">
         <div class="ph-head"><span class="stephd"><span class="sb">步驟三</span>開啟 AI 對話</span></div>
         <div class="ai-row">
@@ -659,12 +730,11 @@ body.inbench #toggleView{border-color:var(--act)!important;color:var(--act-ink)!
   <ul class="hl">
     <li><span class="hk st">步驟一</span><span class="ht">左側<b>選擇轉譯領域</b>（滑鼠停在按鈕上可看說明）。</span></li>
     <li><span class="hk st">步驟二</span><span class="ht">再<b>選擇細項科目</b>；滑鼠移進科目泡泡，可輸入<b>外加注重事項</b>（可用「、」分隔、可加多項），按<b>確認加入</b>。</span></li>
-    <li><span class="hk">區塊 A</span><span class="ht">確認本科目注重重點，以及你外加的注重事項。</span></li>
-    <li><span class="hk">區塊 B</span><span class="ht">視需要勾選<b>補充轉譯要求</b>（可不勾）。</span></li>
+    <li><span class="hk">區塊 A</span><span class="ht">確認本科目注重重點；右側可勾選<b>通用</b>或<b>本科建議</b>的額外需求（可不勾）。</span></li>
     <li><span class="hk st">步驟三</span><span class="ht"><b>開啟 AI 對話</b>：點 Gemini／ChatGPT／Claude，自動複製 Prompt 並開新分頁。</span></li>
     <li><span class="hk st">步驟四</span><span class="ht"><b>執行VLM轉譯</b>：在新分頁按 ⌘V／Ctrl+V 貼上 → 上傳檔案 → 送出 → 複製結果（需要時再到區塊 D 整理）。</span></li>
     <li><span class="hk">區塊 C</span><span class="ht">（選用）想檢查送出的內容，可在這裡看完整 Prompt 與字元數。</span></li>
-    <li><span class="hk">區塊 D</span><span class="ht">（選用）切到上方「<b>🛠️ Markdown 修復與預覽工作台</b>」，貼上 AI 回傳內容，按<b>✨ 一鍵修復斷行與公式</b>，或手動微調；📐 可重建 GeoGebra 圖形。</span></li>
+    <li><span class="hk hd">區塊 D</span><span class="ht">（選用）點「<b>🛠️ Markdown 修復與預覽工作台</b>」，貼上 AI 回傳內容，按<b>✨ 一鍵修復</b>或手動微調；📐 可重建 GeoGebra 圖形。</span></li>
   </ul>
 </div>
 <div class="homefab" id="homeFab"></div>
@@ -1096,8 +1166,8 @@ function renderChips(){
   const c=chipsFor(dIdx,sIdx), sn=cur().s.n;
   const btn=id=>{ const x=extraOf(XID[id]); return `<button class="chip${active.has(id)?" on":""}" data-id="${id}" title="${esc(x.text.replace(/^- /,"").replace(/\*\*/g,"").replace(/`/g,""))}">${esc(x.label)}</button>`; };
   $("chips").innerHTML =
-    `<div class="cg"><span class="lbl">⚡ 補充轉譯要求</span><span class="ctag">通用</span>${c.common.map(btn).join("")}</div>`+
-    `<div class="cg"><span class="lbl sug">💡 ${esc(sn)}建議</span><span class="ctag sugt">依科目屬性</span>${c.suggest.map(btn).join("")}</div>`;
+    `<div class="cg"><span class="lbl">通用</span>${c.common.map(btn).join("")}</div>`+
+    `<div class="cg"><span class="lbl sug">本科建議</span>${c.suggest.map(btn).join("")}</div>`;
 }
 function renderMain(){
   const {d,s,b} = cur();
@@ -1303,7 +1373,7 @@ function tipInfo(b){
 }
 function tipHTML(b){
   const {di,si,isSub,key,d}=tipInfo(b);
-  const mine=(CUSTOM[key]||[]).map(k=>`<span class="mine">＋${esc(k)}<button data-key="${key}" data-v="${esc(k)}" title="移除">✕</button></span>`).join("");
+  const mine=(CUSTOM[key]||[]).map(k=>`<span class="mine">✓ ${esc(k)}<button data-key="${key}" data-v="${esc(k)}" title="移除">✕</button></span>`).join("");
   let h;
   if(isSub){
     const s=d.subs[si];
