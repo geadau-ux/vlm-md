@@ -650,6 +650,23 @@ body.inbench #toggleView[data-tip]::before{background:color-mix(in srgb,var(--ac
 .tipx:hover::before,.tipx:focus-visible::before{opacity:1}
 html[data-theme="dark"] .tipx::after{background:color-mix(in srgb,var(--tc) 22%,#1b1d22);box-shadow:0 14px 34px rgba(0,0,0,.55),0 0 0 4px color-mix(in srgb,var(--tc) 20%,transparent)}
 @media (hover:none){.tipx::after,.tipx::before{display:none}}
+.hint .hnote{margin-top:8px;padding-top:8px;border-top:1px dashed var(--line);font-size:13px;color:var(--muted)}
+.hint .hsub{display:block;margin-top:2px;padding-left:12px;border-left:2px solid color-mix(in srgb,var(--tool) 45%,transparent);color:var(--ink2)}
+.ctip{width:300px!important;pointer-events:none!important}
+.ctip .tt{font-weight:800;color:var(--accent);margin-bottom:4px;font-size:14px}
+.ctip .cd{font-size:13.5px;line-height:1.7;color:var(--ink)}
+.ctip .cd b{color:var(--ink2)}
+.ctip .cf{margin-top:6px;padding-top:6px;border-top:1px dashed color-mix(in srgb,var(--accent) 40%,transparent);font-size:12.5px;color:var(--muted)}
+.ctip::before{left:var(--ax,50%)!important;top:auto!important;bottom:-16px!important;margin:0 0 0 -8px!important;border-right-color:transparent!important;border-top-color:var(--accent)!important}
+.ctip.below::before{bottom:auto!important;top:-16px!important;border-top-color:transparent!important;border-bottom-color:var(--accent)!important}
+.ctip{transform:translateY(4px) scale(.98)}
+.tipx.rt::after{left:auto;right:-6px;transform:translateY(-4px)}.tipx.rt:hover::after{transform:none}
+.themebtn.tipx:hover{transform:none}
+#themeBtn:hover svg{transform:rotate(-12deg);transition:transform .15s}
+.hint .hlinks{display:block;margin-top:2px;font-size:13px;color:var(--muted)}
+.hint .hlinks a{display:inline-block;margin-left:8px;padding:0 9px;border:1px solid color-mix(in srgb,var(--tool) 50%,transparent);border-radius:999px;color:var(--tool-ink);font-weight:700;text-decoration:none;background:var(--tool-soft);white-space:nowrap}
+.hint .hlinks a:hover{background:var(--tool);color:#fff}
+#benchView .toolbar{gap:8px}#benchView .toolbar .btn.sm{padding:8px 11px;white-space:nowrap}
 </style>
 </head>
 <body>
@@ -673,8 +690,8 @@ html[data-theme="dark"] .tipx::after{background:color-mix(in srgb,var(--tc) 22%,
       <button id="tabPrompt" class="on tipx down" style="--tc:var(--act)" data-tip="依步驟一～四操作：選領域與科目、&#10;取得 Prompt，再交給 AI 轉譯"><span class="n">📋</span><span class="long">取得 VLM 轉譯 Prompt</span><span class="short">取得 Prompt</span></button>
       <button id="tabBench" class="tipx down" style="--tc:var(--tool)" data-tip="貼上 AI 回傳的 Markdown：即時預覽排版、&#10;一鍵修復斷行與公式，也可手動微調"><span class="n">🛠️</span><span class="long">Markdown 修復與預覽工作台</span><span class="short">修復與預覽</span></button>
     </div>
-    <button class="themebtn helpbtn" id="helpBtn" title="使用提示" aria-label="使用提示">?</button>
-    <button class="themebtn" id="themeBtn" title="切換淺色／深色模式" aria-label="切換淺色／深色模式">
+    <button class="themebtn helpbtn tipx down rt" style="--tc:var(--tool)" id="helpBtn" data-tip="打開使用提示：一次看完整個操作流程" aria-label="使用提示">?</button>
+    <button class="themebtn tipx down rt" style="--tc:var(--tool)" id="themeBtn" data-tip="切換淺色／深色模式" aria-label="切換淺色／深色模式">
       <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
       <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2.2M12 19.8V22M4.9 4.9l1.6 1.6M17.5 17.5l1.6 1.6M2 12h2.2M19.8 12H22M4.9 19.1l1.6-1.6M17.5 6.5l1.6-1.6"/></svg>
     </button>
@@ -732,13 +749,13 @@ html[data-theme="dark"] .tipx::after{background:color-mix(in srgb,var(--tc) 22%,
         </div>
       </div>
       <div class="pastehint">
-          <div class="ph-head"><span class="stephd"><span class="sb">步驟四</span>執行VLM轉譯</span></div>
+          <div class="ph-head"><span class="stephd"><span class="sb">步驟四</span>執行 VLM 轉譯</span></div>
           <div class="ph-steps">
-            <div class="ph-step"><button class="ph-zoom" type="button" title="放大檢視" aria-label="放大檢視">🔍</button><div class="ph-ic">📋</div><b>貼上 Prompt</b><ul class="ph-l"><li>點一下 AI 網頁下方的<mark class="k">輸入框</mark>（打字的地方）</li><li>按 <kbd>⌘V</kbd>（Mac）或 <kbd>Ctrl+V</kbd>（Windows）<mark class="k">貼上</mark>指令</li><li><span class="note">※ 按下步驟三的按鈕時，Prompt 已自動複製好</span></li><li><span class="note">※ 第一次使用，請先登入該 AI 的帳號</span></li></ul></div>
+            <div class="ph-step"><button class="ph-zoom" type="button" aria-label="放大檢視">🔍</button><div class="ph-ic">📋</div><b>貼上 Prompt</b><ul class="ph-l"><li>點一下 AI 網頁下方的<mark class="k">輸入框</mark>（打字的地方）</li><li>按 <kbd>⌘V</kbd>／<kbd>Ctrl+V</kbd> <mark class="k">貼上 Prompt</mark></li><li><span class="note">※ 按下步驟三的按鈕時，Prompt 已自動複製好</span></li><li><span class="note">※ 第一次使用，請先登入該 AI 的帳號</span></li></ul></div>
             <div class="ph-arr">→</div>
-            <div class="ph-step"><button class="ph-zoom" type="button" title="放大檢視" aria-label="放大檢視">🔍</button><div class="ph-ic">📎</div><b>上傳檔案</b><ul class="ph-l"><li>點輸入框旁的<mark class="k">「＋」或 📎</mark>，開啟上傳選單</li><li>選擇要轉譯的 <mark class="k">PDF、圖片或截圖</mark></li><li>影片：在指令下方貼上 <mark class="k">YouTube 網址</mark></li><li>網頁：在指令下方貼上<mark class="k">網頁網址</mark></li><li><span class="note">※ AI 讀不到網頁時，先在該網頁按 <kbd>⌘S</kbd>／<kbd>Ctrl+S</kbd> 另存，再上傳存下的網頁檔</span></li></ul></div>
+            <div class="ph-step"><button class="ph-zoom" type="button" aria-label="放大檢視">🔍</button><div class="ph-ic">📎</div><b>上傳檔案</b><ul class="ph-l"><li>點輸入框旁的<mark class="k">「＋」或 📎</mark>，開啟上傳選單</li><li>選擇要轉譯的 <mark class="k">PDF、圖片或截圖</mark></li><li>影片：在指令下方貼上 <mark class="k">YouTube 網址</mark></li><li>網頁：在指令下方貼上<mark class="k">網頁網址</mark></li><li><span class="note">※ AI 讀不到網頁時，先在該網頁按 <kbd>⌘S</kbd>／<kbd>Ctrl+S</kbd> 另存，再上傳存下的網頁檔</span></li></ul></div>
             <div class="ph-arr">→</div>
-            <div class="ph-step ph-exit"><button class="ph-zoom" type="button" title="放大檢視" aria-label="放大檢視">🔍</button><div class="ph-ic">📤</div><b>送出並取得結果</b><ul class="ph-l"><li>按<mark class="k">送出</mark>（通常是 ➤ 箭頭按鈕），稍等 AI 整理完成</li><li>點回覆右上角的<mark class="k">「複製」📋</mark>，複製整理好的內容</li><li>貼到<mark class="k">其他 AI</mark>（如提問機器人、NotebookLM）繼續使用</li><li><span class="note">※ 可當對話文字或知識來源，也能存到筆記、文件</span></li></ul></div>
+            <div class="ph-step ph-exit"><button class="ph-zoom" type="button" aria-label="放大檢視">🔍</button><div class="ph-ic">📤</div><b>送出並取得結果</b><ul class="ph-l"><li>按<mark class="k">送出</mark>（通常是 ➤ 箭頭按鈕），稍等 AI 整理完成</li><li>點回覆右上角的<mark class="k">「複製」📋</mark>，複製整理好的內容</li><li>貼到<mark class="k">其他 AI</mark>（如提問機器人、NotebookLM）繼續使用</li><li><span class="note">※ 可當對話文字或知識來源，也能存到筆記、文件</span></li></ul></div>
           </div>
           <div class="ph-optrow">
             <div class="po-l"><span class="po-ic">🛠️</span><b>修復與預覽</b><span class="opt-tag">選用</span></div>
@@ -765,10 +782,10 @@ html[data-theme="dark"] .tipx::after{background:color-mix(in srgb,var(--tc) 22%,
       <div class="winbar"><div class="dots"><i></i><i></i><i></i></div><span class="blk">D</span><span class="fname">區塊 D｜Markdown 修復與預覽工作台</span><span class="badge" id="curTpl"></span></div>
       <div class="benchhead">
         <div class="toolbar">
-          <button class="btn sm" id="loadTpl">📄 載入本科範本</button>
+          <button class="btn sm" id="loadTpl">📄 載入本科範例</button>
           <button class="btn sm" id="fixMd">✨ 一鍵修復斷行與公式</button>
-          <button class="btn sm" id="dlMd">💾 下載結果（.md）</button>
           <a class="btn sm ggball hidden" id="ggbAll" href="https://www.geogebra.org/classic" target="_blank" rel="noopener">📐 GeoGebra</a>
+          <button class="btn sm" id="dlMd">💾 下載（.md）</button>
           <button class="btn sm solid" id="copyMd">📑 複製 Markdown</button>
         </div>
       </div>
@@ -778,7 +795,7 @@ html[data-theme="dark"] .tipx::after{background:color-mix(in srgb,var(--tc) 22%,
       </div>
       <div class="panes">
         <div class="pane">
-          <div class="panehead"><span><span class="blk sm">D-1</span>📝 Markdown 原始碼（貼上 AI 回傳內容）</span><button type="button" class="clrbtn" id="clearMd">🧹 清空內容</button></div>
+          <div class="panehead"><span><span class="blk sm">D-1</span>📝 Markdown 原始碼（貼上 AI 回傳的內容）</span><button type="button" class="clrbtn" id="clearMd">🧹 清空內容</button></div>
           <textarea id="md" spellcheck="false" placeholder="請將 AI 轉譯出來的 Markdown 貼在此處，可即時預覽表格與單行考題排版、一鍵修復斷行，或下載成 .md 檔案…"></textarea>
         </div>
         <div class="pane">
@@ -795,14 +812,15 @@ html[data-theme="dark"] .tipx::after{background:color-mix(in srgb,var(--tc) 22%,
 <div class="hint" id="help" role="dialog" aria-label="使用提示">
   <div class="hhead"><b>💡 使用提示</b><button class="mclose" id="helpClose" aria-label="關閉">✕</button></div>
   <ul class="hl">
-    <li><span class="hk st">步驟一</span><span class="ht">左側<b>選擇轉譯領域</b>（滑鼠停在按鈕上可看說明）。</span></li>
-    <li><span class="hk st">步驟二</span><span class="ht">再<b>選擇細項科目</b>；滑鼠移進科目泡泡，可輸入<b>外加注重事項</b>（可用「、」分隔、可加多項），按<b>確認加入</b>。</span></li>
-    <li><span class="hk">區塊 A</span><span class="ht">確認本科目注重重點；右側可勾選<b>通用</b>或<b>本科建議</b>的額外需求（可不勾）。</span></li>
+    <li><span class="hk st">步驟一</span><span class="ht"><b>選擇轉譯領域</b>：在左側點選要轉譯的資料類型。</span></li>
+    <li><span class="hk st">步驟二</span><span class="ht"><b>選擇細項科目</b>：滑鼠移進科目泡泡，可輸入<b>外加注重事項</b>（用「、」分隔可加多項），再按<b>確認加入</b>。</span></li>
+    <li><span class="hk">區塊 A</span><span class="ht"><b>科目資訊與轉譯需求</b>：檢視本科注重重點；右側可加選額外需求（可不勾）。想先看成品，點<b>🛠️ 先看本科轉譯完成的範例</b>。</span></li>
     <li><span class="hk st">步驟三</span><span class="ht"><b>開啟 AI 對話</b>：點 Gemini／ChatGPT／Claude，自動複製 Prompt 並開新分頁。</span></li>
-    <li><span class="hk st">步驟四</span><span class="ht"><b>執行VLM轉譯</b>：在新分頁按 ⌘V／Ctrl+V 貼上 → 上傳檔案 → 送出 → 複製結果（需要時再到區塊 D 整理）。</span></li>
-    <li><span class="hk">區塊 C</span><span class="ht">（選用）想檢查送出的內容，可在這裡看完整 Prompt，也能複製或下載。</span></li>
-    <li><span class="hk hd">區塊 D</span><span class="ht">（選用）點「<b>🛠️ Markdown 修復與預覽工作台</b>」，貼上 AI 回傳內容，按<b>✨ 一鍵修復</b>或手動微調；📐 可重建 GeoGebra 圖形。</span></li>
+    <li><span class="hk st">步驟四</span><span class="ht"><b>執行 VLM 轉譯</b>：在新分頁按 ⌘V／Ctrl+V 貼上 → 上傳檔案 → 送出 → 複製結果。</span></li>
+    <li><span class="hk">區塊 C</span><span class="ht"><b>完整 Prompt 預覽</b>（選用）：檢查要送出的內容，也能複製或下載。</span></li>
+    <li><span class="hk hd">區塊 D</span><span class="ht"><b>Markdown 修復與預覽工作台</b>（選用）：先按<b>🧹 清空範例</b>，再貼上 AI 回傳的內容；可<b>✨ 一鍵修復</b>或手動微調。<span class="hsub">📐 <b>數學圖形</b>：在 D-2 預覽點<b>「複製並開啟 GeoGebra」</b>，到 GeoGebra 左側的<b>輸入列</b>按 ⌘V／Ctrl+V 貼上，就會畫出圖形。<span class="hlinks">📖 GeoGebra 官方說明（英文）：<a href="https://geogebra.github.io/docs/manual/en/Input_Bar" target="_blank" rel="noopener">輸入列怎麼用 ↗</a><a href="https://geogebra.github.io/docs/manual/en/Commands" target="_blank" rel="noopener">所有指令一覽 ↗</a></span></span></span></li>
   </ul>
+  <div class="hnote">※ 滑鼠停在按鈕上，都會出現功能說明。</div>
 </div>
 <div class="homefab" id="homeFab"></div>
 <div class="zoomwrap" id="zoomWrap" role="dialog" aria-modal="true"><div class="zoombox"><button class="zoomclose" id="zoomClose" aria-label="關閉">✕</button><div id="zoomBody"></div></div></div>
@@ -840,48 +858,48 @@ s1:"### 1. 視覺與聽覺雙軌同步原則\n- **時間軸章節錨定（Timest
 };
 
 const EXTRAS = [
- {id:"page",label:"保留頁碼／投影片編號",text:"- **嚴格標記頁碼／段落來源**：請在每個章節或題目旁明確標註原始檔案之頁碼或投影片編號（如 `[P.03]` 或 `[Slide 05]`），以便溯源核對。",
-  media:{label:"保留時間戳記／來源段落",text:"- **嚴格標記時間戳記／來源段落**：請在每個章節旁明確標註影片時間戳記（如 `[03:15]`）或網頁的小標題／段落位置，以便溯源核對。"}},
- {id:"gloss",label:"文末附專有名詞索引表",text:"- **文末建立專有名詞索引表（Glossary）**：請於文末整理一份「核心概念與專有名詞中英對照＆定義表」，方便快速檢索。"},
- {id:"quiz",label:"文末附 3 題檢核題",text:"- **自動生成課後隨堂檢核題**：請根據轉譯內容，於文末額外設計 3 題由淺入深的素養檢核題（含正確答案與解析）。"},
- {id:"tw",label:"強制臺灣教育部慣用繁體術語",text:"- **強制使用臺灣教育部慣用繁體中文術語**：所有學術名詞、單位與標點符號請嚴格對齊臺灣教育部國家教育研究院（樂詞網）標準譯名，嚴禁出現大陸簡體慣用詞（如：資訊非信息、軟體非軟件、莫耳非摩爾、公升非升）。"}
+ {id:"page",tip:"在每個段落或題目旁標上原檔的頁碼或投影片編號，日後要回頭對照原稿很方便。",label:"保留頁碼／投影片編號",text:"- **嚴格標記頁碼／段落來源**：請在每個章節或題目旁明確標註原始檔案之頁碼或投影片編號（如 `[P.03]` 或 `[Slide 05]`），以便溯源核對。",
+  media:{tip:"在每個段落旁標上影片時間（如 03:15）或網頁小標題，日後要回頭對照很方便。",label:"保留時間戳記／來源段落",text:"- **嚴格標記時間戳記／來源段落**：請在每個章節旁明確標註影片時間戳記（如 `[03:15]`）或網頁的小標題／段落位置，以便溯源核對。"}},
+ {id:"gloss",tip:"在文件最後整理一張名詞表：重要名詞的中英對照與簡短定義，方便查找。",label:"文末附專有名詞索引表",text:"- **文末建立專有名詞索引表（Glossary）**：請於文末整理一份「核心概念與專有名詞中英對照＆定義表」，方便快速檢索。"},
+ {id:"quiz",tip:"依內容在文末多出 3 題由淺入深的檢核題，附答案與解析，可直接拿來課後小考。",label:"文末附 3 題檢核題",text:"- **自動生成課後隨堂檢核題**：請根據轉譯內容，於文末額外設計 3 題由淺入深的素養檢核題（含正確答案與解析）。"},
+ {id:"tw",tip:"名詞、單位與標點一律使用臺灣教育部的慣用說法，避免出現中國用語。",label:"強制臺灣教育部慣用繁體術語",text:"- **強制使用臺灣教育部慣用繁體中文術語**：所有學術名詞、單位與標點符號請嚴格對齊臺灣教育部國家教育研究院（樂詞網）標準譯名，嚴禁出現大陸簡體慣用詞（如：資訊非信息、軟體非軟件、莫耳非摩爾、公升非升）。"}
 ,
  /* ---- 領域建議 ---- */
- {id:"myth",label:"標示易錯迷思",text:"- **標示常見迷思與易錯點**：請於相關段落後以 `⚠️ 易錯提醒` 標出學生常見的迷思概念或易混淆處。"},
- {id:"ans",label:"答案與詳解另立區塊",text:"- **答案與詳解獨立整理**：若原檔附有答案或詳解，請於全卷題目之後另立 `## 參考答案與詳解` 區塊，依題號對應，切勿混入題幹。"},
- {id:"score",label:"保留配分與題型統計",text:"- **保留配分與題型統計**：每大題標示配分，並於文末附「題型／題數／配分」統計表，核對總分加總正確。"},
- {id:"point",label:"標註每題考點",text:"- **標註每題考點**：於每題末以 `【考點】` 簡述所測概念或能力（不含答案）。"},
- {id:"code",label:"文末彙整課綱代碼",text:"- **文末彙整課綱代碼**：將文件中出現的核心素養、學習表現、學習內容代碼彙整為一張對照表。"},
- {id:"gap",label:"標示待補欄位",text:"- **標示待補或不完整處**：原文件中空白、待填或資訊不足的欄位，請以 `【待補】` 標示，切勿自行杜撰內容。"},
- {id:"todo",label:"文末彙整待辦總表",text:"- **文末彙整待辦總表**：將全文所有辦理事項整理為「事項／負責單位／期限／狀態」表格，並依期限先後排序。"},
- {id:"tldr",label:"文首三行重點摘要",text:"- **文首三行重點摘要**：於文件最前方以 3 行以內摘要「要做什麼、誰負責、何時截止」。"},
- {id:"pii",label:"個人資料遮蔽",text:"- **個人資料遮蔽**：姓名（職稱可保留）、電話、身分證字號、地址、帳號等個資一律以 `○○○` 遮蔽。"},
- {id:"links",label:"文末附原始連結清單",text:"- **保留原始連結清單**：文末整理所有引用的網址、參考資料與延伸閱讀連結。"},
- {id:"script",label:"文末附完整逐字稿",text:"- **文末附完整逐字稿**：於全文最後另立 `## 附錄：口白逐字稿`，依時間戳記分段，只修正錯別字，不改寫內容。"},
+ {id:"myth",tip:"在容易出錯的段落後加上「⚠️ 易錯提醒」，點出學生常見的迷思。",label:"標示易錯迷思",text:"- **標示常見迷思與易錯點**：請於相關段落後以 `⚠️ 易錯提醒` 標出學生常見的迷思概念或易混淆處。"},
+ {id:"ans",tip:"答案與詳解不混在題目裡，全部整理到最後的「參考答案與詳解」，依題號對應。",label:"答案與詳解另立區塊",text:"- **答案與詳解獨立整理**：若原檔附有答案或詳解，請於全卷題目之後另立 `## 參考答案與詳解` 區塊，依題號對應，切勿混入題幹。"},
+ {id:"score",tip:"每大題標出配分，文末附題型、題數、配分統計表，並核對總分。",label:"保留配分與題型統計",text:"- **保留配分與題型統計**：每大題標示配分，並於文末附「題型／題數／配分」統計表，核對總分加總正確。"},
+ {id:"point",tip:"在每題最後用【考點】簡述這題要測什麼（不透露答案）。",label:"標註每題考點",text:"- **標註每題考點**：於每題末以 `【考點】` 簡述所測概念或能力（不含答案）。"},
+ {id:"code",tip:"把文件中出現的課綱代碼（素養、表現、內容）整理成一張對照表。",label:"文末彙整課綱代碼",text:"- **文末彙整課綱代碼**：將文件中出現的核心素養、學習表現、學習內容代碼彙整為一張對照表。"},
+ {id:"gap",tip:"原檔空白或資訊不足的地方標成【待補】，AI 不會自己亂編內容。",label:"標示待補欄位",text:"- **標示待補或不完整處**：原文件中空白、待填或資訊不足的欄位，請以 `【待補】` 標示，切勿自行杜撰內容。"},
+ {id:"todo",tip:"把所有要辦的事整理成「事項／負責單位／期限／狀態」表格，依期限排序。",label:"文末彙整待辦總表",text:"- **文末彙整待辦總表**：將全文所有辦理事項整理為「事項／負責單位／期限／狀態」表格，並依期限先後排序。"},
+ {id:"tldr",tip:"在最前面用 3 行說明：要做什麼、誰負責、何時截止。",label:"文首三行重點摘要",text:"- **文首三行重點摘要**：於文件最前方以 3 行以內摘要「要做什麼、誰負責、何時截止」。"},
+ {id:"pii",tip:"姓名、電話、身分證字號、地址等個人資料一律改成 ○○○。",label:"個人資料遮蔽",text:"- **個人資料遮蔽**：姓名（職稱可保留）、電話、身分證字號、地址、帳號等個資一律以 `○○○` 遮蔽。"},
+ {id:"links",tip:"在文末列出所有引用的網址與參考資料。",label:"文末附原始連結清單",text:"- **保留原始連結清單**：文末整理所有引用的網址、參考資料與延伸閱讀連結。"},
+ {id:"script",tip:"在最後附上完整口白逐字稿，依時間分段，只改錯字不改寫。",label:"文末附完整逐字稿",text:"- **文末附完整逐字稿**：於全文最後另立 `## 附錄：口白逐字稿`，依時間戳記分段，只修正錯別字，不改寫內容。"},
  /* ---- 科目建議 ---- */
- {id:"ggb",label:"圖形附 GeoGebra 重建指令",text:"- **圖形附 GeoGebra 重建指令**：每個函數或幾何圖形後，附上可在 GeoGebra 重建該圖的指令。請放在以 `~~~geogebra` 開頭、`~~~` 結尾的區塊中（用 ~~~ 以免與外層程式碼區塊衝突），每行一個指令，使用 GeoGebra 英文指令語法，例如 `A=(0,0)`、`f(x)=x^2-2x`、`Polygon(A,B,C)`，不要加註解或編號。"},
- {id:"unit",label:"單位與有效數字檢核",text:"- **單位與有效數字檢核**：所有數值保留原始有效位數與單位，並於文末列出文中出現的單位換算關係。"},
- {id:"era",label:"年代西元／民國對照",text:"- **年代西元／民國對照**：所有年代同時標示西元與民國（或朝代年號），方便跨科對照。"},
- {id:"zhuyin",label:"生難字詞加注音",text:"- **生難字詞加注音**：生難字、破音字請以「字（注音）」格式標注。"},
- {id:"trans",label:"段落附中文翻譯",text:"- **段落附中文翻譯**：每段英文後以引言區塊 `>` 附一段中文翻譯，與原文明確區隔。"},
- {id:"pron",label:"標示發音重點",text:"- **標示發音重點**：特殊聲調、變調或華語沒有的音，請於語詞表備註欄說明發音要領。"},
- {id:"artinfo",label:"作品資訊彙整表",text:"- **作品資訊彙整表**：文中出現的所有作品整理為「作品／作者／年代／媒材／風格」表格。"},
- {id:"safety",label:"安全提醒獨立區塊",text:"- **安全提醒獨立區塊**：將所有安全注意事項彙整為文末 `## ⚠️ 安全提醒` 區塊，方便課前宣導。"},
- {id:"codecmt",label:"程式碼加中文註解",text:"- **程式碼加中文註解**：為每段程式碼加上繁體中文行內註解說明功能，原始程式碼本身不可更動。"},
- {id:"views",label:"多元觀點對照表",text:"- **多元觀點對照表**：將文中不同立場整理為「立場／主要論點／依據」對照表，不加入價值判斷。"},
- {id:"cite",label:"引文標註出處",text:"- **引文標註出處**：題目引用的詩文、文章請標註作者與篇名（以原卷提供者為準，不可自行推測）。"},
- {id:"listen",label:"聽力腳本另立附錄",text:"- **聽力腳本另立附錄**：聽力測驗的腳本另立附錄區塊並依題號對應，不混入題目本體。"},
- {id:"srcmap",label:"資料與題號對照表",text:"- **資料與題號對照表**：文末附「資料編號／引用的小題」對照表，方便拆題重組。"},
- {id:"diff",label:"標示差異化段落",text:"- **標示差異化段落**：將教案中的差異化、補救與挑戰任務以 `🧩` 標示，便於快速檢視。"},
- {id:"stu",label:"附學生版規準",text:"- **附學生版規準**：另附一份以學生易懂語言改寫的規準表，原版內容不可更動。"},
- {id:"blank",label:"作答欄位保持空白",text:"- **作答欄位保持空白**：所有作答欄位保留空白（`＿＿＿＿＿＿` 或空白表格列），不可自行填入答案。"},
- {id:"date",label:"民國日期加註西元",text:"- **民國日期加註西元**：所有民國日期後方加註西元（如 115/11/27 → 2026-11-27），方便加入行事曆。"},
- {id:"kpi",label:"KPI 達成率試算",text:"- **KPI 達成率試算**：依原文目標值與實際值計算達成率並標示；原文未提供者標示 `【未提供】`。"},
- {id:"sum",label:"金額逐列驗算",text:"- **金額逐列驗算**：逐列驗算「單價 × 數量 = 總價」與各級小計、總計，不符處以 ⚠️ 標示並附正確計算值。"},
- {id:"verify",label:"標示待查證說法",text:"- **標示待查證說法**：未附來源的數據或主張以 `【待查證】` 標示。"},
- {id:"amend",label:"標示條文修正日期",text:"- **標示條文修正日期**：若網頁載明修正歷程，請標示各條文最新修正日期。"},
- {id:"evid",label:"觀課證據時間對照",text:"- **觀課證據時間對照**：文末依觀課面向整理具體證據與時間戳記（如 `[12:30] 學生分組討論`）。"},
- {id:"steps",label:"附精簡操作清單",text:"- **附精簡操作清單**：文末另附只含步驟編號與操作路徑的精簡清單，方便列印給學生。"}
+ {id:"ggb",tip:"數學圖形會多附一段 GeoGebra 指令；之後在工作台按「複製並開啟 GeoGebra」，貼上就能畫出同一張圖。",label:"圖形附 GeoGebra 重建指令",text:"- **圖形附 GeoGebra 重建指令**：每個函數或幾何圖形後，附上可在 GeoGebra 重建該圖的指令。請放在以 `~~~geogebra` 開頭、`~~~` 結尾的區塊中（用 ~~~ 以免與外層程式碼區塊衝突），每行一個指令，使用 GeoGebra 英文指令語法，例如 `A=(0,0)`、`f(x)=x^2-2x`、`Polygon(A,B,C)`，不要加註解或編號。"},
+ {id:"unit",tip:"數值保留原本的單位與有效位數，並在文末列出單位換算。",label:"單位與有效數字檢核",text:"- **單位與有效數字檢核**：所有數值保留原始有效位數與單位，並於文末列出文中出現的單位換算關係。"},
+ {id:"era",tip:"年代同時標示西元與民國（或朝代年號），方便跨科對照。",label:"年代西元／民國對照",text:"- **年代西元／民國對照**：所有年代同時標示西元與民國（或朝代年號），方便跨科對照。"},
+ {id:"zhuyin",tip:"生難字、破音字在後面加上注音，如「字（ㄗˋ）」。",label:"生難字詞加注音",text:"- **生難字詞加注音**：生難字、破音字請以「字（注音）」格式標注。"},
+ {id:"trans",tip:"每段英文後面附一段中文翻譯，並與原文分開。",label:"段落附中文翻譯",text:"- **段落附中文翻譯**：每段英文後以引言區塊 `>` 附一段中文翻譯，與原文明確區隔。"},
+ {id:"pron",tip:"特殊聲調、變調或華語沒有的音，在語詞表備註發音要領。",label:"標示發音重點",text:"- **標示發音重點**：特殊聲調、變調或華語沒有的音，請於語詞表備註欄說明發音要領。"},
+ {id:"artinfo",tip:"把文中提到的作品整理成「作品／作者／年代／媒材／風格」表格。",label:"作品資訊彙整表",text:"- **作品資訊彙整表**：文中出現的所有作品整理為「作品／作者／年代／媒材／風格」表格。"},
+ {id:"safety",tip:"把所有安全注意事項集中到文末的「⚠️ 安全提醒」，方便課前宣導。",label:"安全提醒獨立區塊",text:"- **安全提醒獨立區塊**：將所有安全注意事項彙整為文末 `## ⚠️ 安全提醒` 區塊，方便課前宣導。"},
+ {id:"codecmt",tip:"在程式碼加上繁體中文註解說明用途，程式本身不更動。",label:"程式碼加中文註解",text:"- **程式碼加中文註解**：為每段程式碼加上繁體中文行內註解說明功能，原始程式碼本身不可更動。"},
+ {id:"views",tip:"把不同立場整理成「立場／論點／依據」對照表，不加入價值判斷。",label:"多元觀點對照表",text:"- **多元觀點對照表**：將文中不同立場整理為「立場／主要論點／依據」對照表，不加入價值判斷。"},
+ {id:"cite",tip:"題目引用的詩文、文章標上作者與篇名（以原卷為準）。",label:"引文標註出處",text:"- **引文標註出處**：題目引用的詩文、文章請標註作者與篇名（以原卷提供者為準，不可自行推測）。"},
+ {id:"listen",tip:"聽力腳本另外放在附錄，依題號對應，不混進題目。",label:"聽力腳本另立附錄",text:"- **聽力腳本另立附錄**：聽力測驗的腳本另立附錄區塊並依題號對應，不混入題目本體。"},
+ {id:"srcmap",tip:"文末附「資料編號／引用的小題」對照表，方便拆題重組。",label:"資料與題號對照表",text:"- **資料與題號對照表**：文末附「資料編號／引用的小題」對照表，方便拆題重組。"},
+ {id:"diff",tip:"教案中的差異化、補救與挑戰任務用 🧩 標出，一眼就能找到。",label:"標示差異化段落",text:"- **標示差異化段落**：將教案中的差異化、補救與挑戰任務以 `🧩` 標示，便於快速檢視。"},
+ {id:"stu",tip:"另外附一份用學生看得懂的話改寫的評量規準，原版不變。",label:"附學生版規準",text:"- **附學生版規準**：另附一份以學生易懂語言改寫的規準表，原版內容不可更動。"},
+ {id:"blank",tip:"作答欄位保持空白，AI 不會自己填入答案。",label:"作答欄位保持空白",text:"- **作答欄位保持空白**：所有作答欄位保留空白（`＿＿＿＿＿＿` 或空白表格列），不可自行填入答案。"},
+ {id:"date",tip:"民國日期後面加註西元（如 115/11/27 → 2026-11-27），方便排行事曆。",label:"民國日期加註西元",text:"- **民國日期加註西元**：所有民國日期後方加註西元（如 115/11/27 → 2026-11-27），方便加入行事曆。"},
+ {id:"kpi",tip:"依目標值與實際值算出達成率；原文沒提供的標成【未提供】。",label:"KPI 達成率試算",text:"- **KPI 達成率試算**：依原文目標值與實際值計算達成率並標示；原文未提供者標示 `【未提供】`。"},
+ {id:"sum",tip:"逐列驗算「單價 × 數量 = 總價」與小計、總計，算錯的地方用 ⚠️ 標出。",label:"金額逐列驗算",text:"- **金額逐列驗算**：逐列驗算「單價 × 數量 = 總價」與各級小計、總計，不符處以 ⚠️ 標示並附正確計算值。"},
+ {id:"verify",tip:"沒有附來源的數據或說法，標成【待查證】。",label:"標示待查證說法",text:"- **標示待查證說法**：未附來源的數據或主張以 `【待查證】` 標示。"},
+ {id:"amend",tip:"若網頁有修正紀錄，標出各條文的最新修正日期。",label:"標示條文修正日期",text:"- **標示條文修正日期**：若網頁載明修正歷程，請標示各條文最新修正日期。"},
+ {id:"evid",tip:"文末依觀課面向整理具體證據與時間點（如 [12:30] 學生分組討論）。",label:"觀課證據時間對照",text:"- **觀課證據時間對照**：文末依觀課面向整理具體證據與時間戳記（如 `[12:30] 學生分組討論`）。"},
+ {id:"steps",tip:"文末另附只有步驟編號與操作路徑的精簡清單，方便印給學生。",label:"附精簡操作清單",text:"- **附精簡操作清單**：文末另附只含步驟編號與操作路徑的精簡清單，方便列印給學生。"}
 ];
 const COMMON = ["page","tw"];
 const DOMAIN_CHIPS = {teach:["gloss","quiz","myth"],exam:["ans","score","point"],assess:["code","gap"],admin:["todo","tldr","pii"],web:["gloss","links"],video:["script"]};
@@ -1231,7 +1249,7 @@ function removeCustom(key,v){
 }
 function renderChips(){
   const c=chipsFor(dIdx,sIdx), sn=cur().s.n;
-  const btn=id=>{ const x=extraOf(XID[id]); return `<button class="chip${active.has(id)?" on":""}" data-id="${id}" title="${esc(x.text.replace(/^- /,"").replace(/\*\*/g,"").replace(/`/g,""))}">${esc(x.label)}</button>`; };
+  const btn=id=>{ const x=extraOf(XID[id]); return `<button class="chip${active.has(id)?" on":""}" data-id="${id}">${esc(x.label)}</button>`; };
   $("chips").innerHTML =
     `<div class="cg"><span class="lbl">通用</span>${c.common.map(btn).join("")}</div>`+
     `<div class="cg"><span class="lbl sug">本科建議</span>${c.suggest.map(btn).join("")}</div>`;
@@ -1338,14 +1356,14 @@ function updateGuide(){
   $("clearMd").textContent = isSample ? "🧹 清空範例" : "🧹 清空內容";
   g.className="bguide"+(isSample?" s":empty?" e":" hidden");
   $("bgText").innerHTML = isSample
-    ? '下方 <b>D-1 原始碼</b>與 <b>D-2 預覽</b>，目前顯示的是<mark class="k">「'+esc(cur().s.n)+'」轉譯範例</mark>，示範 AI 轉譯完成後的樣子。<br>要檢查自己的結果：<span class="nw">① 按下方 D-1 的<mark class="k">🧹 清空範例</mark></span> → <span class="nw">② 按 <kbd>'+k+'</kbd> 貼上 AI 回傳的內容</span>'
-    : '已清空 ✓ 在下方 D-1 點一下，按 <kbd>'+k+'</kbd> <mark class="k">貼上 AI 回傳的內容</mark>，<span class="nw">右側會即時顯示排版</span>';
+    ? '下方 <b>D-1 原始碼</b>與 <b>D-2 預覽</b>，目前顯示的是<mark class="k">「'+esc(cur().s.n)+'」轉譯範例</mark>，示範 AI 轉譯完成後的樣子。<br>要檢查自己的結果：<span class="nw">① 按下方 D-1 的<mark class="k">🧹 清空範例</mark></span> → <span class="nw">② 按 <kbd>⌘V</kbd>／<kbd>Ctrl+V</kbd> 貼上 AI 回傳的內容</span>'
+    : '已清空 ✓ 在下方 D-1 點一下，按 <kbd>⌘V</kbd>／<kbd>Ctrl+V</kbd> <mark class="k">貼上 AI 回傳的內容</mark>，<span class="nw">右側會即時顯示排版</span>';
 }
 function renderPreview(){
   GGB_BLOCKS=[];
   $("preview").innerHTML = mdBox.value.trim() ? md2html(mdBox.value) : '<p class="ph">左側貼上 Markdown 後，這裡會即時顯示渲染結果。</p>';
   const n=GGB_BLOCKS.reduce((a,b)=>a+b.length,0), gb=$("ggbAll");
-  gb.classList.toggle("hidden",!n); gb.innerHTML="📐 全部 GeoGebra 指令（"+n+" 行）↗";
+  gb.classList.toggle("hidden",!n); gb.innerHTML="📐 GeoGebra 指令（"+n+" 行）↗";
   updateGuide();
 }
 
@@ -1608,7 +1626,7 @@ document.addEventListener("click",e=>{ if(help.classList.contains("show") && !he
 document.addEventListener("keydown",e=>{ if(e.key==="Escape") help.classList.remove("show"); });
 $("themeBtn").onclick=()=>{ const m=isDark()?"light":"dark"; setMode(m); toast(m==="dark"?"已切換為深色模式 🌙":"已切換為淺色模式 ☀️"); };
 $("tabBench").onclick=()=>setView("bench");
-$("loadTpl").onclick=()=>{ loadSample(); toast("已載入「"+cur().s.n+"」範本"); };
+$("loadTpl").onclick=()=>{ loadSample(); toast("已載入「"+cur().s.n+"」範例"); };
 $("fixMd").onclick=()=>{ if(!mdBox.value.trim()) return toast("請先貼上 Markdown 內容"); const before=mdBox.value; mdBox.value=fixMarkdown(before,{unicodeInline:DOMAINS[dIdx].base!=="teach"}); renderPreview(); toast(before===mdBox.value?"沒有需要修復的地方 👍":"已修復斷行與公式！"); };
 $("dlMd").onclick=()=>{ if(!mdBox.value.trim()) return toast("目前沒有內容可下載"); download(safeName(cur().s.n)+"_轉譯結果.md",mdBox.value); };
 $("copyMd").onclick=()=>{ if(!mdBox.value.trim()) return toast("目前沒有內容可複製"); copyText(mdBox.value,"已複製 Markdown 至剪貼簿！"); };
@@ -1622,6 +1640,22 @@ window.addEventListener("hashchange",()=>setView(location.hash==="#workbench"?"b
 render();
 renderPreview();
 if(location.hash==="#workbench") setView("bench");
+
+/* 勾選需求 chip 的說明泡泡 */
+const ctip=document.createElement("div"); ctip.className="tip ctip"; document.body.appendChild(ctip);
+$("chips").addEventListener("mouseover",e=>{
+  const b=e.target.closest(".chip"); if(!b) return;
+  const x=extraOf(XID[b.dataset.id]), on=b.classList.contains("on"), c=cur().d.color, dk=isDark();
+  ctip.style.setProperty("--accent",c[0]);
+  ctip.innerHTML=`<div class="tt">${on?"✓ 已加選：":"➕ "}${esc(x.label)}</div><div class="cd"><b>勾選後，AI 會：</b>${esc(x.tip||"")}</div><div class="cf">${on?"再點一下可取消":"點一下加入 Prompt（可不勾）"}</div>`;
+  const r=b.getBoundingClientRect(); ctip.classList.add("show");
+  const tw=ctip.offsetWidth, th=ctip.offsetHeight;
+  let left=Math.min(Math.max(8,r.left+r.width/2-tw/2),innerWidth-tw-8), top=r.top-th-12;
+  ctip.classList.toggle("below", top<8); if(top<8) top=r.bottom+12;
+  ctip.style.left=left+"px"; ctip.style.top=top+"px"; ctip.style.setProperty("--ax",(r.left+r.width/2-left)+"px");
+});
+$("chips").addEventListener("mouseout",e=>{ if(!e.relatedTarget||!e.relatedTarget.closest||!e.relatedTarget.closest(".chip")) ctip.classList.remove("show"); });
+$("chips").addEventListener("click",()=>setTimeout(()=>{ const h=$("chips").querySelector(".chip:hover"); if(h) h.dispatchEvent(new MouseEvent("mouseover",{bubbles:true})); },30));
 </script>
 </body>
 </html>
