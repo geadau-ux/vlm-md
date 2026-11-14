@@ -467,6 +467,21 @@ html[data-theme="dark"] .ttl .t-vlm,html[data-theme="dark"] .ttl .t-wand{backgro
 .pastehint .po-go:hover{transform:translateY(-1px);filter:brightness(1.08)}
 .pastehint .po-go:active{transform:translateY(2px);box-shadow:0 1px 0 rgba(0,0,0,.2)}
 @media (max-width:640px){.pastehint .po-go{width:100%}}
+
+/* ===== 目的地配色邏輯：取得 Prompt＝主題色；修復與預覽＝藍灰（固定） ===== */
+:root{--tool:#4f6b8a;--tool-soft:#e3eaf2;--tool-ink:#34506e}
+html[data-theme="dark"]{--tool:#6f8fb3;--tool-soft:#4f6b8a40;--tool-ink:#c3d5ea}
+.steps button{border-bottom:3px solid transparent}
+#tabPrompt.on{background:var(--accent-soft)!important;color:var(--accent-ink)!important;border-bottom-color:var(--accent)}
+#tabBench.on{background:var(--tool-soft)!important;color:var(--tool-ink)!important;border-bottom-color:var(--tool)}
+#tabPrompt:not(.on):hover{color:var(--accent-ink)}
+#tabBench:not(.on):hover{color:var(--tool-ink)}
+#tabBench:not(.on){box-shadow:inset 0 -3px 0 var(--tool-soft)}
+#tabPrompt:not(.on){box-shadow:inset 0 -3px 0 var(--accent-soft)}
+.pastehint .po-go{background:var(--tool)!important}
+#benchView .winbar .blk{background:var(--tool)}
+#benchView .blk.sm{background:var(--tool)}
+#toggleView{border-color:var(--tool)!important;color:var(--tool-ink)!important}
 </style>
 </head>
 <body>
@@ -488,7 +503,7 @@ html[data-theme="dark"] .ttl .t-vlm,html[data-theme="dark"] .ttl .t-wand{backgro
     <div class="hright">
     <div class="steps" role="tablist">
       <button id="tabPrompt" class="on"><span class="n">📋</span><span class="long">取得 VLM 轉譯 Prompt</span><span class="short">取得 Prompt</span></button>
-      <button id="tabBench"><span class="n">🛠️</span><span class="long">Markdown 修復與預覽工作台</span><span class="short">修復工作台</span></button>
+      <button id="tabBench"><span class="n">🛠️</span><span class="long">Markdown 修復與預覽工作台</span><span class="short">修復與預覽</span></button>
     </div>
     <button class="themebtn helpbtn" id="helpBtn" title="使用提示" aria-label="使用提示">?</button>
     <button class="themebtn" id="themeBtn" title="切換淺色／深色模式" aria-label="切換淺色／深色模式">
@@ -523,7 +538,7 @@ html[data-theme="dark"] .ttl .t-vlm,html[data-theme="dark"] .ttl .t-wand{backgro
       <h2 id="title"></h2>
       <div class="focus" id="desc"></div>
       <div class="actions">
-        <button class="btn tint" id="toggleView">🛠️ 前往工作台看範本</button>
+        <button class="btn tint" id="toggleView">🛠️ 看本科範本</button>
         <button class="btn" id="dlPrompt">💾 下載 Prompt（.md）</button>
         <button class="btn solid" id="copyPrompt">📑 複製 Prompt</button>
       </div>
@@ -554,9 +569,9 @@ html[data-theme="dark"] .ttl .t-vlm,html[data-theme="dark"] .ttl .t-wand{backgro
             <div class="ph-step"><button class="ph-zoom" type="button" title="放大檢視" aria-label="放大檢視">🔍</button><div class="ph-ic">📤</div><b>送出並取得結果</b><ul class="ph-l"><li>按<mark class="k">送出</mark>（通常是 ➤ 箭頭按鈕），稍等 AI 整理完成</li><li>點回覆右上角的<mark class="k">「複製」📋</mark>，複製整理好的內容</li><li>貼到<mark class="k">其他 AI</mark>（如提問機器人、NotebookLM）繼續使用</li><li><span class="note">※ 可當對話文字或知識來源，也能存到筆記、文件</span></li></ul></div>
           </div>
           <div class="ph-optrow">
-            <div class="po-l"><span class="po-ic">🛠️</span><b>修復與微調</b><span class="opt-tag">選用</span></div>
-            <div class="po-t">結果出現<mark class="k">表格亂、句子斷</mark>時，到工作台按<mark class="k">✨ 一鍵修復</mark>或<mark class="k">手動微調</mark>。<span class="note">※ 結果正常可略過</span></div>
-            <button type="button" class="po-go" id="goBench">🛠️ 前往工作台貼上 →</button>
+            <div class="po-l"><span class="po-ic">🛠️</span><b>修復與預覽</b><span class="opt-tag">選用</span></div>
+            <div class="po-t">想<mark class="k">檢視輸出結果是否正確</mark>？貼過去後，右側會即時顯示排版。<br>若<mark class="k">表格亂、句子斷</mark>或公式跑掉，按<mark class="k">✨ 一鍵修復</mark>或<mark class="k">手動微調</mark>。<span class="note">※ 確認結果正常，可略過這一步</span></div>
+            <button type="button" class="po-go" id="goBench">🛠️ 前往修復與預覽工作台 →</button>
           </div>
         </div>
         </div>
@@ -1073,7 +1088,7 @@ function setView(v){
   $("benchView").classList.toggle("hidden", v!=="bench");
   $("tabPrompt").classList.toggle("on", v==="prompt");
   $("tabBench").classList.toggle("on", v==="bench");
-  $("toggleView").textContent = v==="prompt" ? "🛠️ 前往工作台看範本" : "📋 返回取得 Prompt";
+  $("toggleView").textContent = v==="prompt" ? "🛠️ 看本科範本" : "📋 返回取得 VLM 轉譯 Prompt";
   if(v==="bench" && !mdBox.value.trim()) loadSample();
   try{ location.hash = v==="bench" ? "workbench" : ""; }catch(e){}
 }
@@ -1352,7 +1367,7 @@ $("goBench").onclick=()=>{
   window.scrollTo({top:0,behavior:"smooth"});
   setTimeout(()=>{ const t=$("md"); if(t.value===lastSample){ t.value=""; renderPreview(); } t.focus({preventScroll:true}); },350);
   const mac=/Mac|iPhone|iPad/.test(navigator.platform||navigator.userAgent);
-  toast("已切到工作台，按 "+(mac?"⌘V":"Ctrl+V")+" 貼上 AI 回傳的內容");
+  toast("已切到修復與預覽工作台，按 "+(mac?"⌘V":"Ctrl+V")+" 貼上 AI 回傳的內容");
 };
 /* HTML 魔法試板 */
 (function(){
