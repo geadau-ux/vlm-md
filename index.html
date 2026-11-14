@@ -63,7 +63,7 @@ html[data-theme="dark"] .notice{background:#5a4512;color:#f6dd8f;border-bottom-c
 .ai:hover .ext{transform:translate(2px,-2px);color:var(--accent-ink)}
 .pastehint{flex-basis:100%;color:#6b4518;background:#fff3c4;border:1.5px dashed #e0b84a;border-radius:12px;padding:12px 14px 14px;margin:6px 0 0}
 .pastehint .ph-head{font-size:14.5px;font-weight:800;margin-bottom:10px}
-.pastehint .ph-steps{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr) auto minmax(0,1fr) auto minmax(0,1fr);row-gap:12px;gap:8px;align-items:stretch}
+.pastehint .ph-steps{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr) auto minmax(0,1fr);row-gap:12px;gap:8px;align-items:stretch}
 .pastehint .ph-step{background:rgba(255,255,255,.75);border:1px solid #f0d58a;border-radius:10px;padding:10px 12px}
 .pastehint .ph-ic{font-size:20px;line-height:1;margin-bottom:6px}
 .pastehint .ph-step b{display:block;font-size:14px;margin-bottom:4px}
@@ -454,6 +454,19 @@ html[data-theme="dark"] .ttl .t-vlm,html[data-theme="dark"] .ttl .t-wand{backgro
 .pgclose:hover{border-color:var(--accent);color:var(--accent-ink)}
 #pgFrame{flex:1;border:0;width:100%;background:#fff}
 @media (max-width:640px){.pglink{display:block;margin:6px auto 0;width:max-content}}
+
+
+/* 步驟四：修復與微調獨立一排 */
+.pastehint .ph-optrow{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-top:12px;padding:10px 14px;border:1.5px dashed var(--cell);border-radius:10px;background:var(--soft)}
+.pastehint .po-l{display:flex;align-items:center;gap:6px;flex:none}
+.pastehint .po-l b{font-size:13.5px;color:var(--ink)}
+.pastehint .po-ic{font-size:16px}
+.pastehint .po-t{flex:1;min-width:240px;font-size:13px;color:var(--ink2);line-height:1.7}
+.pastehint .po-t .note{display:block;margin-left:0;color:var(--muted);font-size:12px}
+.pastehint .po-go{flex:none;border:0;border-radius:10px;background:var(--accent);color:#fff;font:700 13.5px var(--sans);padding:9px 16px;cursor:pointer;box-shadow:0 3px 0 rgba(0,0,0,.2);transition:transform .12s,filter .12s}
+.pastehint .po-go:hover{transform:translateY(-1px);filter:brightness(1.08)}
+.pastehint .po-go:active{transform:translateY(2px);box-shadow:0 1px 0 rgba(0,0,0,.2)}
+@media (max-width:640px){.pastehint .po-go{width:100%}}
 </style>
 </head>
 <body>
@@ -534,13 +547,16 @@ html[data-theme="dark"] .ttl .t-vlm,html[data-theme="dark"] .ttl .t-wand{backgro
       <div class="pastehint">
           <div class="ph-head"><span class="stephd"><span class="sb">步驟四</span>執行VLM轉譯</span></div>
           <div class="ph-steps">
-            <div class="ph-step"><button class="ph-zoom" type="button" title="放大檢視" aria-label="放大檢視">🔍</button><div class="ph-ic">📋</div><b>貼上 Prompt</b><ul class="ph-l"><li>點一下 AI 的<mark class="k">輸入框</mark></li><li><mark class="k">貼上</mark>：<kbd>⌘V</kbd>／<kbd>Ctrl+V</kbd></li><li><span class="note">※ Prompt 已自動複製好</span></li><li><span class="note">※ 首次使用請先登入帳號</span></li></ul></div>
+            <div class="ph-step"><button class="ph-zoom" type="button" title="放大檢視" aria-label="放大檢視">🔍</button><div class="ph-ic">📋</div><b>貼上 Prompt</b><ul class="ph-l"><li>點一下 AI 網頁下方的<mark class="k">輸入框</mark>（打字的地方）</li><li>按 <kbd>⌘V</kbd>（Mac）或 <kbd>Ctrl+V</kbd>（Windows）<mark class="k">貼上</mark>指令</li><li><span class="note">※ 按下步驟三的按鈕時，Prompt 已自動複製好</span></li><li><span class="note">※ 第一次使用，請先登入該 AI 的帳號</span></li></ul></div>
             <div class="ph-arr">→</div>
-            <div class="ph-step"><button class="ph-zoom" type="button" title="放大檢視" aria-label="放大檢視">🔍</button><div class="ph-ic">📎</div><b>上傳檔案</b><ul class="ph-l"><li>點旁邊的<mark class="k">「＋」或 📎</mark></li><li>選擇 <mark class="k">PDF、圖片、截圖</mark></li><li>上傳 <mark class="k">YouTube 網址</mark></li><li>上傳<mark class="k">網頁網址</mark></li><li><span class="note">※ 讀不到時，在該網頁按 <kbd>⌘S</kbd>／<kbd>Ctrl+S</kbd> 另存，再上傳存下的網頁檔。</span></li></ul></div>
+            <div class="ph-step"><button class="ph-zoom" type="button" title="放大檢視" aria-label="放大檢視">🔍</button><div class="ph-ic">📎</div><b>上傳檔案</b><ul class="ph-l"><li>點輸入框旁的<mark class="k">「＋」或 📎</mark>，開啟上傳選單</li><li>選擇要轉譯的 <mark class="k">PDF、圖片或截圖</mark></li><li>影片：在指令下方貼上 <mark class="k">YouTube 網址</mark></li><li>網頁：在指令下方貼上<mark class="k">網頁網址</mark></li><li><span class="note">※ AI 讀不到網頁時，先在該網頁按 <kbd>⌘S</kbd>／<kbd>Ctrl+S</kbd> 另存，再上傳存下的網頁檔</span></li></ul></div>
             <div class="ph-arr">→</div>
-            <div class="ph-step"><button class="ph-zoom" type="button" title="放大檢視" aria-label="放大檢視">🔍</button><div class="ph-ic">📤</div><b>送出並取得結果</b><ul class="ph-l"><li>按<mark class="k">送出</mark>（➤ 按鈕）</li><li>點右上角<mark class="k">「複製」📋</mark></li><li>貼到<mark class="k">其他 AI</mark> 使用</li><li><span class="note">※ 可當對話文字、知識來源（如提問機器人），或存到筆記、文件。</span></li></ul></div>
-            <div class="ph-arr opt">→</div>
-            <div class="ph-step opt"><button class="ph-zoom" type="button" title="放大檢視" aria-label="放大檢視">🔍</button><div class="ph-ic">🛠️</div><b>修復與微調 <span class="opt-tag">選用</span></b><ul class="ph-l"><li><mark class="k">表格亂、句子斷</mark>時使用</li><li>貼到「🛠️ 工作台」分頁</li><li><mark class="k">✨ 一鍵修復斷行與公式</mark></li><li>或<mark class="k">手動微調</mark>文字</li><li><span class="note">※ 結果正常可略過</span></li></ul></div>
+            <div class="ph-step"><button class="ph-zoom" type="button" title="放大檢視" aria-label="放大檢視">🔍</button><div class="ph-ic">📤</div><b>送出並取得結果</b><ul class="ph-l"><li>按<mark class="k">送出</mark>（通常是 ➤ 箭頭按鈕），稍等 AI 整理完成</li><li>點回覆右上角的<mark class="k">「複製」📋</mark>，複製整理好的內容</li><li>貼到<mark class="k">其他 AI</mark>（如提問機器人、NotebookLM）繼續使用</li><li><span class="note">※ 可當對話文字或知識來源，也能存到筆記、文件</span></li></ul></div>
+          </div>
+          <div class="ph-optrow">
+            <div class="po-l"><span class="po-ic">🛠️</span><b>修復與微調</b><span class="opt-tag">選用</span></div>
+            <div class="po-t">結果出現<mark class="k">表格亂、句子斷</mark>時，到工作台按<mark class="k">✨ 一鍵修復</mark>或<mark class="k">手動微調</mark>。<span class="note">※ 結果正常可略過</span></div>
+            <button type="button" class="po-go" id="goBench">🛠️ 前往工作台貼上 →</button>
           </div>
         </div>
         </div>
@@ -1330,6 +1346,14 @@ document.querySelectorAll(".ai").forEach(a=>a.addEventListener("click",()=>{
 $("dlPrompt").onclick=()=>download("SYSTEM_PROMPT_"+safeName(cur().s.n)+".md",buildPrompt());
 $("toggleView").onclick=()=>setView(view==="prompt"?"bench":"prompt");
 $("tabPrompt").onclick=()=>setView("prompt");
+/* 步驟四 → 直接前往工作台 */
+$("goBench").onclick=()=>{
+  setView("bench");
+  window.scrollTo({top:0,behavior:"smooth"});
+  setTimeout(()=>{ const t=$("md"); if(t.value===lastSample){ t.value=""; renderPreview(); } t.focus({preventScroll:true}); },350);
+  const mac=/Mac|iPhone|iPad/.test(navigator.platform||navigator.userAgent);
+  toast("已切到工作台，按 "+(mac?"⌘V":"Ctrl+V")+" 貼上 AI 回傳的內容");
+};
 /* HTML 魔法試板 */
 (function(){
   const wrap=$("pgWrap"), fr=$("pgFrame"); let loaded=false;
