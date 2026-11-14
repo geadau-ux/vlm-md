@@ -521,6 +521,7 @@ body.inbench #toggleView{border-color:var(--act)!important;color:var(--act-ink)!
 /* ===== 送出並取得結果：流程出口，暖銅 → 藍灰 ===== */
 .pastehint .ph-step.ph-exit{background:linear-gradient(135deg,var(--card) 0%,var(--card) 35%,var(--tool-soft) 100%)!important;border:1.5px solid transparent!important;border-left-color:color-mix(in srgb,var(--act) 55%,var(--line))!important;border-top-color:color-mix(in srgb,var(--act) 35%,var(--line))!important;border-right-color:color-mix(in srgb,var(--tool) 55%,var(--line))!important;border-bottom-color:color-mix(in srgb,var(--tool) 45%,var(--line))!important}
 .hint .hk.hd{background:var(--tool)!important}
+.hint .hk.hb{background:var(--act)!important}
 
 /* ===== 上方兩個分頁：獨立按鈕 ===== */
 .steps{background:none!important;border:0!important;padding:0!important;gap:10px!important}
@@ -586,6 +587,69 @@ body.inbench #toggleView{border-color:var(--act)!important;color:var(--act-ink)!
 .kw.mine:hover{background:var(--accent)!important;color:#fff!important}
 .kw.mine.scope::after{content:"全領域";font-size:10.5px;font-weight:700;margin-left:6px;opacity:.75}
 .tip .tk .mine{background:var(--accent-soft)!important;border:1.5px solid var(--accent)!important;color:var(--accent-ink)!important;font-weight:700}
+
+/* ===== 區塊 B＝步驟三、四（動作）→ 暖銅 ===== */
+section.card.chips>.winbar{background:color-mix(in srgb,var(--act-soft) 70%,var(--soft))}
+section.card.chips>.winbar .blk{background:var(--act)!important}
+section.card.chips>.winbar .badge{background:var(--card)!important;color:var(--act-ink)!important}
+.wb-act{margin-left:auto;display:inline-flex;gap:8px}
+.wb-act .btn{padding:6px 12px;font-size:13px;font-weight:600;color:var(--muted);background:var(--card);border:1px solid var(--line);border-radius:9px;box-shadow:none;white-space:nowrap}
+.wb-act .btn:hover{color:var(--accent-ink);border-color:var(--accent);background:var(--card)}
+@media (max-width:700px){.wb-act{margin-left:0;width:100%}}
+.clrbtn{white-space:nowrap;display:inline-flex;align-items:center;gap:5px;padding:6px 12px;font-size:13px;font-weight:700;border-radius:9px;border:1.5px solid var(--tool);background:var(--card);color:var(--tool-ink);cursor:pointer;box-shadow:0 2px 0 color-mix(in srgb,var(--tool) 35%,transparent);transition:.15s}
+.clrbtn:hover{background:var(--tool);color:#fff;transform:translateY(-1px)}
+.clrbtn.big{padding:8px 16px;font-size:14px;background:var(--tool);color:#fff;animation:clrPulse 1.8s ease-in-out infinite}
+@keyframes clrPulse{0%,100%{box-shadow:0 0 0 0 color-mix(in srgb,var(--tool) 45%,transparent)}50%{box-shadow:0 0 0 7px transparent}}
+body.bsample #clearMd{background:var(--tool);color:#fff;animation:clrPulse 1.8s ease-in-out infinite}
+.bguide{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:14px 22px 0;padding:11px 16px;border-radius:12px;border:1.5px dashed var(--tool);background:color-mix(in srgb,var(--tool-soft) 70%,var(--card));font-size:14px;line-height:1.7;color:var(--ink)}
+.bguide.hidden{display:none}
+.bguide.e .clrbtn{display:none}
+.bguide.e{border-style:solid}
+.bguide .bg-t{flex:1;min-width:240px}
+.bguide mark.k{background:none;color:var(--tool-ink);font-weight:800;white-space:nowrap}
+.bguide kbd{white-space:nowrap}
+.bench-tip{display:none;margin-top:10px;font-size:13px;line-height:1.7;color:var(--muted);padding:8px 12px;border-left:3px solid var(--tool);background:color-mix(in srgb,var(--tool-soft) 55%,transparent);border-radius:0 8px 8px 0}
+.bench-tip mark.k{background:none;color:var(--tool-ink);font-weight:800;white-space:nowrap}
+body.inbench .bench-tip{display:block}
+.nw{white-space:nowrap}
+/* 看範例／返回按鈕：暖銅→藍灰漸層（跨階段），返回時反向 */
+.hero .actions #toggleView{position:relative;border:1.5px solid transparent!important;color:var(--ink)!important;font-weight:700;
+  background:linear-gradient(90deg,var(--act-soft),var(--tool-soft)) padding-box,linear-gradient(90deg,var(--act),var(--tool)) border-box!important;
+  box-shadow:0 2px 0 color-mix(in srgb,var(--tool) 30%,transparent)!important}
+body.inbench .hero .actions #toggleView{background:linear-gradient(90deg,var(--tool-soft),var(--act-soft)) padding-box,linear-gradient(90deg,var(--tool),var(--act)) border-box!important}
+.hero .actions #toggleView:hover{transform:translateY(-1px);filter:brightness(1.03)}
+/* 自訂提示泡泡：與左側說明泡泡同款 */
+#toggleView[data-tip]::after{content:attr(data-tip);position:absolute;left:0;bottom:calc(100% + 12px);z-index:40;width:max-content;white-space:nowrap;text-align:left;
+  background:var(--card);color:var(--ink);border:1px solid var(--line);border-left:4px solid var(--tool);border-radius:12px;padding:10px 14px;
+  font:500 13.5px/1.6 var(--sans);box-shadow:0 12px 30px rgba(0,0,0,.18);opacity:0;transform:translateY(4px);transition:opacity .15s,transform .15s;pointer-events:none}
+#toggleView[data-tip]::before{content:"";position:absolute;left:22px;bottom:calc(100% + 6px);z-index:41;width:12px;height:12px;background:var(--card);border-right:1px solid var(--line);border-bottom:1px solid var(--line);transform:rotate(45deg);opacity:0;transition:opacity .15s;pointer-events:none}
+body.inbench #toggleView[data-tip]::after{border-left-color:var(--act)}
+#toggleView[data-tip]:hover::after{opacity:1;transform:none}
+#toggleView[data-tip]:hover::before{opacity:1}
+html[data-theme="dark"] .hero .actions #toggleView{background:linear-gradient(90deg,color-mix(in srgb,var(--act) 28%,var(--card)),color-mix(in srgb,var(--tool) 28%,var(--card))) padding-box,linear-gradient(90deg,var(--act),var(--tool)) border-box!important}
+html[data-theme="dark"] body.inbench .hero .actions #toggleView{background:linear-gradient(90deg,color-mix(in srgb,var(--tool) 28%,var(--card)),color-mix(in srgb,var(--act) 28%,var(--card))) padding-box,linear-gradient(90deg,var(--tool),var(--act)) border-box!important}
+/* 泡泡與背景區隔：帶領域色底、色框、加深陰影 */
+.tip{background:color-mix(in srgb,var(--accent) 11%,var(--card))!important;border:1.5px solid color-mix(in srgb,var(--accent) 55%,transparent)!important;border-left:5px solid var(--accent)!important;
+  box-shadow:0 14px 34px rgba(0,0,0,.22),0 0 0 4px color-mix(in srgb,var(--accent) 12%,transparent)!important}
+html[data-theme="dark"] .tip{background:color-mix(in srgb,var(--accent) 22%,#1b1d22)!important;box-shadow:0 14px 34px rgba(0,0,0,.55),0 0 0 4px color-mix(in srgb,var(--accent) 20%,transparent)!important}
+#toggleView[data-tip]::after{background:color-mix(in srgb,var(--tool) 11%,var(--card));border:1.5px solid color-mix(in srgb,var(--tool) 55%,transparent);border-left:5px solid var(--tool);box-shadow:0 14px 34px rgba(0,0,0,.22),0 0 0 4px color-mix(in srgb,var(--tool) 12%,transparent)}
+#toggleView[data-tip]::before{background:color-mix(in srgb,var(--tool) 11%,var(--card));border-color:color-mix(in srgb,var(--tool) 55%,transparent)}
+body.inbench #toggleView[data-tip]::after{background:color-mix(in srgb,var(--act) 11%,var(--card));border-color:color-mix(in srgb,var(--act) 55%,transparent);border-left-color:var(--act);box-shadow:0 14px 34px rgba(0,0,0,.22),0 0 0 4px color-mix(in srgb,var(--act) 12%,transparent)}
+body.inbench #toggleView[data-tip]::before{background:color-mix(in srgb,var(--act) 11%,var(--card));border-color:color-mix(in srgb,var(--act) 55%,transparent)}
+.tip::before{background:none!important;width:0!important;height:0!important;border:8px solid transparent!important;border-right-color:var(--accent)!important;transform:none!important;left:-21px!important;margin-top:-8px!important;margin-left:0!important}
+/* 通用提示泡泡（與側欄泡泡同款） */
+.tipx{position:relative}
+.tipx::after{content:attr(data-tip);position:absolute;left:50%;bottom:calc(100% + 12px);z-index:70;width:max-content;white-space:pre;text-align:left;
+  background:color-mix(in srgb,var(--tc) 11%,var(--card));color:var(--ink);border:1.5px solid color-mix(in srgb,var(--tc) 55%,transparent);border-left:5px solid var(--tc);border-radius:12px;padding:9px 14px;
+  font:500 13px/1.65 var(--sans);letter-spacing:0;text-shadow:none;box-shadow:0 14px 34px rgba(0,0,0,.22),0 0 0 4px color-mix(in srgb,var(--tc) 12%,transparent);
+  opacity:0;transform:translate(-50%,4px);transition:opacity .15s .25s,transform .15s .25s;pointer-events:none}
+.tipx::before{content:"";position:absolute;left:50%;bottom:calc(100% + 1px);z-index:71;width:0;height:0;border:7px solid transparent;border-top-color:var(--tc);transform:translateX(-50%);opacity:0;transition:opacity .15s .25s;pointer-events:none}
+.tipx.down::after{bottom:auto;top:calc(100% + 12px);transform:translate(-50%,-4px)}
+.tipx.down::before{bottom:auto;top:calc(100% - 2px);border-top-color:transparent;border-bottom-color:var(--tc)}
+.tipx:hover::after,.tipx:focus-visible::after{opacity:1;transform:translate(-50%,0)}
+.tipx:hover::before,.tipx:focus-visible::before{opacity:1}
+html[data-theme="dark"] .tipx::after{background:color-mix(in srgb,var(--tc) 22%,#1b1d22);box-shadow:0 14px 34px rgba(0,0,0,.55),0 0 0 4px color-mix(in srgb,var(--tc) 20%,transparent)}
+@media (hover:none){.tipx::after,.tipx::before{display:none}}
 </style>
 </head>
 <body>
@@ -606,8 +670,8 @@ body.inbench #toggleView{border-color:var(--act)!important;color:var(--act-ink)!
     </div>
     <div class="hright">
     <div class="steps" role="tablist">
-      <button id="tabPrompt" class="on"><span class="n">📋</span><span class="long">取得 VLM 轉譯 Prompt</span><span class="short">取得 Prompt</span></button>
-      <button id="tabBench"><span class="n">🛠️</span><span class="long">Markdown 修復與預覽工作台</span><span class="short">修復與預覽</span></button>
+      <button id="tabPrompt" class="on tipx down" style="--tc:var(--act)" data-tip="依步驟一～四操作：選領域與科目、&#10;取得 Prompt，再交給 AI 轉譯"><span class="n">📋</span><span class="long">取得 VLM 轉譯 Prompt</span><span class="short">取得 Prompt</span></button>
+      <button id="tabBench" class="tipx down" style="--tc:var(--tool)" data-tip="貼上 AI 回傳的 Markdown：即時預覽排版、&#10;一鍵修復斷行與公式，也可手動微調"><span class="n">🛠️</span><span class="long">Markdown 修復與預覽工作台</span><span class="short">修復與預覽</span></button>
     </div>
     <button class="themebtn helpbtn" id="helpBtn" title="使用提示" aria-label="使用提示">?</button>
     <button class="themebtn" id="themeBtn" title="切換淺色／深色模式" aria-label="切換淺色／深色模式">
@@ -636,17 +700,16 @@ body.inbench #toggleView{border-color:var(--act)!important;color:var(--act-ink)!
 
   <main>
     <section class="card hero">
-      <div class="winbar"><div class="dots"><i></i><i></i><i></i></div><span class="blk">A</span><span class="fname">區塊 A｜科目資訊與轉譯需求</span><span class="badge">確認注重重點，視需要勾選額外的需求</span></div>
+      <div class="winbar"><div class="dots"><i></i><i></i><i></i></div><span class="blk">A</span><span class="fname">區塊 A｜科目資訊與轉譯需求</span><span class="badge">檢視本科目前的設定；需要時可加選，不加選也能直接進行下一步</span></div>
       <div class="inner hero-grid">
       <div class="hero-main">
       <div class="crumb"><span id="crDom"></span><span>›</span><span id="crSub"></span></div>
       <h2 id="title"></h2>
       <div class="focus" id="desc"></div>
       <div class="actions">
-        <button class="btn tint" id="toggleView">🛠️ 看本科範本</button>
-        <button class="btn" id="dlPrompt">💾 下載 Prompt（.md）</button>
-        <button class="btn solid" id="copyPrompt">📑 複製 Prompt</button>
+        <button class="btn tint" id="toggleView" data-tip="到工作台，看本科轉譯後的 Markdown 範例與排版效果">🛠️ 先看本科轉譯完成的範例</button>
       </div>
+      <div class="bench-tip">↩ 按上方按鈕，回到 Prompt 頁<br>👇 要檢查<mark class="k">自己的結果</mark>：<span class="nw">在<mark class="k">區塊 D</mark> 按<mark class="k">🧹 清空範例</mark>，</span><span class="nw">再貼上 AI 回傳的內容</span></div>
       </div>
       <aside class="hero-side">
         <div class="hs-ttl">勾選額外的需求<span class="hs-sub">（點按，可不勾）</span></div>
@@ -663,9 +726,9 @@ body.inbench #toggleView{border-color:var(--act)!important;color:var(--act-ink)!
         <div class="ph-head"><span class="stephd"><span class="sb">步驟三</span>開啟 AI 對話</span></div>
         <div class="ai-row">
           <span class="pick">三選一：點你常用的 AI</span>
-          <a class="ai" data-ai="Gemini" href="https://gemini.google.com/app" target="_blank" rel="noopener"><i style="background:linear-gradient(135deg,#4f8df5,#9b72f2)"></i>Gemini<span class="ext">↗</span></a>
-          <a class="ai" data-ai="ChatGPT" href="https://chatgpt.com/" target="_blank" rel="noopener"><i style="background:#10a37f"></i>ChatGPT<span class="ext">↗</span></a>
-          <a class="ai" data-ai="Claude" href="https://claude.ai/new" target="_blank" rel="noopener"><i style="background:#d97757"></i>Claude<span class="ext">↗</span></a>
+          <a class="ai tipx" style="--tc:var(--act)" data-tip="① 自動複製 Prompt　② 開啟 Gemini 新對話（Google 的 AI）&#10;接著到輸入框按 ⌘V／Ctrl+V 貼上" data-ai="Gemini" href="https://gemini.google.com/app" target="_blank" rel="noopener"><i style="background:linear-gradient(135deg,#4f8df5,#9b72f2)"></i>Gemini<span class="ext">↗</span></a>
+          <a class="ai tipx" style="--tc:var(--act)" data-tip="① 自動複製 Prompt　② 開啟 ChatGPT 新對話（OpenAI 的 AI）&#10;接著到輸入框按 ⌘V／Ctrl+V 貼上" data-ai="ChatGPT" href="https://chatgpt.com/" target="_blank" rel="noopener"><i style="background:#10a37f"></i>ChatGPT<span class="ext">↗</span></a>
+          <a class="ai tipx" style="--tc:var(--act)" data-tip="① 自動複製 Prompt　② 開啟 Claude 新對話（Anthropic 的 AI）&#10;接著到輸入框按 ⌘V／Ctrl+V 貼上" data-ai="Claude" href="https://claude.ai/new" target="_blank" rel="noopener"><i style="background:#d97757"></i>Claude<span class="ext">↗</span></a>
         </div>
       </div>
       <div class="pastehint">
@@ -690,9 +753,9 @@ body.inbench #toggleView{border-color:var(--act)!important;color:var(--act-ink)!
           <div class="dots"><i></i><i></i><i></i></div>
           <span class="blk">C</span>
           <span class="fname">區塊 C｜完整 Prompt 預覽</span>
-          <span class="badge cnt">SYSTEM_PROMPT.md</span>
           <span class="badge" id="badge"></span>
           <span class="badge cnt"><span id="chars">0</span> 字元</span>
+          <span class="wb-act"><button class="btn" id="dlPrompt">💾 下載（.md）</button><button class="btn" id="copyPrompt">📑 複製 Prompt</button></span>
         </div>
         <div class="prompt" id="prompt"></div>
       </section>
@@ -709,9 +772,13 @@ body.inbench #toggleView{border-color:var(--act)!important;color:var(--act-ink)!
           <button class="btn sm solid" id="copyMd">📑 複製 Markdown</button>
         </div>
       </div>
+      <div class="bguide" id="benchGuide">
+        <span class="bg-ic">💡</span>
+        <span class="bg-t" id="bgText"></span>
+      </div>
       <div class="panes">
         <div class="pane">
-          <div class="panehead"><span><span class="blk sm">D-1</span>📝 Markdown 原始碼（貼上 AI 回傳內容）</span><button class="linkbtn" id="clearMd">清空內容</button></div>
+          <div class="panehead"><span><span class="blk sm">D-1</span>📝 Markdown 原始碼（貼上 AI 回傳內容）</span><button type="button" class="clrbtn" id="clearMd">🧹 清空內容</button></div>
           <textarea id="md" spellcheck="false" placeholder="請將 AI 轉譯出來的 Markdown 貼在此處，可即時預覽表格與單行考題排版、一鍵修復斷行，或下載成 .md 檔案…"></textarea>
         </div>
         <div class="pane">
@@ -733,7 +800,7 @@ body.inbench #toggleView{border-color:var(--act)!important;color:var(--act-ink)!
     <li><span class="hk">區塊 A</span><span class="ht">確認本科目注重重點；右側可勾選<b>通用</b>或<b>本科建議</b>的額外需求（可不勾）。</span></li>
     <li><span class="hk st">步驟三</span><span class="ht"><b>開啟 AI 對話</b>：點 Gemini／ChatGPT／Claude，自動複製 Prompt 並開新分頁。</span></li>
     <li><span class="hk st">步驟四</span><span class="ht"><b>執行VLM轉譯</b>：在新分頁按 ⌘V／Ctrl+V 貼上 → 上傳檔案 → 送出 → 複製結果（需要時再到區塊 D 整理）。</span></li>
-    <li><span class="hk">區塊 C</span><span class="ht">（選用）想檢查送出的內容，可在這裡看完整 Prompt 與字元數。</span></li>
+    <li><span class="hk">區塊 C</span><span class="ht">（選用）想檢查送出的內容，可在這裡看完整 Prompt，也能複製或下載。</span></li>
     <li><span class="hk hd">區塊 D</span><span class="ht">（選用）點「<b>🛠️ Markdown 修復與預覽工作台</b>」，貼上 AI 回傳內容，按<b>✨ 一鍵修復</b>或手動微調；📐 可重建 GeoGebra 圖形。</span></li>
   </ul>
 </div>
@@ -1196,7 +1263,8 @@ function setView(v){
   $("benchView").classList.toggle("hidden", v!=="bench");
   $("tabPrompt").classList.toggle("on", v==="prompt");
   $("tabBench").classList.toggle("on", v==="bench");
-  $("toggleView").textContent = v==="prompt" ? "🛠️ 看本科範本" : "📋 返回取得 VLM 轉譯 Prompt";
+  $("toggleView").textContent = v==="prompt" ? "🛠️ 先看本科轉譯完成的範例" : "📋 返回取得 VLM 轉譯 Prompt";
+  $("toggleView").dataset.tip = v==="prompt" ? "到工作台，看本科轉譯後的 Markdown 範例與排版效果" : "回到 Prompt 頁，繼續步驟三、步驟四";
   if(v==="bench" && !mdBox.value.trim()) loadSample();
   try{ location.hash = v==="bench" ? "workbench" : ""; }catch(e){}
 }
@@ -1262,11 +1330,23 @@ function copyGgb(cmds,a){
   const mac=/Mac|iPhone|iPad/.test(navigator.platform||navigator.userAgent);
   copyAndOpen(a,ggbPayload(cmds),"已複製 "+cmds.length+" 行 GeoGebra 指令！在輸入列按 "+(mac?"⌘":"Ctrl")+"+V 貼上，再按 Enter");
 }
+function updateGuide(){
+  const g=$("benchGuide"); if(!g) return;
+  const mac=/Mac|iPhone|iPad/.test(navigator.platform||navigator.userAgent), k=mac?"⌘V":"Ctrl+V";
+  const isSample=lastSample!==null && mdBox.value===lastSample, empty=!mdBox.value.trim();
+  document.body.classList.toggle("bsample",isSample);
+  $("clearMd").textContent = isSample ? "🧹 清空範例" : "🧹 清空內容";
+  g.className="bguide"+(isSample?" s":empty?" e":" hidden");
+  $("bgText").innerHTML = isSample
+    ? '下方 <b>D-1 原始碼</b>與 <b>D-2 預覽</b>，目前顯示的是<mark class="k">「'+esc(cur().s.n)+'」轉譯範例</mark>，示範 AI 轉譯完成後的樣子。<br>要檢查自己的結果：<span class="nw">① 按下方 D-1 的<mark class="k">🧹 清空範例</mark></span> → <span class="nw">② 按 <kbd>'+k+'</kbd> 貼上 AI 回傳的內容</span>'
+    : '已清空 ✓ 在下方 D-1 點一下，按 <kbd>'+k+'</kbd> <mark class="k">貼上 AI 回傳的內容</mark>，<span class="nw">右側會即時顯示排版</span>';
+}
 function renderPreview(){
   GGB_BLOCKS=[];
   $("preview").innerHTML = mdBox.value.trim() ? md2html(mdBox.value) : '<p class="ph">左側貼上 Markdown 後，這裡會即時顯示渲染結果。</p>';
   const n=GGB_BLOCKS.reduce((a,b)=>a+b.length,0), gb=$("ggbAll");
   gb.classList.toggle("hidden",!n); gb.innerHTML="📐 全部 GeoGebra 指令（"+n+" 行）↗";
+  updateGuide();
 }
 
 /* ============ 一鍵修復 ============ */
@@ -1387,6 +1467,7 @@ function tipHTML(b){
     <div class="ar"><input id="tipIn" type="text" placeholder="例：手寫筆跡、單位換算（可用、分隔）" autocomplete="off"><button class="ok" id="tipOk">確認加入</button></div></div>`;
   return h;
 }
+let swapT;
 function showTip(b,keepInput){
   const {d}=tipInfo(b), c=d.color, dk=isDark();
   const old = keepInput && $("tipIn") ? $("tipIn").value : "";
@@ -1395,7 +1476,8 @@ function showTip(b,keepInput){
   tip.innerHTML=tipHTML(b);
   if(old) $("tipIn").value=old;
   const r=b.getBoundingClientRect(), th=tip.offsetHeight, tw=tip.offsetWidth;
-  let left=r.right+14, top=r.top+r.height/2-24;
+  const box=(b.closest(".domains,.subjects")||b).getBoundingClientRect();
+  let left=box.right+14, top=r.top+r.height/2-24;  /* 泡泡一律從整組按鈕右側冒出，不蓋住同列選項 */
   if(left+tw>innerWidth-8){ left=Math.max(8,Math.min(r.left,innerWidth-tw-8)); top=r.bottom+10; }
   top=Math.max(8,Math.min(top,innerHeight-th-8));
   tip.style.left=left+"px"; tip.style.top=top+"px";
@@ -1424,11 +1506,13 @@ function confirmAdd(){
   const box=$("prompt").querySelector(".mineline"); if(box){ box.classList.add("flashline"); }
 }
 ["domains","subjects"].forEach(id=>{
-  $(id).addEventListener("mouseover",e=>{ const b=e.target.closest("button"); if(!b) return; clearTimeout(hideT); if(b===tipEl||editing()) return; tipEl=b; DRAFT=null; showTip(b); });
+  $(id).addEventListener("mouseover",e=>{ const b=e.target.closest("button"); if(!b) return; clearTimeout(hideT); clearTimeout(swapT); if(b===tipEl||editing()) return;
+    const go=()=>{ tipEl=b; DRAFT=null; showTip(b); };
+    tip.classList.contains("show") ? (swapT=setTimeout(()=>{ if(b.matches(":hover")) go(); },220)) : go(); });
   $(id).addEventListener("mouseleave",hideSoon);
   $(id).addEventListener("click",()=>hideTip(true));
 });
-tip.addEventListener("mouseenter",()=>clearTimeout(hideT));
+tip.addEventListener("mouseenter",()=>{ clearTimeout(hideT); clearTimeout(swapT); });
 tip.addEventListener("focusin",e=>{
   if(e.target.id!=="tipIn"||!tipEl) return;
   const {di,si,isSub}=tipInfo(tipEl);
