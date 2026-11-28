@@ -667,6 +667,26 @@ html[data-theme="dark"] .tipx::after{background:color-mix(in srgb,var(--tc) 22%,
 .hint .hlinks a{display:inline-block;margin-left:8px;padding:0 9px;border:1px solid color-mix(in srgb,var(--tool) 50%,transparent);border-radius:999px;color:var(--tool-ink);font-weight:700;text-decoration:none;background:var(--tool-soft);white-space:nowrap}
 .hint .hlinks a:hover{background:var(--tool);color:#fff}
 #benchView .toolbar{gap:8px}#benchView .toolbar .btn.sm{padding:8px 11px;white-space:nowrap}
+/* ===== 分段傳送 ===== */
+.segbox{margin:14px 20px 0;padding:10px 14px;border:1.5px dashed var(--line);border-radius:12px;background:var(--soft)}
+#benchView .segbox{margin:14px 22px 0}
+.segbox.on{border-style:solid;border-color:#d9a92c;background:color-mix(in srgb,#fff3c4 60%,var(--card))}
+html[data-theme="dark"] .segbox.on{background:#3a321d;border-color:#8a6d22}
+.seg-bar{display:flex;flex-wrap:wrap;align-items:center;gap:6px 14px;font-size:13.5px}
+.seg-sw{display:inline-flex;align-items:center;gap:7px;font-weight:800;cursor:pointer;color:var(--ink)}
+.seg-sw input{width:18px;height:18px;accent-color:var(--accent);cursor:pointer}
+.seg-lim{color:var(--muted);font-size:12.5px}
+.seg-lim input{width:76px;border:1px solid var(--line);border-radius:7px;padding:3px 6px;background:var(--field);color:var(--ink);font:inherit}
+.segbox:not(.on) .seg-lim{display:none}
+.seg-info{flex-basis:100%;color:var(--ink2);font-size:13px;line-height:1.6}
+.seg-info b{color:var(--ink)}
+.seg-list{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.seg-list:empty{display:none}
+.seg-btn{border-radius:999px;padding:8px 15px;font-size:13.5px;font-weight:800;background:var(--card);color:var(--accent-ink);border:1.5px solid var(--accent);cursor:pointer;transition:.15s}
+.seg-btn:hover{background:var(--accent-soft);transform:translateY(-1px)}
+.seg-btn.done{background:var(--accent);color:#fff}
+.seg-btn.next{box-shadow:0 0 0 4px var(--accent-soft);animation:segPulse 1.6s ease-in-out infinite}
+@keyframes segPulse{50%{box-shadow:0 0 0 7px transparent}}
 </style>
 </head>
 <body>
@@ -774,6 +794,7 @@ html[data-theme="dark"] .tipx::after{background:color-mix(in srgb,var(--tc) 22%,
           <span class="badge cnt"><span id="chars">0</span> 字元</span>
           <span class="wb-act"><button class="btn" id="dlPrompt">💾 下載（.md）</button><button class="btn" id="copyPrompt">📑 複製 Prompt</button></span>
         </div>
+        <div class="segbox" id="segPrompt"></div>
         <div class="prompt" id="prompt"></div>
       </section>
     </div>
@@ -789,6 +810,7 @@ html[data-theme="dark"] .tipx::after{background:color-mix(in srgb,var(--tc) 22%,
           <button class="btn sm solid" id="copyMd">📑 複製 Markdown</button>
         </div>
       </div>
+      <div class="segbox" id="segMd"></div>
       <div class="bguide" id="benchGuide">
         <span class="bg-ic">💡</span>
         <span class="bg-t" id="bgText"></span>
@@ -1573,7 +1595,9 @@ $("copyPrompt").onclick=()=>copyText(buildPrompt(),"已複製 Prompt 至剪貼�
 document.querySelectorAll(".ai").forEach(a=>a.addEventListener("click",()=>{
   // 不阻止連結預設行為：新分頁照常開啟，同時把 Prompt 放進剪貼簿
   const mac=/Mac|iPhone|iPad/.test(navigator.platform||navigator.userAgent);
-  copyAndOpen(a,buildPrompt(),"已複製 Prompt！到 "+a.dataset.ai+" 按 "+(mac?"⌘":"Ctrl")+"+V 貼上，再上傳檔案");
+  const f=(typeof SEGP!=="undefined"&&SEGP)?SEGP.first():null;
+  if(f){ copyAndOpen(a,f.txt,"已複製第 1／"+f.n+" 段！到 "+a.dataset.ai+" 貼上送出，再回區塊 C 依序複製第 2～"+f.n+" 段"); SEGP.mark(0); }
+  else copyAndOpen(a,buildPrompt(),"已複製 Prompt！到 "+a.dataset.ai+" 按 "+(mac?"⌘":"Ctrl")+"+V 貼上，再上傳檔案");
 }));
 $("dlPrompt").onclick=()=>download("SYSTEM_PROMPT_"+safeName(cur().s.n)+".md",buildPrompt());
 $("toggleView").onclick=()=>setView(view==="prompt"?"bench":"prompt");
@@ -1663,6 +1687,60 @@ $("chips").addEventListener("mouseover",e=>{
 });
 $("chips").addEventListener("mouseout",e=>{ if(!e.relatedTarget||!e.relatedTarget.closest||!e.relatedTarget.closest(".chip")) ctip.classList.remove("show"); });
 $("chips").addEventListener("click",()=>setTimeout(()=>{ const h=$("chips").querySelector(".chip:hover"); if(h) h.dispatchEvent(new MouseEvent("mouseover",{bubbles:true})); },30));
+
+/* ============ 分段傳送 ============ */
+function segHead(k,N){
+  if(k===1) return "【分段傳送說明】以下內容共 "+N+" 段，這是第 1 段。\n請先不要回應、也不要開始執行，等我把第 "+N+" 段傳完再開始。收到請只回覆「已收到第 1 段」。\n\n";
+  if(k===N) return "【第 "+N+"／"+N+" 段（最後一段）】內容已全部傳完。\n請把第 1～"+N+" 段依序合併成一份完整內容，現在開始執行。\n\n";
+  return "【第 "+k+"／"+N+" 段】請先不要回應，收到請只回覆「已收到第 "+k+" 段」。\n\n";
+}
+function splitSegs(txt,limit){
+  if(txt.length<=limit) return [txt];
+  let N=Math.max(2,Math.ceil(txt.length/(limit-150)));
+  for(let it=0;it<8;it++){
+    const maxH=Math.max(segHead(1,N).length,segHead(2,N).length,segHead(N,N).length);
+    const body=Math.max(100,limit-maxH), parts=[]; let buf="";
+    for(let line of txt.split("\n")){
+      line+="\n";
+      while(line.length>body){ if(buf){parts.push(buf);buf="";} parts.push(line.slice(0,body)); line=line.slice(body); }
+      if(buf.length+line.length>body){ parts.push(buf); buf=""; }
+      buf+=line;
+    }
+    if(buf.trim()) parts.push(buf);
+    if(parts.length===N||it===7) return parts.map((p,i)=>segHead(i+1,parts.length)+p.replace(/\n+$/,""));
+    N=parts.length;
+  }
+}
+function SegBox(box,getText,name){
+  const LS="vlm-seg-"+name; let st={on:false,limit:2000};
+  try{ Object.assign(st,JSON.parse(localStorage.getItem(LS)||"{}")); }catch(e){}
+  const done=new Set(); let lastTxt=null, segs=[];
+  box.innerHTML='<div class="seg-bar"><label class="seg-sw"><input type="checkbox"'+(st.on?" checked":"")+'> ✂️ 分段傳送（給有字數上限的 AI）</label><span class="seg-lim">每段上限 <input type="number" min="300" step="100" value="'+st.limit+'"> 字元</span><span class="seg-info"></span></div><div class="seg-list"></div>';
+  const cb=box.querySelector('input[type=checkbox]'), num=box.querySelector('input[type=number]'), info=box.querySelector('.seg-info'), list=box.querySelector('.seg-list');
+  const save=()=>{ try{ localStorage.setItem(LS,JSON.stringify(st)); }catch(e){} };
+  function refresh(){
+    const t=getText()||""; if(t!==lastTxt){ done.clear(); lastTxt=t; }
+    segs=st.on&&t.trim()?splitSegs(t,Math.max(300,+st.limit||2000)):[];
+    box.classList.toggle("on",st.on);
+    if(!st.on){ info.textContent="勾選後，超過上限會自動切段；第 1 段開頭會自動寫明「共幾段、請先不要回應」。"; list.innerHTML=""; return; }
+    if(!t.trim()){ info.textContent="目前沒有內容。"; list.innerHTML=""; return; }
+    if(segs.length<=1){ info.textContent="共 "+t.length.toLocaleString()+" 字元，未超過上限，不需分段。"; list.innerHTML=""; return; }
+    info.innerHTML="共 "+t.length.toLocaleString()+" 字元，已分成 <b>"+segs.length+" 段</b>（第 1 段開頭已寫明共幾段、請 AI 先不要回應）。請依序「複製 → 貼上 → 送出」：";
+    let nx=-1; for(let i=0;i<segs.length;i++){ if(!done.has(i)){ nx=done.size?i:-1; break; } }
+    list.innerHTML=segs.map((s,i)=>'<button type="button" class="seg-btn'+(done.has(i)?" done":"")+(i===nx?" next":"")+'" data-i="'+i+'">'+(done.has(i)?"✓ ":"")+"複製第 "+(i+1)+" 段（"+s.length.toLocaleString()+" 字）</button>").join("");
+  }
+  cb.onchange=()=>{ st.on=cb.checked; save(); refresh(); };
+  num.onchange=()=>{ st.limit=Math.max(300,+num.value||2000); num.value=st.limit; save(); refresh(); };
+  list.onclick=e=>{ const b=e.target.closest(".seg-btn"); if(!b) return; const i=+b.dataset.i;
+    copyText(segs[i],"已複製第 "+(i+1)+"／"+segs.length+" 段"+(i<segs.length-1?"，貼上送出後再複製下一段":"（最後一段）")); done.add(i); refresh(); };
+  refresh();
+  return { refresh, first:()=>{ refresh(); return (st.on&&segs.length>1)?{txt:segs[0],n:segs.length}:null; }, mark:i=>{ done.add(i); refresh(); } };
+}
+var SEGP=SegBox($("segPrompt"),buildPrompt,"prompt");
+var SEGM=SegBox($("segMd"),()=>mdBox.value,"md");
+{ const _rm=renderMain; renderMain=function(){ _rm.apply(this,arguments); SEGP.refresh(); };
+  const _rp=renderPreview; renderPreview=function(){ _rp.apply(this,arguments); SEGM.refresh(); }; }
+mdBox.addEventListener("input",()=>SEGM.refresh());
 </script>
 </body>
 </html>
